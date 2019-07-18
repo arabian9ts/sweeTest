@@ -1,0 +1,12 @@
+default: &default
+  dialect: mysql
+  dir: db/migrations
+  table: migrations
+  
+development:
+  <<: *default
+  datasource: sweeta:kaba8ki3TA6@tcp(localhost)/sweetest?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=true
+
+production:
+  <<: *default
+  datasource: dbname=myapp sslmode=disable
