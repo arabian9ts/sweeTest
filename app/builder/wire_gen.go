@@ -6,8 +6,8 @@
 package builder
 
 import (
-	"github.com/arabian9ts/sweeTest/app/domain/repository"
 	"github.com/arabian9ts/sweeTest/app/interface/database"
+	"github.com/arabian9ts/sweeTest/app/repository"
 	"github.com/arabian9ts/sweeTest/infrastructure"
 	"github.com/google/wire"
 )

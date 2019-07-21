@@ -1,8 +1,8 @@
 package database
 
 import (
+	"github.com/arabian9ts/sweeTest/app/repository"
 	"github.com/arabian9ts/sweeTest/app/domain/model"
-	"github.com/arabian9ts/sweeTest/app/domain/repository"
 )
 
 type UserRepository struct {
