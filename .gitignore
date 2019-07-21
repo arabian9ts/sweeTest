@@ -15,3 +15,5 @@
 .idea
 **/.DS_Store
 dbconfig.yml
+vendor/
+config/envs
