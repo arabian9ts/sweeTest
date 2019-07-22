@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/arabian9ts/sweeTest/app/repository"
+	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 	"github.com/arabian9ts/sweeTest/app/domain/model"
 )
 
