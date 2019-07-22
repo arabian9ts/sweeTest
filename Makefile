@@ -8,4 +8,4 @@ go-cli:
 .PHONY: test
 test:
 	@echo 'Execute go test'
-	-@go test github.com/arabian9ts/sweeTest/app/interactor github.com/arabian9ts/sweeTest/app/domain/model
+	-@go test github.com/arabian9ts/sweeTest/app/usecase/interactor github.com/arabian9ts/sweeTest/app/domain/model

@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"github.com/arabian9ts/sweeTest/app/builder"
 	"github.com/arabian9ts/sweeTest/app/dto"
-	"github.com/arabian9ts/sweeTest/app/interactor"
+	"github.com/arabian9ts/sweeTest/app/interface/presenter"
+	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 )
 
 func main() {
 	repo, _ := builder.InitializeUserRepository()
-	interactor, err := interactor.NewCreateUserInteractor(repo)
+	output := &presenter.UserPresenter{}
+	interactor, err := interactor.NewUserInteractor(repo, output)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -21,10 +23,10 @@ func main() {
 		Email:     "aaa@bbb.ccc",
 		Password:  "password",
 	}
-	output := interactor.CreateStudent(form)
-	fmt.Println(output)
+	outputForm, _ := interactor.CreateStudent(form)
+	fmt.Println(outputForm)
 
-	student, err := repo.GetStudentById(output.LastCreatedUserId)
+	student, err := repo.GetStudentById(outputForm.LastCreatedUserId)
 	if err != nil {
 		fmt.Println(err)
 	}

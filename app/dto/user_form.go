@@ -10,7 +10,6 @@ type CreateStudentInputForm struct {
 
 type CreateStudentOutputForm struct {
 	LastCreatedUserId int64
-	JwtToken          string
 }
 
 type CreateTaInputForm struct {
@@ -23,7 +22,6 @@ type CreateTaInputForm struct {
 
 type CreateTaOutputForm struct {
 	LastCreatedUserId int64
-	JwtToken          string
 }
 
 type CreateTeacherInputForm struct {
@@ -35,5 +33,4 @@ type CreateTeacherInputForm struct {
 
 type CreateTeacherOutputForm struct {
 	LastCreatedUserId int64
-	JwtToken          string
 }
