@@ -26,22 +26,50 @@ func InitializeUserRepository() (repository.UserRepository, error) {
 	return userRepository, nil
 }
 
-func InitializeUsersController() (*controllers.StudentsController, error) {
+func InitializeStudentsController() (*controllers.StudentsController, error) {
 	sqlHandler := infrastructure.NewSqlHandler()
 	userRepository, err := database.NewUserRepository(sqlHandler)
 	if err != nil {
 		return nil, err
 	}
 	userOutput := presenter.NewUserPresenter()
-	studentsController, err := controllers.NewUsersController(userRepository, userOutput)
+	studentsController, err := controllers.NewStudentsController(userRepository, userOutput)
 	if err != nil {
 		return nil, err
 	}
 	return studentsController, nil
 }
 
+func InitializeTasController() (*controllers.TasController, error) {
+	sqlHandler := infrastructure.NewSqlHandler()
+	userRepository, err := database.NewUserRepository(sqlHandler)
+	if err != nil {
+		return nil, err
+	}
+	userOutput := presenter.NewUserPresenter()
+	tasController, err := controllers.NewTasController(userRepository, userOutput)
+	if err != nil {
+		return nil, err
+	}
+	return tasController, nil
+}
+
+func InitializeTeachersController() (*controllers.TeachersController, error) {
+	sqlHandler := infrastructure.NewSqlHandler()
+	userRepository, err := database.NewUserRepository(sqlHandler)
+	if err != nil {
+		return nil, err
+	}
+	userOutput := presenter.NewUserPresenter()
+	teachersController, err := controllers.NewTeachersController(userRepository, userOutput)
+	if err != nil {
+		return nil, err
+	}
+	return teachersController, nil
+}
+
 // wire.go:
 
 var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, controllers.NewUsersController, interactor.NewUserInteractor, presenter.NewUserPresenter)
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, controllers.NewStudentsController, controllers.NewTasController, controllers.NewTeachersController, interactor.NewUserInteractor, presenter.NewUserPresenter)

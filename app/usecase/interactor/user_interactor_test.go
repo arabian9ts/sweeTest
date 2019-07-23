@@ -18,8 +18,8 @@ func TestCreateStudent(t *testing.T) {
 		outputForm, err := userInteractor.CreateStudent(student)
 
 		assert.Nil(t, err)
-		assert.NotNil(t, outputForm.LastCreatedUserId)
-		assert.NotEqual(t, outputForm.LastCreatedUserId, 0)
+		assert.NotNil(t, outputForm.LastChangedUserId)
+		assert.NotEqual(t, outputForm.LastChangedUserId, 0)
 	})
 
 	t.Run("user=student, failed", func(t *testing.T) {
@@ -33,8 +33,8 @@ func TestCreateStudent(t *testing.T) {
 		outputForm, err := userInteractor.CreateStudent(student)
 
 		assert.NotNil(t, err)
-		assert.NotNil(t, outputForm.LastCreatedUserId)
-		assert.Equal(t, outputForm.LastCreatedUserId, int64(0))
+		assert.NotNil(t, outputForm.LastChangedUserId)
+		assert.Equal(t, outputForm.LastChangedUserId, int64(0))
 	})
 }
 
@@ -47,8 +47,8 @@ func TestCreateTa(t *testing.T) {
 		outputForm, err := userInteractor.CreateTa(ta)
 
 		assert.Nil(t, err)
-		assert.NotNil(t, outputForm.LastCreatedUserId)
-		assert.NotEqual(t, outputForm.LastCreatedUserId, 0)
+		assert.NotNil(t, outputForm.LastChangedUserId)
+		assert.NotEqual(t, outputForm.LastChangedUserId, 0)
 	})
 
 	t.Run("user=ta, failed", func(t *testing.T) {
@@ -62,8 +62,8 @@ func TestCreateTa(t *testing.T) {
 		outputForm, err := userInteractor.CreateTa(ta)
 
 		assert.NotNil(t, err)
-		assert.NotNil(t, outputForm.LastCreatedUserId)
-		assert.Equal(t, outputForm.LastCreatedUserId, int64(0))
+		assert.NotNil(t, outputForm.LastChangedUserId)
+		assert.Equal(t, outputForm.LastChangedUserId, int64(0))
 	})
 }
 
@@ -76,8 +76,8 @@ func TestCreateTeacher(t *testing.T) {
 		outputForm, err := userInteractor.CreateTeacher(teacher)
 
 		assert.Nil(t, err)
-		assert.NotNil(t, outputForm.LastCreatedUserId)
-		assert.NotEqual(t, outputForm.LastCreatedUserId, 0)
+		assert.NotNil(t, outputForm.LastChangedUserId)
+		assert.NotEqual(t, outputForm.LastChangedUserId, 0)
 	})
 
 	t.Run("user=teacher, failed", func(t *testing.T) {
@@ -91,7 +91,7 @@ func TestCreateTeacher(t *testing.T) {
 		outputForm, err := userInteractor.CreateTeacher(teacher)
 
 		assert.NotNil(t, err)
-		assert.NotNil(t, outputForm.LastCreatedUserId)
-		assert.Equal(t, outputForm.LastCreatedUserId, int64(0))
+		assert.NotNil(t, outputForm.LastChangedUserId)
+		assert.Equal(t, outputForm.LastChangedUserId, int64(0))
 	})
 }

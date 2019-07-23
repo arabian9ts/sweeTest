@@ -9,24 +9,24 @@ import (
 	"strconv"
 )
 
-type StudentsController struct {
+type TasController struct {
 	InputPort port.UserUseCase
 }
 
-func NewStudentsController(userRepository repository.UserRepository, output port.UserOutput) (*StudentsController, error) {
-	return &StudentsController{InputPort: &interactor.UserInteractor{
+func NewTasController(userRepository repository.UserRepository, output port.UserOutput) (*TasController, error) {
+	return &TasController{InputPort: &interactor.UserInteractor{
 		UserRepository: userRepository,
 		UserOutput:     output,
 	}}, nil
 }
 
-func (controller *StudentsController) Show(ctx Context) {
+func (controller *TasController) Show(ctx Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
 		ctx.JSON(404, err)
 		return
 	}
-	outputForm, err := controller.InputPort.GetStudentById(int64(id))
+	outputForm, err := controller.InputPort.GetTaById(int64(id))
 	if err != nil {
 		ctx.JSON(404, err)
 		return
@@ -35,12 +35,12 @@ func (controller *StudentsController) Show(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *StudentsController) Create(ctx Context) {
-	inputForm := &dto.CreateStudentInputForm{}
+func (controller *TasController) Create(ctx Context) {
+	inputForm := &dto.CreateTaInputForm{}
 	ctx.Bind(&inputForm)
-	student := adapter.ConvertStudentInputFormToUser(inputForm)
+	ta := adapter.ConvertTaInputFormToTa(inputForm)
 
-	outputForm, err := controller.InputPort.CreateStudent(student)
+	outputForm, err := controller.InputPort.CreateTa(ta)
 	if err != nil {
 		ctx.JSON(400, err)
 		return

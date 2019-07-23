@@ -6,7 +6,18 @@ import (
 )
 
 type UserUseCase interface {
-	CreateStudent(student *model.Student) (*dto.CreateStudentOutputForm, error)
-	CreateTa(ta *model.Ta) (*dto.CreateTaOutputForm, error)
-	CreateTeacher(teacher *model.Teacher) (*dto.CreateTeacherOutputForm, error)
+	UserReadUseCase
+	UserWriteUseCase
+}
+
+type UserReadUseCase interface {
+	GetStudentById(id int64) (*dto.ReadStudentOutputForm, error)
+	GetTaById(id int64) (*dto.ReadTaOutputForm, error)
+	GetTeacherById(id int64) (*dto.ReadTeacherOutputForm, error)
+}
+
+type UserWriteUseCase interface {
+	CreateStudent(student *model.Student) (*dto.WriteStudentOutputForm, error)
+	CreateTa(ta *model.Ta) (*dto.WriteTaOutputForm, error)
+	CreateTeacher(teacher *model.Teacher) (*dto.WriteTeacherOutputForm, error)
 }

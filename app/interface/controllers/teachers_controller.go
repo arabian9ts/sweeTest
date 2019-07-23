@@ -9,24 +9,24 @@ import (
 	"strconv"
 )
 
-type StudentsController struct {
+type TeachersController struct {
 	InputPort port.UserUseCase
 }
 
-func NewStudentsController(userRepository repository.UserRepository, output port.UserOutput) (*StudentsController, error) {
-	return &StudentsController{InputPort: &interactor.UserInteractor{
+func NewTeachersController(userRepository repository.UserRepository, output port.UserOutput) (*TeachersController, error) {
+	return &TeachersController{InputPort: &interactor.UserInteractor{
 		UserRepository: userRepository,
 		UserOutput:     output,
 	}}, nil
 }
 
-func (controller *StudentsController) Show(ctx Context) {
+func (controller *TeachersController) Show(ctx Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
 		ctx.JSON(404, err)
 		return
 	}
-	outputForm, err := controller.InputPort.GetStudentById(int64(id))
+	outputForm, err := controller.InputPort.GetTeacherById(int64(id))
 	if err != nil {
 		ctx.JSON(404, err)
 		return
@@ -35,12 +35,12 @@ func (controller *StudentsController) Show(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *StudentsController) Create(ctx Context) {
-	inputForm := &dto.CreateStudentInputForm{}
+func (controller *TeachersController) Create(ctx Context) {
+	inputForm := &dto.CreateTeacherInputForm{}
 	ctx.Bind(&inputForm)
-	student := adapter.ConvertStudentInputFormToUser(inputForm)
+	teacher := adapter.ConvertTeacherInputFormToTeacher(inputForm)
 
-	outputForm, err := controller.InputPort.CreateStudent(student)
+	outputForm, err := controller.InputPort.CreateTeacher(teacher)
 	if err != nil {
 		ctx.JSON(400, err)
 		return
