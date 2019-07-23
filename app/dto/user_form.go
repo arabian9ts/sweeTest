@@ -1,5 +1,25 @@
 package dto
 
+type ReadStudentOutputForm struct {
+	StudentNo string
+	FirstName string
+	LastName  string
+	Email     string
+}
+
+type ReadTaOutputForm struct {
+	StudentNo string
+	FirstName string
+	LastName  string
+	Email     string
+}
+
+type ReadTeacherOutputForm struct {
+	FirstName string
+	LastName  string
+	Email     string
+}
+
 type CreateStudentInputForm struct {
 	StudentNo string
 	FirstName string
@@ -8,8 +28,8 @@ type CreateStudentInputForm struct {
 	Password  string
 }
 
-type CreateStudentOutputForm struct {
-	LastCreatedUserId int64
+type WriteStudentOutputForm struct {
+	LastChangedUserId int64
 }
 
 type CreateTaInputForm struct {
@@ -20,8 +40,8 @@ type CreateTaInputForm struct {
 	Password  string
 }
 
-type CreateTaOutputForm struct {
-	LastCreatedUserId int64
+type WriteTaOutputForm struct {
+	LastChangedUserId int64
 }
 
 type CreateTeacherInputForm struct {
@@ -31,6 +51,6 @@ type CreateTeacherInputForm struct {
 	Password  string
 }
 
-type CreateTeacherOutputForm struct {
-	LastCreatedUserId int64
+type WriteTeacherOutputForm struct {
+	LastChangedUserId int64
 }

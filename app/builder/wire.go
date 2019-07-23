@@ -18,7 +18,9 @@ package builder
 //var controllerSet = wire.NewSet(
 //	infrastructure.NewSqlHandler,
 //	database.NewUserRepository,
-//	controllers.NewUsersController,
+//	controllers.NewStudentsController,
+//	controllers.NewTasController,
+//	controllers.NewTeachersController,
 //	interactor.NewUserInteractor,
 //	presenter.NewUserPresenter,
 //)
@@ -28,7 +30,17 @@ package builder
 //	return &database.UserRepository{}, nil
 //}
 //
-//func InitializeUsersController() (*controllers.StudentsController, error) {
+//func InitializeStudentsController() (*controllers.StudentsController, error) {
 //	wire.Build(controllerSet)
 //	return &controllers.StudentsController{}, nil
+//}
+//
+//func InitializeTasController() (*controllers.TasController, error) {
+//	wire.Build(controllerSet)
+//	return &controllers.TasController{}, nil
+//}
+//
+//func InitializeTeachersController() (*controllers.TeachersController, error) {
+//	wire.Build(controllerSet)
+//	return &controllers.TeachersController{}, nil
 //}
