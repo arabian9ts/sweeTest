@@ -14,8 +14,8 @@ func TestCreateStudent(t *testing.T) {
 		userRepository := mock.NewUserRepositoryMock()
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(userRepository, userOutput)
-		inputForm := fixture.NewCreateStudentInputFormMock()
-		outputForm, err := userInteractor.CreateStudent(inputForm)
+		student := fixture.NewValidStudent()
+		outputForm, err := userInteractor.CreateStudent(student)
 
 		assert.Nil(t, err)
 		assert.NotNil(t, outputForm.LastCreatedUserId)
@@ -29,8 +29,8 @@ func TestCreateStudent(t *testing.T) {
 		}
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(mockRepository, userOutput)
-		inputForm := fixture.NewCreateStudentInputFormMock()
-		outputForm, err := userInteractor.CreateStudent(inputForm)
+		student := fixture.NewValidStudent()
+		outputForm, err := userInteractor.CreateStudent(student)
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm.LastCreatedUserId)
@@ -43,8 +43,8 @@ func TestCreateTa(t *testing.T) {
 		userRepository := mock.NewUserRepositoryMock()
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(userRepository, userOutput)
-		inputForm := fixture.NewCreateTaInputFormMock()
-		outputForm, err := userInteractor.CreateTa(inputForm)
+		ta := fixture.NewValidTa()
+		outputForm, err := userInteractor.CreateTa(ta)
 
 		assert.Nil(t, err)
 		assert.NotNil(t, outputForm.LastCreatedUserId)
@@ -58,8 +58,8 @@ func TestCreateTa(t *testing.T) {
 		}
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(mockRepository, userOutput)
-		inputForm := fixture.NewCreateTaInputFormMock()
-		outputForm, err := userInteractor.CreateTa(inputForm)
+		ta := fixture.NewValidTa()
+		outputForm, err := userInteractor.CreateTa(ta)
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm.LastCreatedUserId)
@@ -72,8 +72,8 @@ func TestCreateTeacher(t *testing.T) {
 		userRepository := mock.NewUserRepositoryMock()
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(userRepository, userOutput)
-		inputForm := fixture.NewCreateTeacherInputFormMock()
-		outputForm, err := userInteractor.CreateTeacher(inputForm)
+		teacher := fixture.NewValidTeacher()
+		outputForm, err := userInteractor.CreateTeacher(teacher)
 
 		assert.Nil(t, err)
 		assert.NotNil(t, outputForm.LastCreatedUserId)
@@ -87,8 +87,8 @@ func TestCreateTeacher(t *testing.T) {
 		}
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(mockRepository, userOutput)
-		inputForm := fixture.NewCreateTeacherInputFormMock()
-		outputForm, err := userInteractor.CreateTeacher(inputForm)
+		teacher := fixture.NewValidTeacher()
+		outputForm, err := userInteractor.CreateTeacher(teacher)
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm.LastCreatedUserId)
