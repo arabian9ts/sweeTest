@@ -26,6 +26,15 @@ func InitializeUserRepository() (repository.UserRepository, error) {
 	return userRepository, nil
 }
 
+func InitializeLectureRepository() (repository.LectureRepository, error) {
+	sqlHandler := infrastructure.NewSqlHandler()
+	lectureRepository, err := database.NewLectureRepository(sqlHandler)
+	if err != nil {
+		return nil, err
+	}
+	return lectureRepository, nil
+}
+
 func InitializeStudentsController() (*controllers.StudentsController, error) {
 	sqlHandler := infrastructure.NewSqlHandler()
 	userRepository, err := database.NewUserRepository(sqlHandler)
@@ -68,8 +77,22 @@ func InitializeTeachersController() (*controllers.TeachersController, error) {
 	return teachersController, nil
 }
 
+func InitializeLecturesController() (*controllers.LecturesController, error) {
+	sqlHandler := infrastructure.NewSqlHandler()
+	lectureRepository, err := database.NewLectureRepository(sqlHandler)
+	if err != nil {
+		return nil, err
+	}
+	lectureOutput := presenter.NewLecturePresenter()
+	lecturesController, err := controllers.NewLecturesController(lectureRepository, lectureOutput)
+	if err != nil {
+		return nil, err
+	}
+	return lecturesController, nil
+}
+
 // wire.go:
 
-var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository)
+var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, controllers.NewStudentsController, controllers.NewTasController, controllers.NewTeachersController, interactor.NewUserInteractor, presenter.NewUserPresenter)
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, controllers.NewStudentsController, controllers.NewTasController, controllers.NewTeachersController, controllers.NewLecturesController, interactor.NewUserInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter)
