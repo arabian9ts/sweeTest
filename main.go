@@ -1,16 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"github.com/arabian9ts/sweeTest/app/domain/model"
-	"github.com/arabian9ts/sweeTest/app/builder")
+	"github.com/arabian9ts/sweeTest/app/builder"
+	"github.com/arabian9ts/sweeTest/infrastructure"
+)
 
 func main() {
-	repo, _ := builder.InitializeLectureRepository()
-	fmt.Println(repo)
-	lecture := &model.Lecture{ID: 9, Name: "aaa"}
-
-	id, err := repo.UpdateLecture(lecture)
-	fmt.Println(id)
-	fmt.Println(err)
+	root, err := builder.InitializeRootController()
+	if err != nil {
+		panic("failed to initialize controlelrs")
+	}
+	infrastructure.Router(root).Run()
 }

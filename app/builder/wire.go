@@ -24,6 +24,7 @@ package builder
 //	controllers.NewTasController,
 //	controllers.NewTeachersController,
 //	controllers.NewLecturesController,
+//	controllers.NewRootController,
 //	interactor.NewUserInteractor,
 //	presenter.NewUserPresenter,
 //	presenter.NewLecturePresenter,
@@ -37,6 +38,11 @@ package builder
 //func InitializeLectureRepository() (repository.LectureRepository, error) {
 //	wire.Build(repositorySet)
 //	return &database.LectureRepository{}, nil
+//}
+//
+//func InitializeRootController() (*controllers.RootController, error) {
+//	wire.Build(controllerSet)
+//	return &controllers.RootController{}, nil
 //}
 //
 //func InitializeStudentsController() (*controllers.StudentsController, error) {
