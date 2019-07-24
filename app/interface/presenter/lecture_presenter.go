@@ -13,10 +13,10 @@ func NewLecturePresenter() (port.LectureOutput) {
 	return &LecturePresenter{}
 }
 
-func (*LecturePresenter) HandleGetLectures(lectures model.Lectures, err error) (dto.ReadLecturesOutputForm, error) {
-	output := dto.ReadLecturesOutputForm{}
+func (*LecturePresenter) HandleGetLectures(lectures model.Lectures, err error) (dto.GetLecturesOutputForm, error) {
+	output := dto.GetLecturesOutputForm{}
 	for _, lecture := range lectures {
-		form := &dto.ReadLectureOutputForm{
+		form := &dto.GetLectureByIdOutputForm{
 			ID:        lecture.ID,
 			Name:      lecture.Name,
 			CreatedAt: lecture.CreatedAt,
@@ -27,8 +27,8 @@ func (*LecturePresenter) HandleGetLectures(lectures model.Lectures, err error) (
 	return output, err
 }
 
-func (*LecturePresenter) HandleGetLectureById(lecture *model.Lecture, err error) (*dto.ReadLectureOutputForm, error) {
-	output := &dto.ReadLectureOutputForm{
+func (*LecturePresenter) HandleGetLectureById(lecture *model.Lecture, err error) (*dto.GetLectureByIdOutputForm, error) {
+	output := &dto.GetLectureByIdOutputForm{
 		ID:        lecture.ID,
 		Name:      lecture.Name,
 		CreatedAt: lecture.CreatedAt,
@@ -37,17 +37,19 @@ func (*LecturePresenter) HandleGetLectureById(lecture *model.Lecture, err error)
 	return output, err
 }
 
-func (*LecturePresenter) HandleCreateLecture(id int64, err error) (*dto.WriteLectureOutputForm, error) {
-	output := &dto.WriteLectureOutputForm{LastChangedLectureId: id}
+func (*LecturePresenter) HandleCreateLecture(id int64, err error) (*dto.CreateLectureOutputForm, error) {
+	output := &dto.CreateLectureOutputForm{LastChangedLectureId: id}
 	return output, err
 }
 
-func (*LecturePresenter) HandleUpdateLecture(id int64, err error) (*dto.WriteLectureOutputForm, error) {
-	output := &dto.WriteLectureOutputForm{LastChangedLectureId: id}
+func (*LecturePresenter) HandleUpdateLecture(count int64, err error) (*dto.UpdateLectureOutputForm, error) {
+	updated := count != 0
+	output := &dto.UpdateLectureOutputForm{Updated: updated}
 	return output, err
 }
 
-func (*LecturePresenter) HandleDeleteLecture(id int64, err error) (*dto.WriteLectureOutputForm, error) {
-	output := &dto.WriteLectureOutputForm{LastChangedLectureId: id}
+func (*LecturePresenter) HandleDeleteLecture(count int64, err error) (*dto.DeleteLectureOutputForm, error) {
+	deleted := count != 0
+	output := &dto.DeleteLectureOutputForm{Deleted: deleted}
 	return output, err
 }

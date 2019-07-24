@@ -11,13 +11,13 @@ type UserOutput interface {
 }
 
 type UserReadOutput interface {
-	HandleGetStudent(student *model.Student, err error) (*dto.ReadStudentOutputForm, error)
-	HandleGetTa(ta *model.Ta, err error) (*dto.ReadTaOutputForm, error)
-	HandleGetTeacher(teacher *model.Teacher, err error) (*dto.ReadTeacherOutputForm, error)
+	HandleGetStudent(student *model.Student, err error) (*dto.GetStudentByIdOutputForm, error)
+	HandleGetTa(ta *model.Ta, err error) (*dto.GetTaByIdOutputForm, error)
+	HandleGetTeacher(teacher *model.Teacher, err error) (*dto.GetTeacherByIdOutputForm, error)
 }
 
 type UserWriteOutput interface {
-	HandleCreateStudent(id int64, err error) (*dto.WriteStudentOutputForm, error)
-	HandleCreateTa(id int64, err error) (*dto.WriteTaOutputForm, error)
-	HandleCreateTeacher(id int64, err error) (*dto.WriteTeacherOutputForm, error)
+	HandleCreateStudent(id int64, err error) (*dto.CreateStudentOutputForm, error)
+	HandleCreateTa(id int64, err error) (*dto.CreateTaOutputForm, error)
+	HandleCreateTeacher(id int64, err error) (*dto.CreateTeacherOutputForm, error)
 }

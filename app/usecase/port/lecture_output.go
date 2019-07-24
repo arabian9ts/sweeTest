@@ -6,17 +6,25 @@ import (
 )
 
 type LectureOutput interface {
-	LectureReadOutput
-	LectureWriteOutput
+	GetLectureOutput
+	CreateLectureOutput
+	UpdateLectureOutput
+	DeleteLectureOutput
 }
 
-type LectureReadOutput interface {
-	HandleGetLectures(lectures model.Lectures, err error) (dto.ReadLecturesOutputForm, error)
-	HandleGetLectureById(lecture *model.Lecture, err error) (*dto.ReadLectureOutputForm, error)
+type GetLectureOutput interface {
+	HandleGetLectures(lectures model.Lectures, err error) (dto.GetLecturesOutputForm, error)
+	HandleGetLectureById(lecture *model.Lecture, err error) (*dto.GetLectureByIdOutputForm, error)
 }
 
-type LectureWriteOutput interface {
-	HandleCreateLecture(id int64, err error) (*dto.WriteLectureOutputForm, error)
-	HandleUpdateLecture(id int64, err error) (*dto.WriteLectureOutputForm, error)
-	HandleDeleteLecture(id int64, err error) (*dto.WriteLectureOutputForm, error)
+type CreateLectureOutput interface {
+	HandleCreateLecture(id int64, err error) (*dto.CreateLectureOutputForm, error)
+}
+
+type UpdateLectureOutput interface {
+	HandleUpdateLecture(count int64, err error) (*dto.UpdateLectureOutputForm, error)
+}
+
+type DeleteLectureOutput interface {
+	HandleDeleteLecture(count int64, err error) (*dto.DeleteLectureOutputForm, error)
 }

@@ -16,31 +16,31 @@ func NewLectureInteractor(repository repository.LectureRepository, output port.L
 	return &LectureInteractor{LectureRepository: repository, LectureOutput: output}, nil
 }
 
-func (interactor *LectureInteractor) GetLectureById(id int64) (*dto.ReadLectureOutputForm, error) {
+func (interactor *LectureInteractor) GetLectureById(id int64) (*dto.GetLectureByIdOutputForm, error) {
 	return interactor.LectureOutput.HandleGetLectureById(
 		interactor.LectureRepository.GetLectureById(id),
 	)
 }
 
-func (interactor *LectureInteractor) GetLectures(limit int, offset int) (dto.ReadLecturesOutputForm, error) {
+func (interactor *LectureInteractor) GetLectures(limit int, offset int) (dto.GetLecturesOutputForm, error) {
 	return interactor.LectureOutput.HandleGetLectures(
 		interactor.LectureRepository.GetLectures(limit, offset),
 	)
 }
 
-func (interactor *LectureInteractor) CreateLecture(lecture *model.Lecture) (*dto.WriteLectureOutputForm, error) {
+func (interactor *LectureInteractor) CreateLecture(lecture *model.Lecture) (*dto.CreateLectureOutputForm, error) {
 	return interactor.LectureOutput.HandleCreateLecture(
 		interactor.LectureRepository.CreateLecture(lecture),
 	)
 }
 
-func (interactor *LectureInteractor) UpdateLecture(lecture *model.Lecture) (*dto.WriteLectureOutputForm, error) {
+func (interactor *LectureInteractor) UpdateLecture(lecture *model.Lecture) (*dto.UpdateLectureOutputForm, error) {
 	return interactor.LectureOutput.HandleUpdateLecture(
 		interactor.LectureRepository.UpdateLecture(lecture),
 	)
 }
 
-func (interactor *LectureInteractor) DeleteLecture(id int64) (*dto.WriteLectureOutputForm, error) {
+func (interactor *LectureInteractor) DeleteLecture(id int64) (*dto.DeleteLectureOutputForm, error) {
 	return interactor.LectureOutput.HandleDeleteLecture(
 		interactor.LectureRepository.DeleteLecture(id),
 	)

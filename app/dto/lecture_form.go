@@ -2,19 +2,33 @@ package dto
 
 import "time"
 
-type WriteLectureInputForm struct {
+// Input
+type CreateLectureInputForm struct {
 	Name string
 }
 
-type ReadLectureOutputForm struct {
+type UpdateLectureInputForm struct {
+	Name string
+}
+
+// Output
+type GetLectureByIdOutputForm struct {
 	ID        int64
 	Name      string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
-type ReadLecturesOutputForm []*ReadLectureOutputForm
+type GetLecturesOutputForm []*GetLectureByIdOutputForm
 
-type WriteLectureOutputForm struct {
+type CreateLectureOutputForm struct {
 	LastChangedLectureId int64
+}
+
+type UpdateLectureOutputForm struct {
+	Updated bool
+}
+
+type DeleteLectureOutputForm struct {
+	Deleted bool
 }

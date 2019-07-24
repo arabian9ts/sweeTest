@@ -56,7 +56,7 @@ func (controller *LecturesController) Show(ctx Context) {
 }
 
 func (controller *LecturesController) Create(ctx Context) {
-	inputForm := &dto.WriteLectureInputForm{}
+	inputForm := &dto.CreateLectureInputForm{}
 	ctx.Bind(&inputForm)
 	lecture := adapter.ConvertLectureInputFormToLecture(inputForm)
 
@@ -76,7 +76,7 @@ func (controller *LecturesController) Update(ctx Context) {
 		return
 	}
 
-	inputForm := &dto.WriteLectureInputForm{}
+	inputForm := &dto.CreateLectureInputForm{}
 	ctx.Bind(&inputForm)
 	lecture := adapter.ConvertLectureInputFormToLecture(inputForm)
 	lecture.ID = int64(id)

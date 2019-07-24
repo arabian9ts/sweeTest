@@ -16,37 +16,37 @@ func NewUserInteractor(repository repository.UserRepository, output port.UserOut
 	return &UserInteractor{UserRepository: repository, UserOutput: output}, nil
 }
 
-func (interactor *UserInteractor) GetStudentById(id int64) (*dto.ReadStudentOutputForm, error) {
+func (interactor *UserInteractor) GetStudentById(id int64) (*dto.GetStudentByIdOutputForm, error) {
 	return interactor.UserOutput.HandleGetStudent(
 		interactor.UserRepository.GetStudentById(id),
 	)
 }
 
-func (interactor *UserInteractor) GetTaById(id int64) (*dto.ReadTaOutputForm, error) {
+func (interactor *UserInteractor) GetTaById(id int64) (*dto.GetTaByIdOutputForm, error) {
 	return interactor.UserOutput.HandleGetTa(
 		interactor.UserRepository.GetTaById(id),
 	)
 }
 
-func (interactor *UserInteractor) GetTeacherById(id int64) (*dto.ReadTeacherOutputForm, error) {
+func (interactor *UserInteractor) GetTeacherById(id int64) (*dto.GetTeacherByIdOutputForm, error) {
 	return interactor.UserOutput.HandleGetTeacher(
 		interactor.UserRepository.GetTeacherById(id),
 	)
 }
 
-func (interactor *UserInteractor) CreateStudent(student *model.Student) (*dto.WriteStudentOutputForm, error) {
+func (interactor *UserInteractor) CreateStudent(student *model.Student) (*dto.CreateStudentOutputForm, error) {
 	return interactor.UserOutput.HandleCreateStudent(
 		interactor.UserRepository.InsertStudent(student),
 	)
 }
 
-func (interactor *UserInteractor) CreateTa(ta *model.Ta) (*dto.WriteTaOutputForm, error) {
+func (interactor *UserInteractor) CreateTa(ta *model.Ta) (*dto.CreateTaOutputForm, error) {
 	return interactor.UserOutput.HandleCreateTa(
 		interactor.UserRepository.InsertTa(ta),
 	)
 }
 
-func (interactor *UserInteractor) CreateTeacher(teacher *model.Teacher) (*dto.WriteTeacherOutputForm, error) {
+func (interactor *UserInteractor) CreateTeacher(teacher *model.Teacher) (*dto.CreateTeacherOutputForm, error) {
 	return interactor.UserOutput.HandleCreateTeacher(
 		interactor.UserRepository.InsertTeacher(teacher),
 	)
