@@ -35,6 +35,41 @@ func InitializeLectureRepository() (repository.LectureRepository, error) {
 	return lectureRepository, nil
 }
 
+func InitializeRootController() (*controllers.RootController, error) {
+	sqlHandler := infrastructure.NewSqlHandler()
+	userRepository, err := database.NewUserRepository(sqlHandler)
+	if err != nil {
+		return nil, err
+	}
+	userOutput := presenter.NewUserPresenter()
+	studentsController, err := controllers.NewStudentsController(userRepository, userOutput)
+	if err != nil {
+		return nil, err
+	}
+	tasController, err := controllers.NewTasController(userRepository, userOutput)
+	if err != nil {
+		return nil, err
+	}
+	teachersController, err := controllers.NewTeachersController(userRepository, userOutput)
+	if err != nil {
+		return nil, err
+	}
+	lectureRepository, err := database.NewLectureRepository(sqlHandler)
+	if err != nil {
+		return nil, err
+	}
+	lectureOutput := presenter.NewLecturePresenter()
+	lecturesController, err := controllers.NewLecturesController(lectureRepository, lectureOutput)
+	if err != nil {
+		return nil, err
+	}
+	rootController, err := controllers.NewRootController(studentsController, tasController, teachersController, lecturesController)
+	if err != nil {
+		return nil, err
+	}
+	return rootController, nil
+}
+
 func InitializeStudentsController() (*controllers.StudentsController, error) {
 	sqlHandler := infrastructure.NewSqlHandler()
 	userRepository, err := database.NewUserRepository(sqlHandler)
@@ -95,4 +130,4 @@ func InitializeLecturesController() (*controllers.LecturesController, error) {
 
 var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, controllers.NewStudentsController, controllers.NewTasController, controllers.NewTeachersController, controllers.NewLecturesController, interactor.NewUserInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter)
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, controllers.NewStudentsController, controllers.NewTasController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, interactor.NewUserInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter)
