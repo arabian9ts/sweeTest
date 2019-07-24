@@ -80,12 +80,12 @@ func (repo *LectureRepository) UpdateLecture(lecture *model.Lecture) (int64, err
 		return 0, err
 	}
 
-	id64, err := result.RowAffected()
+	count, err := result.RowAffected()
 	if err != nil {
 		return 0, err
 	}
 
-	return int64(id64), nil
+	return int64(count), nil
 }
 
 func (repo *LectureRepository) DeleteLecture(id int64) (int64, error) {
@@ -94,10 +94,10 @@ func (repo *LectureRepository) DeleteLecture(id int64) (int64, error) {
 		return 0, err
 	}
 
-	id64, err := result.RowAffected()
+	count, err := result.RowAffected()
 	if err != nil {
 		return 0, err
 	}
 
-	return int64(id64), nil
+	return int64(count), nil
 }

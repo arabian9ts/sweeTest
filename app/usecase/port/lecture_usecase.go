@@ -6,17 +6,25 @@ import (
 )
 
 type LectureUseCase interface {
-	LectureReadUseCase
-	LectureWriteUseCase
+	GetLectureUseCase
+	CreateLectureUseCase
+	UpdateLectureUseCase
+	DeleteLectureUseCase
 }
 
-type LectureReadUseCase interface {
-	GetLectureById(id int64) (*dto.ReadLectureOutputForm, error)
-	GetLectures(limit int, offset int) (dto.ReadLecturesOutputForm, error)
+type GetLectureUseCase interface {
+	GetLectureById(id int64) (*dto.GetLectureByIdOutputForm, error)
+	GetLectures(limit int, offset int) (dto.GetLecturesOutputForm, error)
 }
 
-type LectureWriteUseCase interface {
-	CreateLecture(lecture *model.Lecture) (*dto.WriteLectureOutputForm, error)
-	UpdateLecture(lecture *model.Lecture) (*dto.WriteLectureOutputForm, error)
-	DeleteLecture(id int64) (*dto.WriteLectureOutputForm, error)
+type CreateLectureUseCase interface {
+	CreateLecture(lecture *model.Lecture) (*dto.CreateLectureOutputForm, error)
+}
+
+type UpdateLectureUseCase interface {
+	UpdateLecture(lecture *model.Lecture) (*dto.UpdateLectureOutputForm, error)
+}
+
+type DeleteLectureUseCase interface {
+	DeleteLecture(id int64) (*dto.DeleteLectureOutputForm, error)
 }

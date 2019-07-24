@@ -5,7 +5,7 @@ import (
 	"github.com/arabian9ts/sweeTest/app/dto"
 )
 
-func ConvertLectureInputFormToLecture(form *dto.WriteLectureInputForm) (lecture *model.Lecture) {
+func ConvertLectureInputFormToLecture(form *dto.CreateLectureInputForm) (lecture *model.Lecture) {
 	lecture = &model.Lecture{
 		Name: form.Name,
 	}
