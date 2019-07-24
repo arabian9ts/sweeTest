@@ -63,7 +63,16 @@ func InitializeRootController() (*controllers.RootController, error) {
 	if err != nil {
 		return nil, err
 	}
-	rootController, err := controllers.NewRootController(studentsController, tasController, teachersController, lecturesController)
+	taskRepository, err := database.NewTaskRepository(sqlHandler)
+	if err != nil {
+		return nil, err
+	}
+	taskOutput := presenter.NewTaskPresenter()
+	tasksController, err := controllers.NewTasksController(taskRepository, taskOutput)
+	if err != nil {
+		return nil, err
+	}
+	rootController, err := controllers.NewRootController(studentsController, tasController, teachersController, lecturesController, tasksController)
 	if err != nil {
 		return nil, err
 	}
@@ -130,4 +139,4 @@ func InitializeLecturesController() (*controllers.LecturesController, error) {
 
 var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, controllers.NewStudentsController, controllers.NewTasController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, interactor.NewUserInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter)
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, controllers.NewStudentsController, controllers.NewTasController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, interactor.NewUserInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter)

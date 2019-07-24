@@ -40,7 +40,7 @@ func (controller *LecturesController) Index(ctx Context) {
 }
 
 func (controller *LecturesController) Show(ctx Context) {
-	id, err := strconv.Atoi(ctx.Param("id"))
+	id, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
 		ctx.JSON(404, err)
 		return
@@ -70,7 +70,7 @@ func (controller *LecturesController) Create(ctx Context) {
 }
 
 func (controller *LecturesController) Update(ctx Context) {
-	id, err := strconv.Atoi(ctx.Param("id"))
+	id, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
 		ctx.JSON(404, err)
 		return
@@ -91,7 +91,7 @@ func (controller *LecturesController) Update(ctx Context) {
 }
 
 func (controller *LecturesController) Delete(ctx Context) {
-	id, err := strconv.Atoi(ctx.Param("id"))
+	id, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
 		ctx.JSON(404, err)
 		return

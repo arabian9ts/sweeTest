@@ -5,6 +5,7 @@ type RootController struct {
 	TasController      *TasController
 	TeachersController *TeachersController
 	LecturesController *LecturesController
+	TasksController    *TasksController
 }
 
 func NewRootController(
@@ -12,11 +13,13 @@ func NewRootController(
 	tasController *TasController,
 	teachersController *TeachersController,
 	lecturesController *LecturesController,
+	tasksController *TasksController,
 ) (*RootController, error) {
 	return &RootController{
-		StudentsController:studentsController,
-		TasController:tasController,
-		TeachersController:teachersController,
-		LecturesController:lecturesController,
+		StudentsController: studentsController,
+		TasController:      tasController,
+		TeachersController: teachersController,
+		LecturesController: lecturesController,
+		TasksController:    tasksController,
 	}, nil
 }

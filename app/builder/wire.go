@@ -20,14 +20,17 @@ package builder
 //	infrastructure.NewSqlHandler,
 //	database.NewUserRepository,
 //	database.NewLectureRepository,
+//	database.NewTaskRepository,
 //	controllers.NewStudentsController,
 //	controllers.NewTasController,
 //	controllers.NewTeachersController,
 //	controllers.NewLecturesController,
 //	controllers.NewRootController,
+//	controllers.NewTasksController,
 //	interactor.NewUserInteractor,
 //	presenter.NewUserPresenter,
 //	presenter.NewLecturePresenter,
+//	presenter.NewTaskPresenter,
 //)
 //
 //func InitializeUserRepository() (repository.UserRepository, error) {
