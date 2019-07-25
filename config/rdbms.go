@@ -17,7 +17,7 @@ type RDBMS struct {
 }
 
 func NewRDBMSSettings() (*RDBMS, error) {
-	environment := os.Getenv("GO_ENV")
+	environment := os.Getenv("GOENV")
 	if len(environment) == 0 {
 		environment = "development"
 	}
