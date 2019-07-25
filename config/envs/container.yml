@@ -1,0 +1,7 @@
+# example env settings
+username: sweeta
+password: kaba8ki3TA6
+database: sweetest
+dialect: mysql
+host: mysql
+port: 3306
