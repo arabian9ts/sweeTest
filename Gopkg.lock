@@ -103,6 +103,17 @@
   version = "v1.0.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:1d45a5a96aba641917aa8905c0e3d591cf276c47ff0e260a22fc61a529f2250e"
+  name = "github.com/rubenv/sql-migrate"
+  packages = [
+    ".",
+    "sqlparse",
+  ]
+  pruneopts = "UT"
+  revision = "87ce952f7079c58e10a2a85835202943ebb9580c"
+
+[[projects]]
   digest = "1:972c2427413d41a1e06ca4897e8528e5a1622894050e2f527b38ddf0f343f759"
   name = "github.com/stretchr/testify"
   packages = ["assert"]
@@ -143,6 +154,14 @@
   version = "v8.18.2"
 
 [[projects]]
+  digest = "1:1b36b0cb56126316f637ad55cfd5ed84c945fe45bd90e944666b4107a80a1da9"
+  name = "gopkg.in/gorp.v1"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "6a667da9c028871f98598d85413e3fc4c6daa52e"
+  version = "v1.7.2"
+
+[[projects]]
   digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
@@ -158,6 +177,7 @@
     "github.com/go-sql-driver/mysql",
     "github.com/go-yaml/yaml",
     "github.com/google/wire",
+    "github.com/rubenv/sql-migrate",
     "github.com/stretchr/testify/assert",
   ]
   solver-name = "gps-cdcl"
