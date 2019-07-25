@@ -2,11 +2,13 @@ package infrastructure
 
 import (
 	"github.com/arabian9ts/sweeTest/app/interface/controllers"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func Router(root *controllers.RootController) (router *gin.Engine) {
 	router = gin.Default()
+	router.Use(cors.Default())
 
 	router.GET("/lectures", func(c *gin.Context) { root.LecturesController.Index(c) })
 	router.POST("/lectures", func(c *gin.Context) { root.LecturesController.Create(c) })
