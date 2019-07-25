@@ -17,7 +17,7 @@ type UpdateStudentInputForm struct {
 	Password  string
 }
 
-type CreateTaInputForm struct {
+type CreateAssistantInputForm struct {
 	StudentNo string
 	FirstName string
 	LastName  string
@@ -25,7 +25,7 @@ type CreateTaInputForm struct {
 	Password  string
 }
 
-type UpdateTaInputForm struct {
+type UpdateAssistantInputForm struct {
 	StudentNo string
 	FirstName string
 	LastName  string
@@ -55,7 +55,7 @@ type GetStudentByIdOutputForm struct {
 	Email     string
 }
 
-type GetTaByIdOutputForm struct {
+type GetAssistantByIdOutputForm struct {
 	StudentNo string
 	FirstName string
 	LastName  string
@@ -80,15 +80,15 @@ type DeleteStudentOutputForm struct {
 	Deleted bool
 }
 
-type CreateTaOutputForm struct {
+type CreateAssistantOutputForm struct {
 	LastInsertedId int64
 }
 
-type UpdateTaOutputForm struct {
+type UpdateAssistantOutputForm struct {
 	Updated bool
 }
 
-type DeleteTaOutputForm struct {
+type DeleteAssistantOutputForm struct {
 	Deleted bool
 }
 

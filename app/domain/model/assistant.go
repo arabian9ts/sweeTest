@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type Ta struct {
+type Assistant struct {
 	ID        int64
 	StudentNo string
 	FirstName string

@@ -2,11 +2,12 @@ package interactor
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/arabian9ts/sweeTest/app/interface/presenter"
 	"github.com/arabian9ts/sweeTest/fixture"
 	"github.com/arabian9ts/sweeTest/mock"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestCreateStudent(t *testing.T) {
@@ -38,28 +39,28 @@ func TestCreateStudent(t *testing.T) {
 	})
 }
 
-func TestCreateTa(t *testing.T) {
-	t.Run("user=ta, success", func(t *testing.T) {
+func TestCreateAssistant(t *testing.T) {
+	t.Run("user=assistant, success", func(t *testing.T) {
 		userRepository := mock.NewUserRepositoryMock()
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(userRepository, userOutput)
-		ta := fixture.NewValidTa()
-		outputForm, err := userInteractor.CreateTa(ta)
+		assistant := fixture.NewValidAssistant()
+		outputForm, err := userInteractor.CreateAssistant(assistant)
 
 		assert.Nil(t, err)
 		assert.NotNil(t, outputForm.LastInsertedId)
 		assert.NotEqual(t, outputForm.LastInsertedId, 0)
 	})
 
-	t.Run("user=ta, failed", func(t *testing.T) {
+	t.Run("user=assistant, failed", func(t *testing.T) {
 		mockRepository := &mock.UserRepositoryMock{
-			TaFixture: fixture.NewValidTa(),
-			Error:     fmt.Errorf("mock error"),
+			AssistantFixture: fixture.NewValidAssistant(),
+			Error:            fmt.Errorf("mock error"),
 		}
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(mockRepository, userOutput)
-		ta := fixture.NewValidTa()
-		outputForm, err := userInteractor.CreateTa(ta)
+		assistant := fixture.NewValidAssistant()
+		outputForm, err := userInteractor.CreateAssistant(assistant)
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm.LastInsertedId)

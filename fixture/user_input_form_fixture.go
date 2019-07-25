@@ -12,8 +12,8 @@ func NewCreateStudentInputFormMock() dto.CreateStudentInputForm {
 	}
 }
 
-func NewCreateTaInputFormMock() dto.CreateTaInputForm {
-	return dto.CreateTaInputForm{
+func NewCreateAssistantInputFormMock() dto.CreateAssistantInputForm {
+	return dto.CreateAssistantInputForm{
 		StudentNo: "121312312",
 		FirstName: "taku",
 		LastName:  "maeda",

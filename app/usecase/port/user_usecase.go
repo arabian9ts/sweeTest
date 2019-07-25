@@ -12,12 +12,12 @@ type UserUseCase interface {
 
 type GetUserUseCase interface {
 	GetStudentById(id int64) (*dto.GetStudentByIdOutputForm, error)
-	GetTaById(id int64) (*dto.GetTaByIdOutputForm, error)
+	GetAssistantById(id int64) (*dto.GetAssistantByIdOutputForm, error)
 	GetTeacherById(id int64) (*dto.GetTeacherByIdOutputForm, error)
 }
 
 type CreateUserUseCase interface {
 	CreateStudent(student *model.Student) (*dto.CreateStudentOutputForm, error)
-	CreateTa(ta *model.Ta) (*dto.CreateTaOutputForm, error)
+	CreateAssistant(assistant *model.Assistant) (*dto.CreateAssistantOutputForm, error)
 	CreateTeacher(teacher *model.Teacher) (*dto.CreateTeacherOutputForm, error)
 }

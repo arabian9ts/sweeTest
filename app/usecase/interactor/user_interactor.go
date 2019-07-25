@@ -22,9 +22,9 @@ func (interactor *UserInteractor) GetStudentById(id int64) (*dto.GetStudentByIdO
 	)
 }
 
-func (interactor *UserInteractor) GetTaById(id int64) (*dto.GetTaByIdOutputForm, error) {
-	return interactor.UserOutput.HandleGetTa(
-		interactor.UserRepository.GetTaById(id),
+func (interactor *UserInteractor) GetAssistantById(id int64) (*dto.GetAssistantByIdOutputForm, error) {
+	return interactor.UserOutput.HandleGetAssistant(
+		interactor.UserRepository.GetAssistantById(id),
 	)
 }
 
@@ -40,9 +40,9 @@ func (interactor *UserInteractor) CreateStudent(student *model.Student) (*dto.Cr
 	)
 }
 
-func (interactor *UserInteractor) CreateTa(ta *model.Ta) (*dto.CreateTaOutputForm, error) {
-	return interactor.UserOutput.HandleCreateTa(
-		interactor.UserRepository.InsertTa(ta),
+func (interactor *UserInteractor) CreateAssistant(assistant *model.Assistant) (*dto.CreateAssistantOutputForm, error) {
+	return interactor.UserOutput.HandleCreateAssistant(
+		interactor.UserRepository.InsertAssistant(assistant),
 	)
 }
 

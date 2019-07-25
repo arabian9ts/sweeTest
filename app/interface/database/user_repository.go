@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 	"github.com/arabian9ts/sweeTest/app/domain/model"
+	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 )
 
 type UserRepository struct {
@@ -25,22 +25,21 @@ func (repo *UserRepository) GetStudentById(studentId int64) (student *model.Stud
 	defer row.Close()
 	row.Next()
 
-
 	student = &model.Student{}
 	err = row.Scan(&student.ID, &student.StudentNo, &student.FirstName, &student.LastName, &student.Email, &student.Digest, &student.CreatedAt, &student.UpdatedAt)
 	return
 }
 
-func (repo *UserRepository) GetTaById(taId int64) (ta *model.Ta, err error) {
-	row, err := repo.SqlHandler.Query("SELECT * FROM tas WHERE id = ?", taId)
+func (repo *UserRepository) GetAssistantById(assistantId int64) (assistant *model.Assistant, err error) {
+	row, err := repo.SqlHandler.Query("SELECT * FROM assistants WHERE id = ?", assistantId)
 	if err != nil {
-		return &model.Ta{}, err
+		return &model.Assistant{}, err
 	}
 	defer row.Close()
 	row.Next()
 
-	ta = &model.Ta{}
-	err = row.Scan(&ta.ID, &ta.StudentNo, &ta.FirstName, &ta.LastName, &ta.Email, &ta.Digest, &ta.CreatedAt, &ta.UpdatedAt)
+	assistant = &model.Assistant{}
+	err = row.Scan(&assistant.ID, &assistant.StudentNo, &assistant.FirstName, &assistant.LastName, &assistant.Email, &assistant.Digest, &assistant.CreatedAt, &assistant.UpdatedAt)
 	return
 }
 
@@ -87,10 +86,10 @@ func (repo *UserRepository) InsertStudent(student *model.Student) (int64, error)
 	return int64(id64), nil
 }
 
-func (repo *UserRepository) InsertTa(ta *model.Ta) (int64, error) {
+func (repo *UserRepository) InsertAssistant(assistant *model.Assistant) (int64, error) {
 	result, err := repo.SqlHandler.Execute(
-		"INSERT INTO tas (student_no, first_name, last_name, email, digest) VALUES (?,?,?,?,?)",
-		ta.StudentNo, ta.FirstName, ta.LastName, ta.Email, ta.Digest,
+		"INSERT INTO assistants (student_no, first_name, last_name, email, digest) VALUES (?,?,?,?,?)",
+		assistant.StudentNo, assistant.FirstName, assistant.LastName, assistant.Email, assistant.Digest,
 	)
 	if err != nil {
 		return 0, err

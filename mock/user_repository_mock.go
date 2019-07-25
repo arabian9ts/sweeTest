@@ -7,20 +7,20 @@ import (
 )
 
 type UserRepositoryMock struct {
-	StudentFixture *model.Student
-	TaFixture      *model.Ta
-	TeacherFixture *model.Teacher
-	AdminFixture   *model.Admin
-	Error          error
+	StudentFixture   *model.Student
+	AssistantFixture *model.Assistant
+	TeacherFixture   *model.Teacher
+	AdminFixture     *model.Admin
+	Error            error
 }
 
 func NewUserRepositoryMock() repository.UserRepository {
 	return &UserRepositoryMock{
-		StudentFixture: fixture.NewValidStudent(),
-		TaFixture:      fixture.NewValidTa(),
-		TeacherFixture: fixture.NewValidTeacher(),
-		AdminFixture:   fixture.NewValidAdmin(),
-		Error:          nil,
+		StudentFixture:   fixture.NewValidStudent(),
+		AssistantFixture: fixture.NewValidAssistant(),
+		TeacherFixture:   fixture.NewValidTeacher(),
+		AdminFixture:     fixture.NewValidAdmin(),
+		Error:            nil,
 	}
 }
 
@@ -31,11 +31,11 @@ func (mock *UserRepositoryMock) GetStudentById(int64) (*model.Student, error) {
 	return mock.StudentFixture, nil
 }
 
-func (mock *UserRepositoryMock) GetTaById(int64) (*model.Ta, error) {
+func (mock *UserRepositoryMock) GetAssistantById(int64) (*model.Assistant, error) {
 	if mock.Error != nil {
-		return &model.Ta{}, mock.Error
+		return &model.Assistant{}, mock.Error
 	}
-	return mock.TaFixture, nil
+	return mock.AssistantFixture, nil
 }
 
 func (mock *UserRepositoryMock) GetTeacherById(int64) (*model.Teacher, error) {
@@ -59,11 +59,11 @@ func (mock *UserRepositoryMock) InsertStudent(student *model.Student) (int64, er
 	return mock.StudentFixture.ID, nil
 }
 
-func (mock *UserRepositoryMock) InsertTa(ta *model.Ta) (int64, error) {
+func (mock *UserRepositoryMock) InsertAssistant(assistant *model.Assistant) (int64, error) {
 	if mock.Error != nil {
 		return 0, mock.Error
 	}
-	return mock.TaFixture.ID, nil
+	return mock.AssistantFixture.ID, nil
 }
 
 func (mock *UserRepositoryMock) InsertTeacher(teacher *model.Teacher) (int64, error) {
