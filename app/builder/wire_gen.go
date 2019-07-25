@@ -11,6 +11,7 @@ import (
 	"github.com/arabian9ts/sweeTest/app/interface/presenter"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
+	"github.com/arabian9ts/sweeTest/app/validator"
 	"github.com/arabian9ts/sweeTest/infrastructure"
 	"github.com/google/wire"
 )
@@ -42,15 +43,16 @@ func InitializeRootController() (*controllers.RootController, error) {
 		return nil, err
 	}
 	userOutput := presenter.NewUserPresenter()
-	studentsController, err := controllers.NewStudentsController(userRepository, userOutput)
+	validation := validator.NewDefaultValidator()
+	studentsController, err := controllers.NewStudentsController(userRepository, userOutput, validation)
 	if err != nil {
 		return nil, err
 	}
-	tasController, err := controllers.NewTasController(userRepository, userOutput)
+	tasController, err := controllers.NewTasController(userRepository, userOutput, validation)
 	if err != nil {
 		return nil, err
 	}
-	teachersController, err := controllers.NewTeachersController(userRepository, userOutput)
+	teachersController, err := controllers.NewTeachersController(userRepository, userOutput, validation)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +61,7 @@ func InitializeRootController() (*controllers.RootController, error) {
 		return nil, err
 	}
 	lectureOutput := presenter.NewLecturePresenter()
-	lecturesController, err := controllers.NewLecturesController(lectureRepository, lectureOutput)
+	lecturesController, err := controllers.NewLecturesController(lectureRepository, lectureOutput, validation)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +70,7 @@ func InitializeRootController() (*controllers.RootController, error) {
 		return nil, err
 	}
 	taskOutput := presenter.NewTaskPresenter()
-	tasksController, err := controllers.NewTasksController(taskRepository, taskOutput)
+	tasksController, err := controllers.NewTasksController(taskRepository, taskOutput, validation)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +88,8 @@ func InitializeStudentsController() (*controllers.StudentsController, error) {
 		return nil, err
 	}
 	userOutput := presenter.NewUserPresenter()
-	studentsController, err := controllers.NewStudentsController(userRepository, userOutput)
+	validation := validator.NewDefaultValidator()
+	studentsController, err := controllers.NewStudentsController(userRepository, userOutput, validation)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +103,8 @@ func InitializeTasController() (*controllers.TasController, error) {
 		return nil, err
 	}
 	userOutput := presenter.NewUserPresenter()
-	tasController, err := controllers.NewTasController(userRepository, userOutput)
+	validation := validator.NewDefaultValidator()
+	tasController, err := controllers.NewTasController(userRepository, userOutput, validation)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +118,8 @@ func InitializeTeachersController() (*controllers.TeachersController, error) {
 		return nil, err
 	}
 	userOutput := presenter.NewUserPresenter()
-	teachersController, err := controllers.NewTeachersController(userRepository, userOutput)
+	validation := validator.NewDefaultValidator()
+	teachersController, err := controllers.NewTeachersController(userRepository, userOutput, validation)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +133,8 @@ func InitializeLecturesController() (*controllers.LecturesController, error) {
 		return nil, err
 	}
 	lectureOutput := presenter.NewLecturePresenter()
-	lecturesController, err := controllers.NewLecturesController(lectureRepository, lectureOutput)
+	validation := validator.NewDefaultValidator()
+	lecturesController, err := controllers.NewLecturesController(lectureRepository, lectureOutput, validation)
 	if err != nil {
 		return nil, err
 	}
@@ -139,4 +145,4 @@ func InitializeLecturesController() (*controllers.LecturesController, error) {
 
 var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, controllers.NewStudentsController, controllers.NewTasController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, interactor.NewUserInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter)
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, controllers.NewStudentsController, controllers.NewTasController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, interactor.NewUserInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, validator.NewDefaultValidator)

@@ -1,23 +1,29 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/arabian9ts/sweeTest/app/adapter"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
+	"github.com/arabian9ts/sweeTest/app/validator"
 	"strconv"
 )
 
 type TasksController struct {
 	InputPort port.TaskUseCase
+	Validator validator.Validation
 }
 
-func NewTasksController(taskRepository repository.TaskRepository, output port.TaskOutput) (*TasksController, error) {
-	return &TasksController{InputPort: &interactor.TaskInteractor{
-		TaskRepository: taskRepository,
-		TaskOutput:     output,
-	}}, nil
+func NewTasksController(taskRepository repository.TaskRepository, output port.TaskOutput, validator validator.Validation) (*TasksController, error) {
+	return &TasksController{
+		InputPort: &interactor.TaskInteractor{
+			TaskRepository: taskRepository,
+			TaskOutput:     output,
+		},
+		Validator: validator,
+	}, nil
 }
 
 func (controller *TasksController) Index(ctx Context) {
@@ -52,8 +58,14 @@ func (controller *TasksController) Create(ctx Context) {
 	}
 	inputForm := &dto.CreateTaskInputForm{LectureID: int64(lectureID)}
 	ctx.Bind(&inputForm)
-	task := adapter.ConvertCreateTaskInputFormToTask(inputForm)
 
+	err = controller.Validator.Validate(inputForm)
+	if err != nil {
+		ctx.JSON(400, err)
+		return
+	}
+
+	task := adapter.ConvertCreateTaskInputFormToTask(inputForm)
 	outputForm, err := controller.InputPort.CreateTask(task)
 	if err != nil {
 		ctx.JSON(400, err)
@@ -77,9 +89,14 @@ func (controller *TasksController) Update(ctx Context) {
 	}
 
 	inputForm := &dto.UpdateTaskInputForm{ID: int64(id), LectureID: int64(lectureID)}
-	ctx.Bind(&inputForm)
-	task := adapter.ConvertUpdateTaskInputFormToTask(inputForm)
+	err = controller.Validator.Validate(inputForm)
+	if err != nil {
+		fmt.Println(err)
+		ctx.JSON(400, err)
+		return
+	}
 
+	task := adapter.ConvertUpdateTaskInputFormToTask(inputForm)
 	outputForm, err := controller.InputPort.UpdateTask(task)
 	if err != nil {
 		ctx.JSON(400, err)
