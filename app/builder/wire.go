@@ -6,6 +6,7 @@ package builder
 // 	"github.com/arabian9ts/sweeTest/app/interface/presenter"
 // 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 // 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
+// 	"github.com/arabian9ts/sweeTest/app/validator"
 // 	"github.com/arabian9ts/sweeTest/infrastructure"
 // 	"github.com/google/wire"
 // )
@@ -31,6 +32,7 @@ package builder
 // 	presenter.NewUserPresenter,
 // 	presenter.NewLecturePresenter,
 // 	presenter.NewTaskPresenter,
+// 	validator.NewDefaultValidator,
 // )
 
 // func InitializeUserRepository() (repository.UserRepository, error) {

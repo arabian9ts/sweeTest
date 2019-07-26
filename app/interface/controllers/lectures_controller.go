@@ -6,18 +6,23 @@ import (
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
+	"github.com/arabian9ts/sweeTest/app/validator"
 	"strconv"
 )
 
 type LecturesController struct {
 	InputPort port.LectureUseCase
+	Validator validator.Validation
 }
 
-func NewLecturesController(lectureRepository repository.LectureRepository, output port.LectureOutput) (*LecturesController, error) {
-	return &LecturesController{InputPort: &interactor.LectureInteractor{
-		LectureRepository: lectureRepository,
-		LectureOutput:     output,
-	}}, nil
+func NewLecturesController(lectureRepository repository.LectureRepository, output port.LectureOutput, validator validator.Validation) (*LecturesController, error) {
+	return &LecturesController{
+		InputPort: &interactor.LectureInteractor{
+			LectureRepository: lectureRepository,
+			LectureOutput:     output,
+		},
+		Validator: validator,
+	}, nil
 }
 
 func (controller *LecturesController) Index(ctx Context) {
@@ -58,8 +63,14 @@ func (controller *LecturesController) Show(ctx Context) {
 func (controller *LecturesController) Create(ctx Context) {
 	inputForm := &dto.CreateLectureInputForm{}
 	ctx.Bind(&inputForm)
-	lecture := adapter.ConvertLectureInputFormToLecture(inputForm)
 
+	err := controller.Validator.Validate(inputForm)
+	if err != nil {
+		ctx.JSON(400, err)
+		return
+	}
+
+	lecture := adapter.ConvertCreateLectureInputFormToLecture(inputForm)
 	outputForm, err := controller.InputPort.CreateLecture(lecture)
 	if err != nil {
 		ctx.JSON(400, err)
@@ -76,11 +87,16 @@ func (controller *LecturesController) Update(ctx Context) {
 		return
 	}
 
-	inputForm := &dto.CreateLectureInputForm{}
+	inputForm := &dto.UpdateLectureInputForm{ID: int64(id)}
 	ctx.Bind(&inputForm)
-	lecture := adapter.ConvertLectureInputFormToLecture(inputForm)
-	lecture.ID = int64(id)
 
+	err = controller.Validator.Validate(inputForm)
+	if err != nil {
+		ctx.JSON(400, err)
+		return
+	}
+
+	lecture := adapter.ConvertUpdateLectureInputFormToLecture(inputForm)
 	outputForm, err := controller.InputPort.UpdateLecture(lecture)
 	if err != nil {
 		ctx.JSON(400, err)

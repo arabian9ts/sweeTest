@@ -17,3 +17,5 @@
 dbconfig.yml
 vendor/
 config/envs
+mysql
+sweeTest

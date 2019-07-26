@@ -44,3 +44,15 @@
 [[constraint]]
   name = "github.com/gin-gonic/gin"
   version = "1.4.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/rubenv/sql-migrate"
+
+[[constraint]]
+  name = "github.com/gin-contrib/cors"
+  version = "1.3.0"
+
+[[constraint]]
+  name = "gopkg.in/go-playground/validator.v9"
+  version = "9.29.1"

@@ -10,6 +10,14 @@
   version = "v1.1.1"
 
 [[projects]]
+  digest = "1:cc93dd54278f6c0dd4b43588b3cf2c07b09b2a6dd4e2617edf81aa8946054c1e"
+  name = "github.com/gin-contrib/cors"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "5f50d4fb4e0306dcacc6f8e9bea2dcee784dbbdf"
+  version = "v1.3.0"
+
+[[projects]]
   digest = "1:3ee1d175a75b911a659fbd860060874c4f503e793c5870d13e5a0ede529a63cf"
   name = "github.com/gin-contrib/sse"
   packages = ["."]
@@ -29,6 +37,25 @@
   pruneopts = "UT"
   revision = "b75d67cd51eb53c3c3a2fc406524c940021ffbda"
   version = "v1.4.0"
+
+[[projects]]
+  digest = "1:e1ff887e232b2d8f4f7c7db15a5fac7be418025afc4dda53c59c765dbb5aa6b4"
+  name = "github.com/go-playground/locales"
+  packages = [
+    ".",
+    "currency",
+  ]
+  pruneopts = "UT"
+  revision = "f63010822830b6fe52288ee52d5a1151088ce039"
+  version = "v0.12.1"
+
+[[projects]]
+  digest = "1:e022cf244bcac1b6ef933f1a2e0adcf6a6dfd7b872d8d41e4d4179bb09a87cbc"
+  name = "github.com/go-playground/universal-translator"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "b32fa301c9fe55953584134cb6853a13c87ec0a1"
+  version = "v0.16.0"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
@@ -71,6 +98,14 @@
   version = "v1.1.7"
 
 [[projects]]
+  digest = "1:6782ffc812e8e700e6952ede1e60487ff1fd9da489eff762985be662a7cfc431"
+  name = "github.com/leodido/go-urn"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "70078a794e8ea4b497ba7c19a78cd60f90ccf0f4"
+  version = "v1.1.0"
+
+[[projects]]
   digest = "1:9b90c7639a41697f3d4ad12d7d67dfacc9a7a4a6e0bbfae4fc72d0da57c28871"
   name = "github.com/mattn/go-isatty"
   packages = ["."]
@@ -101,6 +136,17 @@
   pruneopts = "UT"
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
   version = "v1.0.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:1d45a5a96aba641917aa8905c0e3d591cf276c47ff0e260a22fc61a529f2250e"
+  name = "github.com/rubenv/sql-migrate"
+  packages = [
+    ".",
+    "sqlparse",
+  ]
+  pruneopts = "UT"
+  revision = "87ce952f7079c58e10a2a85835202943ebb9580c"
 
 [[projects]]
   digest = "1:972c2427413d41a1e06ca4897e8528e5a1622894050e2f527b38ddf0f343f759"
@@ -143,6 +189,22 @@
   version = "v8.18.2"
 
 [[projects]]
+  digest = "1:ffb045e56464a5f683830c7a8eec153d35c0444c77f6132bc531617ed58a94d2"
+  name = "gopkg.in/go-playground/validator.v9"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "556b9da3c05f2a935bc086fb5a0bb55dd8112d2d"
+  version = "v9.29.1"
+
+[[projects]]
+  digest = "1:1b36b0cb56126316f637ad55cfd5ed84c945fe45bd90e944666b4107a80a1da9"
+  name = "gopkg.in/gorp.v1"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "6a667da9c028871f98598d85413e3fc4c6daa52e"
+  version = "v1.7.2"
+
+[[projects]]
   digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
@@ -154,11 +216,14 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/gin-contrib/cors",
     "github.com/gin-gonic/gin",
     "github.com/go-sql-driver/mysql",
     "github.com/go-yaml/yaml",
     "github.com/google/wire",
+    "github.com/rubenv/sql-migrate",
     "github.com/stretchr/testify/assert",
+    "gopkg.in/go-playground/validator.v9",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

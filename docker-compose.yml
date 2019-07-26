@@ -1,0 +1,38 @@
+version: '3'
+services:
+  mysql:
+    container_name: mysql
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    hostname: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: sweeta
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: sweetest
+      MYSQL_PASSWORD: kaba8ki3TA6
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --skip-character-set-client-handshake
+    volumes:
+      - "./mysql/db-data:/var/lib/mysql"
+      - "./docker/mysql/my.conf:/etc/mysql/my.conf"
+      - "./docker/mysql/init/:/docker-entrypoint-initdb.d"
+  api:
+    links:
+      - mysql
+    build:
+      context: .
+      dockerfile: ./docker/golang/Dockerfile
+    container_name: sweeTest
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/go/src/github.com/arabian9ts/sweetest/mysql
+    depends_on:
+      - mysql
+    command: sh ./bootstrap.sh
+
+volumes:
+  db-data:
+    driver: local
