@@ -12,7 +12,7 @@ func ConvertStudentInputFormToUser(form *dto.CreateStudentInputForm) (student *m
 	student.FirstName = form.FirstName
 	student.LastName = form.LastName
 	student.Email = form.Email
-	student.Digest = util.EncryptPassword(form.Password) // error handling
+	student.Digest = util.EncryptPassword(form.Password)
 	return
 }
 
