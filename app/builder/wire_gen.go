@@ -48,7 +48,7 @@ func InitializeRootController() (*controllers.RootController, error) {
 	if err != nil {
 		return nil, err
 	}
-	tasController, err := controllers.NewTasController(userRepository, userOutput, validation)
+	assistantsController, err := controllers.NewAssistantsController(userRepository, userOutput, validation)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func InitializeRootController() (*controllers.RootController, error) {
 	if err != nil {
 		return nil, err
 	}
-	rootController, err := controllers.NewRootController(studentsController, tasController, teachersController, lecturesController, tasksController)
+	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func InitializeStudentsController() (*controllers.StudentsController, error) {
 	return studentsController, nil
 }
 
-func InitializeTasController() (*controllers.TasController, error) {
+func InitializeAssistantsController() (*controllers.AssistantsController, error) {
 	sqlHandler := infrastructure.NewSqlHandler()
 	userRepository, err := database.NewUserRepository(sqlHandler)
 	if err != nil {
@@ -104,11 +104,11 @@ func InitializeTasController() (*controllers.TasController, error) {
 	}
 	userOutput := presenter.NewUserPresenter()
 	validation := validator.NewDefaultValidator()
-	tasController, err := controllers.NewTasController(userRepository, userOutput, validation)
+	assistantsController, err := controllers.NewAssistantsController(userRepository, userOutput, validation)
 	if err != nil {
 		return nil, err
 	}
-	return tasController, nil
+	return assistantsController, nil
 }
 
 func InitializeTeachersController() (*controllers.TeachersController, error) {
@@ -145,4 +145,4 @@ func InitializeLecturesController() (*controllers.LecturesController, error) {
 
 var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, controllers.NewStudentsController, controllers.NewTasController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, interactor.NewUserInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, validator.NewDefaultValidator)
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, interactor.NewUserInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, validator.NewDefaultValidator)

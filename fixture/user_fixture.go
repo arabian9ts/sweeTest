@@ -1,8 +1,9 @@
 package fixture
 
 import (
-	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"time"
+
+	"github.com/arabian9ts/sweeTest/app/domain/model"
 )
 
 func NewValidStudent() *model.Student {
@@ -18,8 +19,8 @@ func NewValidStudent() *model.Student {
 	}
 }
 
-func NewValidTa() *model.Ta {
-	return &model.Ta{
+func NewValidAssistant() *model.Assistant {
+	return &model.Assistant{
 		ID:        1,
 		StudentNo: "12345678",
 		FirstName: "First",

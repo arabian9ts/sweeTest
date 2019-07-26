@@ -31,8 +31,8 @@ func Router(root *controllers.RootController) (router *gin.Engine) {
 	router.POST("/students", func(c *gin.Context) { root.StudentsController.Create(c) })
 	router.GET("/students/:id", func(c *gin.Context) { root.StudentsController.Show(c) })
 
-	router.POST("/tas", func(c *gin.Context) { root.TasController.Create(c) })
-	router.GET("/tas/:id", func(c *gin.Context) { root.TasController.Show(c) })
+	router.POST("/assistants", func(c *gin.Context) { root.AssistantsController.Create(c) })
+	router.GET("/assistants/:id", func(c *gin.Context) { root.AssistantsController.Show(c) })
 
 	router.POST("/teachers", func(c *gin.Context) { root.TeachersController.Create(c) })
 	router.GET("/teachers/:id", func(c *gin.Context) { root.TeachersController.Show(c) })

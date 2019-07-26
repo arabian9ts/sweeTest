@@ -1,25 +1,25 @@
 package controllers
 
 type RootController struct {
-	StudentsController *StudentsController
-	TasController      *TasController
-	TeachersController *TeachersController
-	LecturesController *LecturesController
-	TasksController    *TasksController
+	StudentsController   *StudentsController
+	AssistantsController *AssistantsController
+	TeachersController   *TeachersController
+	LecturesController   *LecturesController
+	TasksController      *TasksController
 }
 
 func NewRootController(
 	studentsController *StudentsController,
-	tasController *TasController,
+	assistantsController *AssistantsController,
 	teachersController *TeachersController,
 	lecturesController *LecturesController,
 	tasksController *TasksController,
 ) (*RootController, error) {
 	return &RootController{
-		StudentsController: studentsController,
-		TasController:      tasController,
-		TeachersController: teachersController,
-		LecturesController: lecturesController,
-		TasksController:    tasksController,
+		StudentsController:   studentsController,
+		AssistantsController: assistantsController,
+		TeachersController:   teachersController,
+		LecturesController:   lecturesController,
+		TasksController:      tasksController,
 	}, nil
 }

@@ -9,7 +9,7 @@ import (
 type UserPresenter struct {
 }
 
-func NewUserPresenter() (port.UserOutput) {
+func NewUserPresenter() port.UserOutput {
 	return &UserPresenter{}
 }
 
@@ -23,12 +23,12 @@ func (*UserPresenter) HandleGetStudent(student *model.Student, err error) (*dto.
 	return output, err
 }
 
-func (*UserPresenter) HandleGetTa(ta *model.Ta, err error) (*dto.GetTaByIdOutputForm, error) {
-	output := &dto.GetTaByIdOutputForm{
-		StudentNo: ta.StudentNo,
-		FirstName: ta.FirstName,
-		LastName:  ta.LastName,
-		Email:     ta.Email,
+func (*UserPresenter) HandleGetAssistant(assistant *model.Assistant, err error) (*dto.GetAssistantByIdOutputForm, error) {
+	output := &dto.GetAssistantByIdOutputForm{
+		StudentNo: assistant.StudentNo,
+		FirstName: assistant.FirstName,
+		LastName:  assistant.LastName,
+		Email:     assistant.Email,
 	}
 	return output, err
 }
@@ -47,8 +47,8 @@ func (*UserPresenter) HandleCreateStudent(id int64, err error) (*dto.CreateStude
 	return output, err
 }
 
-func (*UserPresenter) HandleCreateTa(id int64, err error) (*dto.CreateTaOutputForm, error) {
-	output := &dto.CreateTaOutputForm{LastInsertedId: id}
+func (*UserPresenter) HandleCreateAssistant(id int64, err error) (*dto.CreateAssistantOutputForm, error) {
+	output := &dto.CreateAssistantOutputForm{LastInsertedId: id}
 	return output, err
 }
 

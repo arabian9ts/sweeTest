@@ -18,7 +18,7 @@ type UpdateStudentInputForm struct {
 	Password  string `validate:"required,lte=100" json:"password"`
 }
 
-type CreateTaInputForm struct {
+type CreateAssistantInputForm struct {
 	StudentNo string `validate:"required,lte=20" json:"student_no"`
 	FirstName string `validate:"required,lte=15" json:"first_name"`
 	LastName  string `validate:"required,lte=15" json:"last_name"`
@@ -26,7 +26,7 @@ type CreateTaInputForm struct {
 	Password  string `validate:"required,lte=100" json:"password"`
 }
 
-type UpdateTaInputForm struct {
+type UpdateAssistantInputForm struct {
 	ID        int64  `validate:"required,gt=0"`
 	StudentNo string `validate:"required,lte=20" json:"student_no"`
 	FirstName string `validate:"required,lte=15" json:"first_name"`
@@ -58,7 +58,7 @@ type GetStudentByIdOutputForm struct {
 	Email     string `json:"email"`
 }
 
-type GetTaByIdOutputForm struct {
+type GetAssistantByIdOutputForm struct {
 	StudentNo string `json:"student_no"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
@@ -83,15 +83,15 @@ type DeleteStudentOutputForm struct {
 	Deleted bool `json:"deleted"`
 }
 
-type CreateTaOutputForm struct {
+type CreateAssistantOutputForm struct {
 	LastInsertedId int64 `json:"inserted_id"`
 }
 
-type UpdateTaOutputForm struct {
+type UpdateAssistantOutputForm struct {
 	Updated bool `json:"updated"`
 }
 
-type DeleteTaOutputForm struct {
+type DeleteAssistantOutputForm struct {
 	Deleted bool `json:"deleted"`
 }
 

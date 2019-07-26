@@ -16,13 +16,13 @@ func ConvertStudentInputFormToUser(form *dto.CreateStudentInputForm) (student *m
 	return
 }
 
-func ConvertTaInputFormToTa(form *dto.CreateTaInputForm) (ta *model.Ta) {
-	ta = &model.Ta{}
-	ta.StudentNo = form.StudentNo
-	ta.FirstName = form.FirstName
-	ta.LastName = form.LastName
-	ta.Email = form.Email
-	ta.Digest = util.EncryptPassword(form.Password)
+func ConvertAssistantInputFormToAssistant(form *dto.CreateAssistantInputForm) (assistant *model.Assistant) {
+	assistant = &model.Assistant{}
+	assistant.StudentNo = form.StudentNo
+	assistant.FirstName = form.FirstName
+	assistant.LastName = form.LastName
+	assistant.Email = form.Email
+	assistant.Digest = util.EncryptPassword(form.Password)
 	return
 }
 
