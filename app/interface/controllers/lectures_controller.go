@@ -64,9 +64,9 @@ func (controller *LecturesController) Create(ctx Context) {
 	inputForm := &dto.CreateLectureInputForm{}
 	ctx.Bind(&inputForm)
 
-	err := controller.Validator.Validate(inputForm)
-	if err != nil {
-		ctx.JSON(400, err)
+	ok, msgs := controller.Validator.Validate(inputForm)
+	if !ok {
+		ctx.JSON(400, msgs)
 		return
 	}
 
@@ -90,9 +90,9 @@ func (controller *LecturesController) Update(ctx Context) {
 	inputForm := &dto.UpdateLectureInputForm{ID: int64(id)}
 	ctx.Bind(&inputForm)
 
-	err = controller.Validator.Validate(inputForm)
-	if err != nil {
-		ctx.JSON(400, err)
+	ok, msgs := controller.Validator.Validate(inputForm)
+	if !ok {
+		ctx.JSON(400, msgs)
 		return
 	}
 

@@ -44,9 +44,9 @@ func (controller *TeachersController) Create(ctx Context) {
 	inputForm := &dto.CreateTeacherInputForm{}
 	ctx.Bind(&inputForm)
 
-	err := controller.Validator.Validate(inputForm)
-	if err != nil {
-		ctx.JSON(400, err)
+	ok, msgs := controller.Validator.Validate(inputForm)
+	if !ok {
+		ctx.JSON(400, msgs)
 		return
 	}
 

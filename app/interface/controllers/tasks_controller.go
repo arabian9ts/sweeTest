@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/arabian9ts/sweeTest/app/adapter"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
@@ -59,9 +58,9 @@ func (controller *TasksController) Create(ctx Context) {
 	inputForm := &dto.CreateTaskInputForm{LectureID: int64(lectureID)}
 	ctx.Bind(&inputForm)
 
-	err = controller.Validator.Validate(inputForm)
-	if err != nil {
-		ctx.JSON(400, err)
+	ok, msgs := controller.Validator.Validate(inputForm)
+	if !ok {
+		ctx.JSON(400, msgs)
 		return
 	}
 
@@ -89,10 +88,9 @@ func (controller *TasksController) Update(ctx Context) {
 	}
 
 	inputForm := &dto.UpdateTaskInputForm{ID: int64(id), LectureID: int64(lectureID)}
-	err = controller.Validator.Validate(inputForm)
-	if err != nil {
-		fmt.Println(err)
-		ctx.JSON(400, err)
+	ok, msgs := controller.Validator.Validate(inputForm)
+	if !ok {
+		ctx.JSON(400, msgs)
 		return
 	}
 
