@@ -1,32 +1,71 @@
 // +build wireinject
 package config
 
-import "fmt"
+import (
+	"fmt"
+	"gopkg.in/yaml.v3"
+	"io/ioutil"
+	"os"
+	"time"
+)
 
 var settings *Settings
 
 func init() {
 	var err error = nil
-	settings, err = initializeSettings()
+	settings, err = NewSettings()
 	if err != nil {
 		panic("settings not created correctly")
 	}
 }
 
 type Settings struct {
-	*RDBMS
+	MySQL *MySQL
+	Jwt   *Jwt
 }
 
-func NewSettings(rdb *RDBMS) (*Settings, error) {
-	return &Settings{ RDBMS: rdb }, nil
+type MySQL struct {
+	UserName string `yaml:"username"`
+	Password string `yaml:"password"`
+	DataBase string `yaml:"database"`
+	Dialect  string `yaml:"dialect"`
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
 }
 
-func GetSettings() *Settings {
-	return settings
+type Jwt struct {
+	Secret       string `yaml:"secret"`
+	ValidMinutes int64  `yaml:"valid_minutes"`
+	Realm        string `yaml:"realm"`
 }
 
-func (setting *Settings) GetRdbUri() (uri string) {
-	rdb := settings.RDBMS
+func (jwt *Jwt) ExpiresTime() time.Time {
+	minutes := time.Minute * time.Duration(jwt.ValidMinutes)
+	return time.Now().Add(minutes)
+}
+
+func NewSettings() (*Settings, error) {
+	environment := os.Getenv("GOENV")
+	if len(environment) == 0 {
+		environment = "development"
+	}
+
+	buf, err := ioutil.ReadFile(fmt.Sprintf("config/envs/%s.yml", environment))
+	if err != nil {
+		panic("failed to load env settings")
+	}
+
+	settings := &Settings{}
+	err = yaml.Unmarshal(buf, settings)
+	if err != nil {
+		fmt.Println(err)
+		panic("failed to map settings to struct")
+	}
+	return settings, nil
+}
+
+func GetRdbUri() (uri string) {
+	rdb := settings.MySQL
 	uri = fmt.Sprintf(
 		"%s:%s@tcp(%s:%d)/%s?parseTime=true",
 		rdb.UserName,
@@ -36,4 +75,8 @@ func (setting *Settings) GetRdbUri() (uri string) {
 		rdb.DataBase,
 	)
 	return
+}
+
+func GetJwtConfig() *Jwt {
+	return settings.Jwt
 }

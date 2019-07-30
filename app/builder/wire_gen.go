@@ -8,6 +8,7 @@ package builder
 import (
 	"github.com/arabian9ts/sweeTest/app/interface/controllers"
 	"github.com/arabian9ts/sweeTest/app/interface/database"
+	"github.com/arabian9ts/sweeTest/app/interface/handler"
 	"github.com/arabian9ts/sweeTest/app/interface/presenter"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
@@ -74,75 +75,55 @@ func InitializeRootController() (*controllers.RootController, error) {
 	if err != nil {
 		return nil, err
 	}
-	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController)
+	authOutput := presenter.NewAuthPresenter()
+	studentLoginController, err := controllers.NewStudentLoginController(userRepository, authOutput, validation)
+	if err != nil {
+		return nil, err
+	}
+	assistantLoginController, err := controllers.NewAssistantLoginController(userRepository, authOutput, validation)
+	if err != nil {
+		return nil, err
+	}
+	teacherLoginController, err := controllers.NewTeacherLoginController(userRepository, authOutput, validation)
+	if err != nil {
+		return nil, err
+	}
+	adminLoginController, err := controllers.NewAdminLoginController(userRepository, authOutput, validation)
+	if err != nil {
+		return nil, err
+	}
+	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, studentLoginController, assistantLoginController, teacherLoginController, adminLoginController)
 	if err != nil {
 		return nil, err
 	}
 	return rootController, nil
 }
 
-func InitializeStudentsController() (*controllers.StudentsController, error) {
+func InitializeRootHandler() (*handler.RootHandler, error) {
 	sqlHandler := infrastructure.NewSqlHandler()
 	userRepository, err := database.NewUserRepository(sqlHandler)
 	if err != nil {
 		return nil, err
 	}
-	userOutput := presenter.NewUserPresenter()
-	validation := validator.NewDefaultValidator()
-	studentsController, err := controllers.NewStudentsController(userRepository, userOutput, validation)
+	authHandler, err := handler.NewAuthHandler(userRepository)
 	if err != nil {
 		return nil, err
 	}
-	return studentsController, nil
-}
-
-func InitializeAssistantsController() (*controllers.AssistantsController, error) {
-	sqlHandler := infrastructure.NewSqlHandler()
-	userRepository, err := database.NewUserRepository(sqlHandler)
+	meHandler, err := handler.NewMeHandler(userRepository)
 	if err != nil {
 		return nil, err
 	}
-	userOutput := presenter.NewUserPresenter()
-	validation := validator.NewDefaultValidator()
-	assistantsController, err := controllers.NewAssistantsController(userRepository, userOutput, validation)
+	rootHandler, err := handler.NewRootHandler(authHandler, meHandler)
 	if err != nil {
 		return nil, err
 	}
-	return assistantsController, nil
-}
-
-func InitializeTeachersController() (*controllers.TeachersController, error) {
-	sqlHandler := infrastructure.NewSqlHandler()
-	userRepository, err := database.NewUserRepository(sqlHandler)
-	if err != nil {
-		return nil, err
-	}
-	userOutput := presenter.NewUserPresenter()
-	validation := validator.NewDefaultValidator()
-	teachersController, err := controllers.NewTeachersController(userRepository, userOutput, validation)
-	if err != nil {
-		return nil, err
-	}
-	return teachersController, nil
-}
-
-func InitializeLecturesController() (*controllers.LecturesController, error) {
-	sqlHandler := infrastructure.NewSqlHandler()
-	lectureRepository, err := database.NewLectureRepository(sqlHandler)
-	if err != nil {
-		return nil, err
-	}
-	lectureOutput := presenter.NewLecturePresenter()
-	validation := validator.NewDefaultValidator()
-	lecturesController, err := controllers.NewLecturesController(lectureRepository, lectureOutput, validation)
-	if err != nil {
-		return nil, err
-	}
-	return lecturesController, nil
+	return rootHandler, nil
 }
 
 // wire.go:
 
 var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, interactor.NewUserInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, validator.NewDefaultValidator)
+var handlerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, handler.NewAuthHandler, handler.NewMeHandler, handler.NewRootHandler)
+
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, controllers.NewStudentLoginController, controllers.NewAssistantLoginController, controllers.NewTeacherLoginController, controllers.NewAdminLoginController, interactor.NewUserInteractor, interactor.NewLectureInteractor, interactor.NewTaskInteractor, interactor.NewAuthInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, presenter.NewAuthPresenter, validator.NewDefaultValidator)

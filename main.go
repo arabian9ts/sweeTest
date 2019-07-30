@@ -14,21 +14,26 @@ func main() {
 		Dir: "db/migrations",
 	}
 
-	db, err := sql.Open("mysql", config.GetSettings().GetRdbUri())
+	db, err := sql.Open("mysql", config.GetRdbUri())
 	if err != nil {
 		fmt.Println("failed to connect mysql")
 	}
 
 	n, err := migrate.Exec(db, "mysql", migrations, migrate.Up)
 	if err != nil {
-		fmt.Println("failed to migarate")
+		fmt.Println("failed to migrate")
 	}
 	fmt.Printf("Applied %d migrations!\n", n)
 
-	root, err := builder.InitializeRootController()
+	controllers, err := builder.InitializeRootController()
 	if err != nil {
-		panic("failed to initialize controlelrs")
+		panic("failed to initialize controllers")
 	}
 
-	infrastructure.Router(root).Run()
+	handlers, err := builder.InitializeRootHandler()
+	if err != nil {
+		panic("failed to initialize auth handler")
+	}
+
+	infrastructure.Router(controllers, handlers).Run()
 }

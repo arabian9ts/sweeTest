@@ -69,6 +69,58 @@ func (repo *UserRepository) GetAdminById(adminId int64) (admin *model.Admin, err
 	return
 }
 
+func (repo *UserRepository) GetStudentByStudentNo(studentNo string) (student *model.Student, err error) {
+	row, err := repo.SqlHandler.Query("SELECT * FROM `students` WHERE `student_no` = ?", studentNo)
+	if err != nil {
+		return &model.Student{}, err
+	}
+	defer row.Close()
+	row.Next()
+
+	student = &model.Student{}
+	err = row.Scan(&student.ID, &student.StudentNo, &student.FirstName, &student.LastName, &student.Email, &student.Digest, &student.CreatedAt, &student.UpdatedAt)
+	return
+}
+
+func (repo *UserRepository) GetAssistantByStudentNo(studentNo string) (assistant *model.Assistant, err error) {
+	row, err := repo.SqlHandler.Query("SELECT * FROM `assistants` WHERE `student_no` = ?", studentNo)
+	if err != nil {
+		return &model.Assistant{}, err
+	}
+	defer row.Close()
+	row.Next()
+
+	assistant = &model.Assistant{}
+	err = row.Scan(&assistant.ID, &assistant.StudentNo, &assistant.FirstName, &assistant.LastName, &assistant.Email, &assistant.Digest, &assistant.CreatedAt, &assistant.UpdatedAt)
+	return
+}
+
+func (repo *UserRepository) GetTeacherByEmail(email string) (teacher *model.Teacher, err error) {
+	row, err := repo.SqlHandler.Query("SELECT * FROM `teachers` WHERE `email` = ?", email)
+	if err != nil {
+		return &model.Teacher{}, err
+	}
+	defer row.Close()
+	row.Next()
+
+	teacher = &model.Teacher{}
+	err = row.Scan(&teacher.ID, &teacher.FirstName, &teacher.LastName, &teacher.Email, &teacher.Digest, &teacher.CreatedAt, &teacher.UpdatedAt)
+	return
+}
+
+func (repo *UserRepository) GetAdminByEmail(email string) (admin *model.Admin, err error) {
+	row, err := repo.SqlHandler.Query("SELECT * FROM `admins` WHERE `email` = ?", email)
+	if err != nil {
+		return &model.Admin{}, err
+	}
+	defer row.Close()
+	row.Next()
+
+	admin = &model.Admin{}
+	err = row.Scan(&admin.ID, &admin.FirstName, &admin.LastName, &admin.Email, &admin.Digest, &admin.CreatedAt, &admin.UpdatedAt)
+	return
+}
+
 func (repo *UserRepository) InsertStudent(student *model.Student) (int64, error) {
 	result, err := repo.SqlHandler.Execute(
 		"INSERT INTO students (student_no, first_name, last_name, email, digest) VALUES (?,?,?,?,?)",
