@@ -12,8 +12,7 @@ type SqlHandler struct {
 }
 
 func NewSqlHandler() database.SqlHandler {
-	settings := config.GetSettings()
-	uri := settings.GetRdbUri()
+	uri := config.GetRdbUri()
 
 	conn, err := sql.Open("mysql", uri)
 	if err != nil {

@@ -26,7 +26,7 @@ func NewStudentsController(userRepository repository.UserRepository, output port
 }
 
 func (controller *StudentsController) Show(ctx Context) {
-	id, err := strconv.Atoi(ctx.Param("id"))
+	id, err := strconv.Atoi(ctx.Param("student_id"))
 	if err != nil {
 		ctx.JSON(404, err)
 		return

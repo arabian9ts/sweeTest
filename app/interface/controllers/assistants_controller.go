@@ -27,7 +27,7 @@ func NewAssistantsController(userRepository repository.UserRepository, output po
 }
 
 func (controller *AssistantsController) Show(ctx Context) {
-	id, err := strconv.Atoi(ctx.Param("id"))
+	id, err := strconv.Atoi(ctx.Param("assistant_id"))
 	if err != nil {
 		ctx.JSON(404, err)
 		return
