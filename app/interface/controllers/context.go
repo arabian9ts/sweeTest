@@ -5,6 +5,7 @@ type Context interface {
 	Bind(interface{}) error
 	Status(int)
 	JSON(int, interface{})
+	Query(string) string
 	Get(string) (interface{}, bool)
 	Set(string, interface{})
 }

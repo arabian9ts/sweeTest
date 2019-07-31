@@ -31,11 +31,11 @@ func (controller *TasksController) Index(ctx Context) {
 		ctx.JSON(404, err)
 		return
 	}
-	limit, err := strconv.Atoi(ctx.Param("limit"))
+	limit, err := strconv.Atoi(ctx.Query("limit"))
 	if err != nil {
 		limit = 10
 	}
-	offset, err := strconv.Atoi(ctx.Param("offset"))
+	offset, err := strconv.Atoi(ctx.Query("offset"))
 	if err != nil {
 		offset = 0
 	}
