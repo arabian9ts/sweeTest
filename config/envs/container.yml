@@ -1,7 +1,13 @@
 # example env settings
-username: sweeta
-password: kaba8ki3TA6
-database: sweetest
-dialect: mysql
-host: mysql
-port: 3306
+mysql:
+  username: sweeta
+  password: kaba8ki3TA6
+  database: sweetest
+  dialect: mysql
+  host: mysql
+  port: 3306
+
+jwt:
+  secret: secret key
+  valid_minutes: 43200 # 60 * 24 * 30 * time.Minute => 1 month
+  realm: jwt auth
