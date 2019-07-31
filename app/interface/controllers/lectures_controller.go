@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/arabian9ts/sweeTest/app/adapter"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
@@ -27,12 +26,11 @@ func NewLecturesController(lectureRepository repository.LectureRepository, outpu
 }
 
 func (controller *LecturesController) Index(ctx Context) {
-	fmt.Println(ctx.Get("currentUser"))
-	limit, err := strconv.Atoi(ctx.Param("limit"))
+	limit, err := strconv.Atoi(ctx.Query("limit"))
 	if err != nil {
 		limit = 10
 	}
-	offset, err := strconv.Atoi(ctx.Param("offset"))
+	offset, err := strconv.Atoi(ctx.Query("offset"))
 	if err != nil {
 		offset = 0
 	}

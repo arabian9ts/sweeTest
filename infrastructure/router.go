@@ -28,7 +28,7 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 	assistantEndPoint := router.Group("/assistant")
 	{
 		assistantEndPoint.POST("/login", func(c *gin.Context) { controllers.AssistantLoginController.Create(c) })
-		router.Use(handlers.AuthHandler.AssistantAuthHandler())
+		assistantEndPoint.Use(handlers.AuthHandler.AssistantAuthHandler())
 		{
 			assistantEndPoint.POST("/", func(c *gin.Context) { controllers.AssistantsController.Create(c) })
 			assistantEndPoint.GET("/me", handlers.MeHandler.AssistantMeHandler())
