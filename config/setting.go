@@ -76,7 +76,6 @@ func NewSettings() (*Settings, error) {
 		fmt.Println(err)
 		panic("failed to map settings to struct")
 	}
-	fmt.Println(settings.MySQL)
 	return settings, nil
 }
 
