@@ -79,3 +79,43 @@ func (mock *UserRepositoryMock) InsertAdmin(admin *model.Admin) (int64, error) {
 	}
 	return mock.AdminFixture.ID, nil
 }
+
+func (mock *UserRepositoryMock) GetStudentByStudentNo(studentNo string) (*model.Student, error) {
+	if mock.Error != nil {
+		return &model.Student{}, mock.Error
+	}
+	if mock.StudentFixture.StudentNo != studentNo {
+		return &model.Student{}, mock.Error
+	}
+	return mock.StudentFixture, nil
+}
+
+func (mock *UserRepositoryMock) GetAssistantByStudentNo(studentNo string) (*model.Assistant, error) {
+	if mock.Error != nil {
+		return &model.Assistant{}, mock.Error
+	}
+	if mock.AssistantFixture.StudentNo != studentNo {
+		return &model.Assistant{}, mock.Error
+	}
+	return mock.AssistantFixture, nil
+}
+
+func (mock *UserRepositoryMock) GetTeacherByEmail(email string) (*model.Teacher, error) {
+	if mock.Error != nil {
+		return &model.Teacher{}, mock.Error
+	}
+	if mock.TeacherFixture.Email != email {
+		return &model.Teacher{}, mock.Error
+	}
+	return mock.TeacherFixture, nil
+}
+
+func (mock *UserRepositoryMock) GetAdminByEmail(email string) (*model.Admin, error) {
+	if mock.Error != nil {
+		return &model.Admin{}, mock.Error
+	}
+	if mock.AdminFixture.Email != email {
+		return &model.Admin{}, mock.Error
+	}
+	return mock.AdminFixture, nil
+}
