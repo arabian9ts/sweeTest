@@ -6,6 +6,8 @@ import (
 	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"os"
+	"regexp"
+	"strings"
 	"time"
 )
 
@@ -50,7 +52,20 @@ func NewSettings() (*Settings, error) {
 		environment = "development"
 	}
 
-	buf, err := ioutil.ReadFile(fmt.Sprintf("config/envs/%s.yml", environment))
+	// Note: if use binary in container, envPath is ./config/envs/{GOENV}.yml
+	// otherwise, /{project absolute path to project}/config/envs/{GOENV}.yml
+	project := "sweeTest"
+	prefix := project + "/"
+	configPath := fmt.Sprintf("config/envs/%s.yml", environment)
+	envPath := "./" + configPath
+	
+	currentDir, err := os.Getwd()
+	if err == nil && strings.Contains(currentDir, project) {
+		rep := regexp.MustCompile(project + `.*`)
+		envPath = rep.ReplaceAllString(currentDir, prefix + configPath)
+	}
+
+	buf, err := ioutil.ReadFile(envPath)
 	if err != nil {
 		panic("failed to load env settings")
 	}
@@ -61,6 +76,7 @@ func NewSettings() (*Settings, error) {
 		fmt.Println(err)
 		panic("failed to map settings to struct")
 	}
+	fmt.Println(settings.MySQL)
 	return settings, nil
 }
 
