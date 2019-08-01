@@ -92,7 +92,16 @@ func InitializeRootController() (*controllers.RootController, error) {
 	if err != nil {
 		return nil, err
 	}
-	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, studentLoginController, assistantLoginController, teacherLoginController, adminLoginController)
+	helpOutput := presenter.NewHelpPresenter()
+	helpRepository, err := database.NewHelpRepository(sqlHandler)
+	if err != nil {
+		return nil, err
+	}
+	helpsController, err := controllers.NewHelpsController(helpOutput, helpRepository, validation)
+	if err != nil {
+		return nil, err
+	}
+	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, studentLoginController, assistantLoginController, teacherLoginController, adminLoginController, helpsController)
 	if err != nil {
 		return nil, err
 	}
@@ -126,4 +135,4 @@ var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRe
 
 var handlerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, handler.NewAuthHandler, handler.NewMeHandler, handler.NewRootHandler)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, controllers.NewStudentLoginController, controllers.NewAssistantLoginController, controllers.NewTeacherLoginController, controllers.NewAdminLoginController, interactor.NewUserInteractor, interactor.NewLectureInteractor, interactor.NewTaskInteractor, interactor.NewAuthInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, presenter.NewAuthPresenter, validator.NewDefaultValidator)
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, database.NewHelpRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, controllers.NewStudentLoginController, controllers.NewAssistantLoginController, controllers.NewTeacherLoginController, controllers.NewAdminLoginController, controllers.NewHelpsController, interactor.NewUserInteractor, interactor.NewLectureInteractor, interactor.NewTaskInteractor, interactor.NewAuthInteractor, interactor.NewHelpInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, presenter.NewAuthPresenter, presenter.NewHelpPresenter, validator.NewDefaultValidator)

@@ -22,6 +22,32 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 			{
 				student.GET("/", func(c *gin.Context) { controllers.StudentsController.Show(c) })
 			}
+
+			studentEndPoint.GET("/lectures", func(c *gin.Context) { controllers.LecturesController.Index(c) })
+			studentEndPoint.POST("/lectures", func(c *gin.Context) { controllers.LecturesController.Create(c) })
+
+			lecture := studentEndPoint.Group("/lectures/:lecture_id")
+			{
+				lecture.GET("/", func(c *gin.Context) { controllers.LecturesController.Show(c) })
+				lecture.PUT("/", func(c *gin.Context) { controllers.LecturesController.Update(c) })
+				lecture.DELETE("/", func(c *gin.Context) { controllers.LecturesController.Delete(c) })
+				lecture.GET("/tasks", func(c *gin.Context) { controllers.TasksController.Index(c) })
+				lecture.POST("/tasks", func(c *gin.Context) { controllers.TasksController.Create(c) })
+				lecture.GET("/helps", func(c *gin.Context) {controllers.HelpsController.Index(c)})
+				lecture.POST("/helps", func(c *gin.Context) {controllers.HelpsController.Create(c)})
+
+				task := lecture.Group("/tasks/:task_id")
+				{
+					task.PUT("/", func(c *gin.Context) { controllers.TasksController.Update(c) })
+					task.DELETE("/", func(c *gin.Context) { controllers.TasksController.Delete(c) })
+				}
+
+				help := lecture.Group("/helps/:help_id")
+				{
+					help.PUT("/", func(c *gin.Context) { controllers.HelpsController.Update(c) })
+					help.DELETE("/", func(c *gin.Context) { controllers.HelpsController.Delete(c) })
+				}
+			}
 		}
 	}
 
@@ -59,24 +85,6 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		adminEndPoint.Use(handlers.AuthHandler.AdminAuthHandler())
 		{
 			adminEndPoint.GET("/me", handlers.MeHandler.AdminMeHandler())
-		}
-	}
-
-	router.GET("/lectures", func(c *gin.Context) { controllers.LecturesController.Index(c) })
-	router.POST("/lectures", func(c *gin.Context) { controllers.LecturesController.Create(c) })
-
-	lecture := router.Group("/lectures/:lecture_id")
-	{
-		lecture.GET("/", func(c *gin.Context) { controllers.LecturesController.Show(c) })
-		lecture.PUT("/", func(c *gin.Context) { controllers.LecturesController.Update(c) })
-		lecture.DELETE("/", func(c *gin.Context) { controllers.LecturesController.Delete(c) })
-		lecture.GET("/tasks", func(c *gin.Context) { controllers.TasksController.Index(c) })
-		lecture.POST("/tasks", func(c *gin.Context) { controllers.TasksController.Create(c) })
-
-		task := lecture.Group("/tasks/:task_id")
-		{
-			task.PUT("/", func(c *gin.Context) { controllers.TasksController.Update(c) })
-			task.DELETE("/", func(c *gin.Context) { controllers.TasksController.Delete(c) })
 		}
 	}
 

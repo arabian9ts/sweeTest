@@ -8,4 +8,5 @@ type Context interface {
 	Query(string) string
 	Get(string) (interface{}, bool)
 	Set(string, interface{})
+	AbortWithStatus(code int)
 }
