@@ -10,6 +10,7 @@ type RootController struct {
 	AssistantLoginController *AssistantLoginController
 	TeacherLoginController   *TeacherLoginController
 	AdminLoginController     *AdminLoginController
+	HelpsController          *HelpsController
 }
 
 func NewRootController(
@@ -22,6 +23,7 @@ func NewRootController(
 	assistantLoginController *AssistantLoginController,
 	teacherLoginController *TeacherLoginController,
 	adminLoginController *AdminLoginController,
+	helpsCOntroller *HelpsController,
 ) (*RootController, error) {
 	return &RootController{
 		StudentsController:       studentsController,
@@ -33,5 +35,6 @@ func NewRootController(
 		AssistantLoginController: assistantLoginController,
 		TeacherLoginController:   teacherLoginController,
 		AdminLoginController:     adminLoginController,
+		HelpsController:          helpsCOntroller,
 	}, nil
 }
