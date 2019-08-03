@@ -6,7 +6,7 @@ import (
 	"github.com/arabian9ts/sweeTest/app/util"
 )
 
-func ConvertStudentInputFormToUser(form *dto.CreateStudentInputForm) (student *model.Student) {
+func ConvertCreateStudentInputFormToUser(form *dto.CreateStudentInputForm) (student *model.Student) {
 	student = &model.Student{}
 	student.StudentNo = form.StudentNo
 	student.FirstName = form.FirstName
@@ -16,7 +16,7 @@ func ConvertStudentInputFormToUser(form *dto.CreateStudentInputForm) (student *m
 	return
 }
 
-func ConvertAssistantInputFormToAssistant(form *dto.CreateAssistantInputForm) (assistant *model.Assistant) {
+func ConvertCreateAssistantInputFormToAssistant(form *dto.CreateAssistantInputForm) (assistant *model.Assistant) {
 	assistant = &model.Assistant{}
 	assistant.StudentNo = form.StudentNo
 	assistant.FirstName = form.FirstName
@@ -26,7 +26,7 @@ func ConvertAssistantInputFormToAssistant(form *dto.CreateAssistantInputForm) (a
 	return
 }
 
-func ConvertTeacherInputFormToTeacher(form *dto.CreateTeacherInputForm) (teacher *model.Teacher) {
+func ConvertCreateTeacherInputFormToTeacher(form *dto.CreateTeacherInputForm) (teacher *model.Teacher) {
 	teacher = &model.Teacher{}
 	teacher.FirstName = form.FirstName
 	teacher.LastName = form.LastName

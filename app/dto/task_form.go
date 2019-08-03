@@ -4,15 +4,15 @@ import "time"
 
 // Input
 type CreateTaskInputForm struct {
-	LectureID int64     `validate:"required,gt=0"`
+	LectureID int64     `validate:"required,gt=0" json:"-"`
 	Title     string    `validate:"lte=100" json:"title"`
 	Desc      string    `json:"desc"`
 	Deadline  time.Time `json:"deadline"`
 }
 
 type UpdateTaskInputForm struct {
-	ID        int64     `validate:"required,gt=0"`
-	LectureID int64     `validate:"required,gt=0"`
+	ID        int64     `validate:"required,gt=0" json:"-"`
+	LectureID int64     `validate:"required,gt=0" json:"-"`
 	Title     string    `validate:"required,lte=100" json:"title"`
 	Desc      string    `json:"desc"`
 	Deadline  time.Time `json:"deadline"`

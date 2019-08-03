@@ -10,7 +10,7 @@ type CreateStudentInputForm struct {
 }
 
 type UpdateStudentInputForm struct {
-	ID        int64  `validate:"required,gt=0"`
+	ID        int64  `validate:"required,gt=0" json:"-"`
 	StudentNo string `validate:"required,lte=20" json:"student_no"`
 	FirstName string `validate:"required,lte=15" json:"first_name"`
 	LastName  string `validate:"required,lte=15" json:"last_name"`
@@ -27,7 +27,7 @@ type CreateAssistantInputForm struct {
 }
 
 type UpdateAssistantInputForm struct {
-	ID        int64  `validate:"required,gt=0"`
+	ID        int64  `validate:"required,gt=0" json:"-"`
 	StudentNo string `validate:"required,lte=20" json:"student_no"`
 	FirstName string `validate:"required,lte=15" json:"first_name"`
 	LastName  string `validate:"required,lte=15" json:"last_name"`
@@ -43,7 +43,7 @@ type CreateTeacherInputForm struct {
 }
 
 type UpdateTeacherInputForm struct {
-	ID        int64  `validate:"required,gt=0"`
+	ID        int64  `validate:"required,gt=0" json:"-"`
 	FirstName string `validate:"required,lte=15" json:"first_name"`
 	LastName  string `validate:"required,lte=15" json:"last_name"`
 	Email     string `validate:"required,lte=100,email" json:"email"`

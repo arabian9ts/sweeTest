@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"github.com/arabian9ts/sweeTest/app/adapter"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
@@ -64,8 +63,7 @@ func (controller *TasksController) Create(ctx Context) {
 		return
 	}
 
-	task := adapter.ConvertCreateTaskInputFormToTask(inputForm)
-	outputForm, err := controller.InputPort.CreateTask(task)
+	outputForm, err := controller.InputPort.CreateTask(inputForm)
 	if err != nil {
 		ctx.JSON(400, err)
 		return
@@ -94,8 +92,7 @@ func (controller *TasksController) Update(ctx Context) {
 		return
 	}
 
-	task := adapter.ConvertUpdateTaskInputFormToTask(inputForm)
-	outputForm, err := controller.InputPort.UpdateTask(task)
+	outputForm, err := controller.InputPort.UpdateTask(inputForm)
 	if err != nil {
 		ctx.JSON(400, err)
 		return

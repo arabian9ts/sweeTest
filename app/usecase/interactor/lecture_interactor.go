@@ -1,7 +1,7 @@
 package interactor
 
 import (
-	"github.com/arabian9ts/sweeTest/app/domain/model"
+	"github.com/arabian9ts/sweeTest/app/adapter"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
@@ -28,13 +28,15 @@ func (interactor *LectureInteractor) GetLectures(limit int, offset int) (dto.Get
 	)
 }
 
-func (interactor *LectureInteractor) CreateLecture(lecture *model.Lecture) (*dto.CreateLectureOutputForm, error) {
+func (interactor *LectureInteractor) CreateLecture(form *dto.CreateLectureInputForm) (*dto.CreateLectureOutputForm, error) {
+	lecture := adapter.ConvertCreateLectureInputFormToLecture(form)
 	return interactor.LectureOutput.HandleCreateLecture(
 		interactor.LectureRepository.CreateLecture(lecture),
 	)
 }
 
-func (interactor *LectureInteractor) UpdateLecture(lecture *model.Lecture) (*dto.UpdateLectureOutputForm, error) {
+func (interactor *LectureInteractor) UpdateLecture(form *dto.UpdateLectureInputForm) (*dto.UpdateLectureOutputForm, error) {
+	lecture := adapter.ConvertUpdateLectureInputFormToLecture(form)
 	return interactor.LectureOutput.HandleUpdateLecture(
 		interactor.LectureRepository.UpdateLecture(lecture),
 	)
