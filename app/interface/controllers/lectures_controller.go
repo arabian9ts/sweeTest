@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"github.com/arabian9ts/sweeTest/app/adapter"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
@@ -70,8 +69,7 @@ func (controller *LecturesController) Create(ctx Context) {
 		return
 	}
 
-	lecture := adapter.ConvertCreateLectureInputFormToLecture(inputForm)
-	outputForm, err := controller.InputPort.CreateLecture(lecture)
+	outputForm, err := controller.InputPort.CreateLecture(inputForm)
 	if err != nil {
 		ctx.JSON(400, err)
 		return
@@ -96,8 +94,7 @@ func (controller *LecturesController) Update(ctx Context) {
 		return
 	}
 
-	lecture := adapter.ConvertUpdateLectureInputFormToLecture(inputForm)
-	outputForm, err := controller.InputPort.UpdateLecture(lecture)
+	outputForm, err := controller.InputPort.UpdateLecture(inputForm)
 	if err != nil {
 		ctx.JSON(400, err)
 		return

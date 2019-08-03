@@ -8,7 +8,7 @@ type CreateLectureInputForm struct {
 }
 
 type UpdateLectureInputForm struct {
-	ID   int64  `validate:"required,gt=0"`
+	ID   int64  `validate:"required,gt=0" json:"-"`
 	Name string `validate:"required,lte=50" json:"name"`
 }
 

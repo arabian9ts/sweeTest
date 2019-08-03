@@ -3,7 +3,6 @@ package controllers
 import (
 	"strconv"
 
-	"github.com/arabian9ts/sweeTest/app/adapter"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
@@ -51,8 +50,7 @@ func (controller *AssistantsController) Create(ctx Context) {
 		return
 	}
 
-	assistant := adapter.ConvertAssistantInputFormToAssistant(inputForm)
-	outputForm, err := controller.InputPort.CreateAssistant(assistant)
+	outputForm, err := controller.InputPort.CreateAssistant(inputForm)
 	if err != nil {
 		ctx.JSON(400, err)
 		return

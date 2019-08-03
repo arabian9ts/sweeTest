@@ -1,7 +1,6 @@
 package port
 
 import (
-	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"github.com/arabian9ts/sweeTest/app/dto"
 )
 
@@ -17,11 +16,11 @@ type GetTaskUseCase interface {
 }
 
 type CreateTaskUseCase interface {
-	CreateTask(task *model.Task) (*dto.CreateTaskOutputForm, error)
+	CreateTask(form *dto.CreateTaskInputForm) (*dto.CreateTaskOutputForm, error)
 }
 
 type UpdateTaskUseCase interface {
-	UpdateTask(task *model.Task) (*dto.UpdateTaskOutputForm, error)
+	UpdateTask(form *dto.UpdateTaskInputForm) (*dto.UpdateTaskOutputForm, error)
 }
 
 type DeleteTaskUseCase interface {

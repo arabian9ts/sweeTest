@@ -1,7 +1,6 @@
 package port
 
 import (
-	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"github.com/arabian9ts/sweeTest/app/dto"
 )
 
@@ -17,7 +16,7 @@ type GetUserUseCase interface {
 }
 
 type CreateUserUseCase interface {
-	CreateStudent(student *model.Student) (*dto.CreateStudentOutputForm, error)
-	CreateAssistant(assistant *model.Assistant) (*dto.CreateAssistantOutputForm, error)
-	CreateTeacher(teacher *model.Teacher) (*dto.CreateTeacherOutputForm, error)
+	CreateStudent(form *dto.CreateStudentInputForm) (*dto.CreateStudentOutputForm, error)
+	CreateAssistant(form *dto.CreateAssistantInputForm) (*dto.CreateAssistantOutputForm, error)
+	CreateTeacher(form *dto.CreateTeacherInputForm) (*dto.CreateTeacherOutputForm, error)
 }

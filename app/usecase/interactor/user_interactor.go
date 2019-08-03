@@ -1,7 +1,7 @@
 package interactor
 
 import (
-	"github.com/arabian9ts/sweeTest/app/domain/model"
+	"github.com/arabian9ts/sweeTest/app/adapter"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
@@ -34,19 +34,22 @@ func (interactor *UserInteractor) GetTeacherById(id int64) (*dto.GetTeacherByIdO
 	)
 }
 
-func (interactor *UserInteractor) CreateStudent(student *model.Student) (*dto.CreateStudentOutputForm, error) {
+func (interactor *UserInteractor) CreateStudent(form *dto.CreateStudentInputForm) (*dto.CreateStudentOutputForm, error) {
+	student := adapter.ConvertCreateStudentInputFormToUser(form)
 	return interactor.UserOutput.HandleCreateStudent(
 		interactor.UserRepository.InsertStudent(student),
 	)
 }
 
-func (interactor *UserInteractor) CreateAssistant(assistant *model.Assistant) (*dto.CreateAssistantOutputForm, error) {
+func (interactor *UserInteractor) CreateAssistant(form *dto.CreateAssistantInputForm) (*dto.CreateAssistantOutputForm, error) {
+	assistant := adapter.ConvertCreateAssistantInputFormToAssistant(form)
 	return interactor.UserOutput.HandleCreateAssistant(
 		interactor.UserRepository.InsertAssistant(assistant),
 	)
 }
 
-func (interactor *UserInteractor) CreateTeacher(teacher *model.Teacher) (*dto.CreateTeacherOutputForm, error) {
+func (interactor *UserInteractor) CreateTeacher(form *dto.CreateTeacherInputForm) (*dto.CreateTeacherOutputForm, error) {
+	teacher := adapter.ConvertCreateTeacherInputFormToTeacher(form)
 	return interactor.UserOutput.HandleCreateTeacher(
 		interactor.UserRepository.InsertTeacher(teacher),
 	)

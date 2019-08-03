@@ -1,7 +1,6 @@
 package port
 
 import (
-	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"github.com/arabian9ts/sweeTest/app/dto"
 )
 
@@ -18,11 +17,11 @@ type GetLectureUseCase interface {
 }
 
 type CreateLectureUseCase interface {
-	CreateLecture(lecture *model.Lecture) (*dto.CreateLectureOutputForm, error)
+	CreateLecture(form *dto.CreateLectureInputForm) (*dto.CreateLectureOutputForm, error)
 }
 
 type UpdateLectureUseCase interface {
-	UpdateLecture(lecture *model.Lecture) (*dto.UpdateLectureOutputForm, error)
+	UpdateLecture(form *dto.UpdateLectureInputForm) (*dto.UpdateLectureOutputForm, error)
 }
 
 type DeleteLectureUseCase interface {

@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"github.com/arabian9ts/sweeTest/app/adapter"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
@@ -50,8 +49,7 @@ func (controller *StudentsController) Create(ctx Context) {
 		return
 	}
 
-	student := adapter.ConvertStudentInputFormToUser(inputForm)
-	outputForm, err := controller.InputPort.CreateStudent(student)
+	outputForm, err := controller.InputPort.CreateStudent(inputForm)
 	if err != nil {
 		ctx.JSON(400, err)
 		return

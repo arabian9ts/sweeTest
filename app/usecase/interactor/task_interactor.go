@@ -1,7 +1,7 @@
 package interactor
 
 import (
-	"github.com/arabian9ts/sweeTest/app/domain/model"
+	"github.com/arabian9ts/sweeTest/app/adapter"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
@@ -22,13 +22,15 @@ func (interactor *TaskInteractor) GetTasksByLectureId(lectureId int64, limit int
 	)
 }
 
-func (interactor *TaskInteractor) CreateTask(task *model.Task) (*dto.CreateTaskOutputForm, error) {
+func (interactor *TaskInteractor) CreateTask(form *dto.CreateTaskInputForm) (*dto.CreateTaskOutputForm, error) {
+	task := adapter.ConvertCreateTaskInputFormToTask(form)
 	return interactor.TaskOutput.HandleCreateTask(
 		interactor.TaskRepository.CreateTask(task),
 	)
 }
 
-func (interactor *TaskInteractor) UpdateTask(task *model.Task) (*dto.UpdateTaskOutputForm, error) {
+func (interactor *TaskInteractor) UpdateTask(form *dto.UpdateTaskInputForm) (*dto.UpdateTaskOutputForm, error) {
+	task := adapter.ConvertUpdateTaskInputFormToTask(form)
 	return interactor.TaskOutput.HandleUpdateTask(
 		interactor.TaskRepository.UpdateTask(task),
 	)
