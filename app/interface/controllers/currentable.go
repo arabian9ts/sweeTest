@@ -1,6 +1,8 @@
 package controllers
 
-import "github.com/arabian9ts/sweeTest/app/domain/model"
+import (
+	"github.com/arabian9ts/sweeTest/app/domain/model"
+)
 
 func getCurrentStudent(ctx Context) (student *model.Student) {
 	user, exists := ctx.Get("currentUser")

@@ -20,14 +20,14 @@ func (handler *AuthHandler) StudentAuthHandler() gin.HandlerFunc {
 		token, err := util.Decode(ctx.Request)
 
 		if err != nil {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
 		claims := token.Claims.(jwt.MapClaims)
 
 		if claims["role"] != "student" {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
@@ -35,7 +35,7 @@ func (handler *AuthHandler) StudentAuthHandler() gin.HandlerFunc {
 		student, err := handler.Repository.GetStudentById(id64)
 
 		if err != nil {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
@@ -48,14 +48,14 @@ func (handler *AuthHandler) AssistantAuthHandler() gin.HandlerFunc {
 		token, err := util.Decode(ctx.Request)
 
 		if err != nil {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
 		claims := token.Claims.(jwt.MapClaims)
 
 		if claims["role"] != "assistant" {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
@@ -63,7 +63,7 @@ func (handler *AuthHandler) AssistantAuthHandler() gin.HandlerFunc {
 		assistant, err := handler.Repository.GetAssistantById(id64)
 
 		if err != nil {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
@@ -76,14 +76,14 @@ func (handler *AuthHandler) TeacherAuthHandler() gin.HandlerFunc {
 		token, err := util.Decode(ctx.Request)
 
 		if err != nil {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
 		claims := token.Claims.(jwt.MapClaims)
 
 		if claims["role"] != "teacher" {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
@@ -91,7 +91,7 @@ func (handler *AuthHandler) TeacherAuthHandler() gin.HandlerFunc {
 		teacher, err := handler.Repository.GetTeacherById(id64)
 
 		if err != nil {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
@@ -104,14 +104,14 @@ func (handler *AuthHandler) AdminAuthHandler() gin.HandlerFunc {
 		token, err := util.Decode(ctx.Request)
 
 		if err != nil {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
 		claims := token.Claims.(jwt.MapClaims)
 
 		if claims["role"] != "admin" {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 
@@ -119,7 +119,7 @@ func (handler *AuthHandler) AdminAuthHandler() gin.HandlerFunc {
 		admin, err := handler.Repository.GetAdminById(id64)
 
 		if err != nil {
-			ctx.JSON(401, "Invalid Token")
+			ctx.AbortWithStatus(401)
 			return
 		}
 

@@ -35,3 +35,12 @@ func getHelpID(ctx Context) (helpID int64) {
 	helpID = int64(id)
 	return
 }
+
+func getCommentID(ctx Context) (commentID int64) {
+	id, err := strconv.Atoi(ctx.Param("comment_id"))
+	if err != nil {
+		id = 0
+	}
+	commentID = int64(id)
+	return
+}
