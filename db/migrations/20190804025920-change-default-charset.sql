@@ -1,0 +1,10 @@
+
+-- +migrate Up
+ALTER DATABASE `sweetest` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE `helps` DEFAULT CHARACTER SET utf8mb4;
+ALTER TABLE `comments` DEFAULT CHARACTER SET utf8mb4;
+
+-- +migrate Down
+ALTER DATABASE `sweetest` CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `helps` DEFAULT CHARACTER SET utf8;
+ALTER TABLE `comments` DEFAULT CHARACTER SET utf8;
