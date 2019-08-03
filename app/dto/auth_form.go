@@ -3,22 +3,22 @@ package dto
 // Input
 type AuthorizeStudentInputForm struct {
 	StudentNo string `validate:"required,lte=20" json:"student_no"`
-	Password  string `validate:"required,lte=100" json:"password"`
+	Password  string `validate:"required,lte=30" json:"password"`
 }
 
 type AuthorizeAssistantInputForm struct {
 	StudentNo string `validate:"required,lte=20" json:"student_no"`
-	Password  string `validate:"required,lte=100" json:"password"`
+	Password  string `validate:"required,lte=30" json:"password"`
 }
 
 type AuthorizeTeacherInputForm struct {
 	Email    string `validate:"required,lte=100,email" json:"email"`
-	Password string `validate:"required,lte=100" json:"password"`
+	Password string `validate:"required,lte=30" json:"password"`
 }
 
 type AuthorizeAdminInputForm struct {
 	Email    string `validate:"required,lte=100,email" json:"email"`
-	Password string `validate:"required,lte=100" json:"password"`
+	Password string `validate:"required,lte=30" json:"password"`
 }
 
 // Output
