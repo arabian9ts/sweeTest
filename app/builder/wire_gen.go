@@ -107,7 +107,15 @@ func InitializeRootController() (*controllers.RootController, error) {
 	if err != nil {
 		return nil, err
 	}
-	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, studentLoginController, assistantLoginController, teacherLoginController, adminLoginController, helpsController, studentCommentsController)
+	assistantCommentsController, err := controllers.NewAssistantCommentsController(commentOutput, commentRepository, validation)
+	if err != nil {
+		return nil, err
+	}
+	teacherCommentsController, err := controllers.NewTeacherCommentsController(commentOutput, commentRepository, validation)
+	if err != nil {
+		return nil, err
+	}
+	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, studentLoginController, assistantLoginController, teacherLoginController, adminLoginController, helpsController, studentCommentsController, assistantCommentsController, teacherCommentsController)
 	if err != nil {
 		return nil, err
 	}
