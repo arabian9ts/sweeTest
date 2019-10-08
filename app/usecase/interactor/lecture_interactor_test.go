@@ -2,13 +2,13 @@ package interactor
 
 import (
 	"fmt"
-	"github.com/arabian9ts/sweeTest/app/domain/model"
+	"testing"
+
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/interface/presenter"
 	"github.com/arabian9ts/sweeTest/fixture"
 	"github.com/arabian9ts/sweeTest/mock"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestGetLectures(t *testing.T) {
@@ -94,7 +94,7 @@ func TestCreateLecture(t *testing.T) {
 		}
 		lectureOutput := &presenter.LecturePresenter{}
 		lectureInteractor, _ := NewLectureInteractor(mockRepository, lectureOutput)
-		lecture := &model.Lecture{Name: "test lecture interactor"}
+		lecture := &dto.CreateLectureInputForm{Name: "test lecture interactor"}
 		outputForm, err := lectureInteractor.CreateLecture(lecture)
 
 		assert.Nil(t, err)
@@ -109,7 +109,7 @@ func TestCreateLecture(t *testing.T) {
 		}
 		lectureOutput := &presenter.LecturePresenter{}
 		lectureInteractor, _ := NewLectureInteractor(mockRepository, lectureOutput)
-		lecture := &model.Lecture{Name: "test lecture interactor"}
+		lecture := &dto.CreateLectureInputForm{Name: "test lecture interactor"}
 		outputForm, err := lectureInteractor.CreateLecture(lecture)
 
 		assert.NotNil(t, err)
@@ -120,9 +120,9 @@ func TestCreateLecture(t *testing.T) {
 
 func TestDeleteLecture(t *testing.T) {
 	t.Run("id=1, err=nil, success", func(t *testing.T) {
-		lectureFixture := fixture.NewValidLecture()
+		lectureFixture := fixture.NewUpdateLectureInputFormFixture()
 		mockRepository := &mock.LectureRepositoryMock{
-			LectureFixture: lectureFixture,
+			LectureFixture: fixture.NewValidLecture(),
 			Error:          nil,
 		}
 		lectureOutput := &presenter.LecturePresenter{}
@@ -135,7 +135,7 @@ func TestDeleteLecture(t *testing.T) {
 	})
 
 	t.Run("id=0, err=nil, failed", func(t *testing.T) {
-		lectureFixture := fixture.NewValidLecture()
+		lectureFixture := fixture.NewUpdateLectureInputFormFixture()
 		mockRepository := &mock.LectureRepositoryMock{
 			LectureFixture: fixture.NewValidLecture(),
 			Error:          nil,
@@ -151,7 +151,7 @@ func TestDeleteLecture(t *testing.T) {
 	})
 
 	t.Run("id=1, err=not nil, failed", func(t *testing.T) {
-		lectureFixture := fixture.NewValidLecture()
+		lectureFixture := fixture.NewUpdateLectureInputFormFixture()
 		mockRepository := &mock.LectureRepositoryMock{
 			LectureFixture: fixture.NewValidLecture(),
 			Error:          fmt.Errorf("repository error"),
@@ -168,9 +168,9 @@ func TestDeleteLecture(t *testing.T) {
 
 func TestUpdateLecture(t *testing.T) {
 	t.Run("id=1, err=nil, success", func(t *testing.T) {
-		lectureFixture := fixture.NewValidLecture()
+		lectureFixture := fixture.NewUpdateLectureInputFormFixture()
 		mockRepository := &mock.LectureRepositoryMock{
-			LectureFixture: lectureFixture,
+			LectureFixture: fixture.NewValidLecture(),
 			Error:          nil,
 		}
 		lectureOutput := &presenter.LecturePresenter{}
@@ -183,7 +183,7 @@ func TestUpdateLecture(t *testing.T) {
 	})
 
 	t.Run("id=0, err=nil, failed", func(t *testing.T) {
-		lectureFixture := fixture.NewValidLecture()
+		lectureFixture := fixture.NewUpdateLectureInputFormFixture()
 		mockRepository := &mock.LectureRepositoryMock{
 			LectureFixture: fixture.NewValidLecture(),
 			Error:          nil,
@@ -199,7 +199,7 @@ func TestUpdateLecture(t *testing.T) {
 	})
 
 	t.Run("id=1, err=not nil, failed", func(t *testing.T) {
-		lectureFixture := fixture.NewValidLecture()
+		lectureFixture := fixture.NewUpdateLectureInputFormFixture()
 		mockRepository := &mock.LectureRepositoryMock{
 			LectureFixture: fixture.NewValidLecture(),
 			Error:          fmt.Errorf("repository error"),

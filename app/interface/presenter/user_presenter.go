@@ -56,3 +56,24 @@ func (*UserPresenter) HandleCreateTeacher(id int64, err error) (*dto.CreateTeach
 	output := &dto.CreateTeacherOutputForm{LastInsertedId: id}
 	return output, err
 }
+
+func (*UserPresenter) HandleUpdateStudent(count int64, err error) (*dto.UpdateStudentOutputForm, error) {
+	updated := count != 0
+	return &dto.UpdateStudentOutputForm{
+		Updated: updated,
+	}, err
+}
+
+func (*UserPresenter) HandleUpdateAssistant(count int64, err error) (*dto.UpdateAssistantOutputForm, error) {
+	updated := count != 0
+	return &dto.UpdateAssistantOutputForm{
+		Updated: updated,
+	}, err
+}
+
+func (*UserPresenter) HandleUpdateTeacher(count int64, err error) (*dto.UpdateTeacherOutputForm, error) {
+	updated := count != 0
+	return &dto.UpdateTeacherOutputForm{
+		Updated: updated,
+	}, err
+}

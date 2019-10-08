@@ -10,6 +10,17 @@
   version = "v1.1.1"
 
 [[projects]]
+  digest = "1:bb2130e54ac8ea3ff78312ca365ce3b8a23423ed362530551bdceaccfa4d8e77"
+  name = "github.com/dgrijalva/jwt-go"
+  packages = [
+    ".",
+    "request",
+  ]
+  pruneopts = "UT"
+  revision = "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e"
+  version = "v3.2.0"
+
+[[projects]]
   digest = "1:cc93dd54278f6c0dd4b43588b3cf2c07b09b2a6dd4e2617edf81aa8946054c1e"
   name = "github.com/gin-contrib/cors"
   packages = ["."]
@@ -149,7 +160,7 @@
   version = "v1.3.0"
 
 [[projects]]
-  digest = "1:5a1cf4e370bc86137b58da2ae065e76526d32b11f62a7665f36dbd5f41fa95ff"
+  digest = "1:1d4ed6179f215ac661d5c447022b4d10074fbd8829b55e2d405d2a65496a278b"
   name = "github.com/ugorji/go"
   packages = ["codec"]
   pruneopts = "UT"
@@ -227,6 +238,8 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/dgrijalva/jwt-go",
+    "github.com/dgrijalva/jwt-go/request",
     "github.com/gin-contrib/cors",
     "github.com/gin-gonic/gin",
     "github.com/go-sql-driver/mysql",

@@ -1,6 +1,8 @@
 package mock
 
 import (
+	"fmt"
+
 	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 	"github.com/arabian9ts/sweeTest/fixture"
@@ -118,4 +120,34 @@ func (mock *UserRepositoryMock) GetAdminByEmail(email string) (*model.Admin, err
 		return &model.Admin{}, mock.Error
 	}
 	return mock.AdminFixture, nil
+}
+
+func (mock *UserRepositoryMock) UpdateStudent(student *model.Student) (int64, error) {
+	if mock.Error != nil {
+		return 0, mock.Error
+	}
+	if student.ID != mock.StudentFixture.ID {
+		return int64(0), fmt.Errorf("student not exists")
+	}
+	return mock.StudentFixture.ID, nil
+}
+
+func (mock *UserRepositoryMock) UpdateAssistant(assistant *model.Assistant) (int64, error) {
+	if mock.Error != nil {
+		return 0, mock.Error
+	}
+	if assistant.ID != mock.AssistantFixture.ID {
+		return int64(0), fmt.Errorf("assistant not exists")
+	}
+	return mock.AssistantFixture.ID, nil
+}
+
+func (mock *UserRepositoryMock) UpdateTeacher(teacher *model.Teacher) (int64, error) {
+	if mock.Error != nil {
+		return 0, mock.Error
+	}
+	if teacher.ID != mock.TeacherFixture.ID {
+		return int64(0), fmt.Errorf("teacher not exists")
+	}
+	return mock.TeacherFixture.ID, nil
 }

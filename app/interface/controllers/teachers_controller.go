@@ -1,12 +1,13 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 	"github.com/arabian9ts/sweeTest/app/validator"
-	"strconv"
 )
 
 type TeachersController struct {
@@ -50,6 +51,26 @@ func (controller *TeachersController) Create(ctx Context) {
 	}
 
 	outputForm, err := controller.InputPort.CreateTeacher(inputForm)
+	if err != nil {
+		ctx.JSON(400, err)
+		return
+	}
+
+	ctx.JSON(200, outputForm)
+}
+
+func (controller *TeachersController) Update(ctx Context) {
+	teacher := getCurrentTeacher(ctx)
+	inputForm := &dto.UpdateTeacherInputForm{ID: teacher.ID}
+	ctx.Bind(&inputForm)
+
+	ok, msgs := controller.Validator.Validate(inputForm)
+	if !ok {
+		ctx.JSON(400, msgs)
+		return
+	}
+
+	outputForm, err := controller.InputPort.UpdateTeacher(inputForm)
 	if err != nil {
 		ctx.JSON(400, err)
 		return

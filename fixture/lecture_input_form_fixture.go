@@ -7,3 +7,10 @@ func NewLectureInputFormFixture() *dto.CreateLectureInputForm {
 		Name: "lecture input form fixture",
 	}
 }
+
+func NewUpdateLectureInputFormFixture() *dto.UpdateLectureInputForm {
+	return &dto.UpdateLectureInputForm{
+		ID:   1,
+		Name: "lecture input form fixture",
+	}
+}

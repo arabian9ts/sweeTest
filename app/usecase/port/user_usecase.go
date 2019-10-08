@@ -7,6 +7,7 @@ import (
 type UserUseCase interface {
 	GetUserUseCase
 	CreateUserUseCase
+	UpdateUserUseCase
 }
 
 type GetUserUseCase interface {
@@ -19,4 +20,10 @@ type CreateUserUseCase interface {
 	CreateStudent(form *dto.CreateStudentInputForm) (*dto.CreateStudentOutputForm, error)
 	CreateAssistant(form *dto.CreateAssistantInputForm) (*dto.CreateAssistantOutputForm, error)
 	CreateTeacher(form *dto.CreateTeacherInputForm) (*dto.CreateTeacherOutputForm, error)
+}
+
+type UpdateUserUseCase interface {
+	UpdateStudent(form *dto.UpdateStudentInputForm) (*dto.UpdateStudentOutputForm, error)
+	UpdateAssistant(form *dto.UpdateAssistantInputForm) (*dto.UpdateAssistantOutputForm, error)
+	UpdateTeacher(form *dto.UpdateTeacherInputForm) (*dto.UpdateTeacherOutputForm, error)
 }

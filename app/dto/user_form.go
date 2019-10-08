@@ -15,7 +15,6 @@ type UpdateStudentInputForm struct {
 	FirstName string `validate:"required,lte=15" json:"first_name"`
 	LastName  string `validate:"required,lte=15" json:"last_name"`
 	Email     string `validate:"required,lte=100,email" json:"email"`
-	Password  string `validate:"required,lte=100" json:"password"`
 }
 
 type CreateAssistantInputForm struct {
@@ -32,7 +31,6 @@ type UpdateAssistantInputForm struct {
 	FirstName string `validate:"required,lte=15" json:"first_name"`
 	LastName  string `validate:"required,lte=15" json:"last_name"`
 	Email     string `validate:"required,lte=100,email" json:"email"`
-	Password  string `validate:"required,lte=100" json:"password"`
 }
 
 type CreateTeacherInputForm struct {
@@ -47,7 +45,6 @@ type UpdateTeacherInputForm struct {
 	FirstName string `validate:"required,lte=15" json:"first_name"`
 	LastName  string `validate:"required,lte=15" json:"last_name"`
 	Email     string `validate:"required,lte=100,email" json:"email"`
-	Password  string `validate:"required,lte=100" json:"password"`
 }
 
 // Output

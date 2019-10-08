@@ -188,3 +188,65 @@ func (repo *UserRepository) InsertAdmin(admin *model.Admin) (int64, error) {
 
 	return int64(id64), nil
 }
+
+func (repo *UserRepository) UpdateStudent(student *model.Student) (int64, error) {
+	result, err := repo.SqlHandler.Execute(
+		"UPDATE students SET student_no = ?, first_name = ?, last_name = ?, email = ? WHERE id = ?",
+		student.StudentNo,
+		student.FirstName,
+		student.LastName,
+		student.Email,
+		student.ID,
+	)
+	if err != nil {
+		return 0, err
+	}
+
+	count, err := result.RowAffected()
+	if err != nil {
+		return 0, err
+	}
+
+	return int64(count), err
+}
+
+func (repo *UserRepository) UpdateAssistant(assistant *model.Assistant) (int64, error) {
+	result, err := repo.SqlHandler.Execute(
+		"UPDATE assistants SET assistant_no = ?, first_name = ?, last_name = ?, Email = ? WHERE id = ?",
+		assistant.StudentNo,
+		assistant.FirstName,
+		assistant.LastName,
+		assistant.Email,
+		assistant.ID,
+	)
+	if err != nil {
+		return 0, err
+	}
+
+	count, err := result.RowAffected()
+	if err != nil {
+		return 0, err
+	}
+
+	return int64(count), err
+}
+
+func (repo *UserRepository) UpdateTeacher(teacher *model.Teacher) (int64, error) {
+	result, err := repo.SqlHandler.Execute(
+		"UPDATE teachers SET first_name = ?, last_name = ?, Email = ? WHERE id = ?",
+		teacher.FirstName,
+		teacher.LastName,
+		teacher.Email,
+		teacher.ID,
+	)
+	if err != nil {
+		return 0, err
+	}
+
+	count, err := result.RowAffected()
+	if err != nil {
+		return 0, err
+	}
+
+	return int64(count), err
+}

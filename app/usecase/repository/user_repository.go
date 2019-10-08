@@ -17,4 +17,8 @@ type UserRepository interface {
 	InsertAssistant(assistant *model.Assistant) (int64, error)
 	InsertTeacher(teacher *model.Teacher) (int64, error)
 	InsertAdmin(admin *model.Admin) (int64, error)
+
+	UpdateStudent(student *model.Student) (int64, error)
+	UpdateAssistant(assistant *model.Assistant) (int64, error)
+	UpdateTeacher(teacher *model.Teacher) (int64, error)
 }

@@ -58,3 +58,23 @@ func (controller *AssistantsController) Create(ctx Context) {
 
 	ctx.JSON(200, outputForm)
 }
+
+func (controller *AssistantsController) Update(ctx Context) {
+	assistant := getCurrentAssistant(ctx)
+	inputForm := &dto.UpdateAssistantInputForm{ID: assistant.ID}
+	ctx.Bind(&inputForm)
+
+	ok, msgs := controller.Validator.Validate(inputForm)
+	if !ok {
+		ctx.JSON(400, msgs)
+		return
+	}
+
+	outputForm, err := controller.InputPort.UpdateAssistant(inputForm)
+	if err != nil {
+		ctx.JSON(400, err)
+		return
+	}
+
+	ctx.JSON(200, outputForm)
+}
