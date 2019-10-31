@@ -15,7 +15,7 @@ func TestCreateStudent(t *testing.T) {
 		userRepository := mock.NewUserRepositoryMock()
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(userRepository, userOutput)
-		student := fixture.NewValidStudent()
+		student := fixture.NewValidCreateStudentInputForm()
 		outputForm, err := userInteractor.CreateStudent(student)
 
 		assert.Nil(t, err)
@@ -30,7 +30,7 @@ func TestCreateStudent(t *testing.T) {
 		}
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(mockRepository, userOutput)
-		student := fixture.NewValidStudent()
+		student := fixture.NewValidCreateStudentInputForm()
 		outputForm, err := userInteractor.CreateStudent(student)
 
 		assert.NotNil(t, err)
@@ -44,7 +44,7 @@ func TestCreateAssistant(t *testing.T) {
 		userRepository := mock.NewUserRepositoryMock()
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(userRepository, userOutput)
-		assistant := fixture.NewValidAssistant()
+		assistant := fixture.NewValidCreateAssistantInputForm()
 		outputForm, err := userInteractor.CreateAssistant(assistant)
 
 		assert.Nil(t, err)
@@ -59,7 +59,7 @@ func TestCreateAssistant(t *testing.T) {
 		}
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(mockRepository, userOutput)
-		assistant := fixture.NewValidAssistant()
+		assistant := fixture.NewValidCreateAssistantInputForm()
 		outputForm, err := userInteractor.CreateAssistant(assistant)
 
 		assert.NotNil(t, err)
@@ -73,7 +73,7 @@ func TestCreateTeacher(t *testing.T) {
 		userRepository := mock.NewUserRepositoryMock()
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(userRepository, userOutput)
-		teacher := fixture.NewValidTeacher()
+		teacher := fixture.NewValidCreateTeacherInputForm()
 		outputForm, err := userInteractor.CreateTeacher(teacher)
 
 		assert.Nil(t, err)
@@ -88,11 +88,151 @@ func TestCreateTeacher(t *testing.T) {
 		}
 		userOutput := &presenter.UserPresenter{}
 		userInteractor, _ := NewUserInteractor(mockRepository, userOutput)
-		teacher := fixture.NewValidTeacher()
+		teacher := fixture.NewValidCreateTeacherInputForm()
 		outputForm, err := userInteractor.CreateTeacher(teacher)
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm.LastInsertedId)
 		assert.Equal(t, outputForm.LastInsertedId, int64(0))
+	})
+}
+
+func TestUpdateStudent(t *testing.T) {
+	t.Run("id=1, err=nil, success", func(t *testing.T) {
+		studentFixture := fixture.NewValidUpdateStudentInputForm()
+		mockRepository := &mock.UserRepositoryMock{
+			StudentFixture: fixture.NewValidStudent(),
+			Error:          nil,
+		}
+		studentOutput := &presenter.UserPresenter{}
+		userInteractor, _ := NewUserInteractor(mockRepository, studentOutput)
+		outputForm, err := userInteractor.UpdateStudent(studentFixture)
+
+		assert.Nil(t, err)
+		assert.Equal(t, outputForm.Updated, true)
+	})
+
+	t.Run("id=0, err=nil, failed", func(t *testing.T) {
+		studentFixture := fixture.NewInValidUpdateStudentInputForm()
+		mockRepository := &mock.UserRepositoryMock{
+			StudentFixture: fixture.NewValidStudent(),
+			Error:          nil,
+		}
+		studentOutput := &presenter.UserPresenter{}
+		userInteractor, _ := NewUserInteractor(mockRepository, studentOutput)
+		outputForm, err := userInteractor.UpdateStudent(studentFixture)
+
+		assert.NotNil(t, err)
+		assert.NotNil(t, outputForm)
+		assert.Equal(t, outputForm.Updated, false)
+	})
+
+	t.Run("id=1, err=not nil, failed", func(t *testing.T) {
+		studentFixture := fixture.NewInValidUpdateStudentInputForm()
+		mockRepository := &mock.UserRepositoryMock{
+			StudentFixture: fixture.NewValidStudent(),
+			Error:          fmt.Errorf("repository error"),
+		}
+		studentOutput := &presenter.UserPresenter{}
+		userInteractor, _ := NewUserInteractor(mockRepository, studentOutput)
+		outputForm, err := userInteractor.UpdateStudent(studentFixture)
+
+		assert.NotNil(t, err)
+		assert.NotNil(t, outputForm)
+		assert.Equal(t, outputForm.Updated, false)
+	})
+}
+
+func TestUpdateAssistant(t *testing.T) {
+	t.Run("id=1, err=nil, success", func(t *testing.T) {
+		assistantFixture := fixture.NewValidUpdateAssistantInputForm()
+		mockRepository := &mock.UserRepositoryMock{
+			AssistantFixture: fixture.NewValidAssistant(),
+			Error:            nil,
+		}
+		assistantOutput := &presenter.UserPresenter{}
+		userInteractor, _ := NewUserInteractor(mockRepository, assistantOutput)
+		outputForm, err := userInteractor.UpdateAssistant(assistantFixture)
+
+		assert.Nil(t, err)
+		assert.Equal(t, outputForm.Updated, true)
+	})
+
+	t.Run("id=0, err=nil, failed", func(t *testing.T) {
+		assistantFixture := fixture.NewInValidUpdateAssistantInputForm()
+		mockRepository := &mock.UserRepositoryMock{
+			AssistantFixture: fixture.NewValidAssistant(),
+			Error:            nil,
+		}
+		assistantOutput := &presenter.UserPresenter{}
+		userInteractor, _ := NewUserInteractor(mockRepository, assistantOutput)
+		assistantFixture.ID = 0
+		outputForm, err := userInteractor.UpdateAssistant(assistantFixture)
+
+		assert.NotNil(t, err)
+		assert.NotNil(t, outputForm)
+		assert.Equal(t, outputForm.Updated, false)
+	})
+
+	t.Run("id=1, err=not nil, failed", func(t *testing.T) {
+		assistantFixture := fixture.NewInValidUpdateAssistantInputForm()
+		mockRepository := &mock.UserRepositoryMock{
+			AssistantFixture: fixture.NewValidAssistant(),
+			Error:            fmt.Errorf("repository error"),
+		}
+		assistantOutput := &presenter.UserPresenter{}
+		userInteractor, _ := NewUserInteractor(mockRepository, assistantOutput)
+		outputForm, err := userInteractor.UpdateAssistant(assistantFixture)
+
+		assert.NotNil(t, err)
+		assert.NotNil(t, outputForm)
+		assert.Equal(t, outputForm.Updated, false)
+	})
+}
+
+func TestUpdateTeacher(t *testing.T) {
+	t.Run("id=1, err=nil, success", func(t *testing.T) {
+		teacherFixture := fixture.NewValidUpdateTeacherInputForm()
+		mockRepository := &mock.UserRepositoryMock{
+			TeacherFixture: fixture.NewValidTeacher(),
+			Error:          nil,
+		}
+		teacherOutput := &presenter.UserPresenter{}
+		userInteractor, _ := NewUserInteractor(mockRepository, teacherOutput)
+		outputForm, err := userInteractor.UpdateTeacher(teacherFixture)
+
+		assert.Nil(t, err)
+		assert.Equal(t, outputForm.Updated, true)
+	})
+
+	t.Run("id=0, err=nil, failed", func(t *testing.T) {
+		teacherFixture := fixture.NewInValidUpdateTeacherInputForm()
+		mockRepository := &mock.UserRepositoryMock{
+			TeacherFixture: fixture.NewValidTeacher(),
+			Error:          nil,
+		}
+		teacherOutput := &presenter.UserPresenter{}
+		userInteractor, _ := NewUserInteractor(mockRepository, teacherOutput)
+		teacherFixture.ID = 0
+		outputForm, err := userInteractor.UpdateTeacher(teacherFixture)
+
+		assert.NotNil(t, err)
+		assert.NotNil(t, outputForm)
+		assert.Equal(t, outputForm.Updated, false)
+	})
+
+	t.Run("id=1, err=not nil, failed", func(t *testing.T) {
+		teacherFixture := fixture.NewInValidUpdateTeacherInputForm()
+		mockRepository := &mock.UserRepositoryMock{
+			TeacherFixture: fixture.NewValidTeacher(),
+			Error:          fmt.Errorf("repository error"),
+		}
+		teacherOutput := &presenter.UserPresenter{}
+		userInteractor, _ := NewUserInteractor(mockRepository, teacherOutput)
+		outputForm, err := userInteractor.UpdateTeacher(teacherFixture)
+
+		assert.NotNil(t, err)
+		assert.NotNil(t, outputForm)
+		assert.Equal(t, outputForm.Updated, false)
 	})
 }

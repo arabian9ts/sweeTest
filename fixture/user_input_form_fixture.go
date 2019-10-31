@@ -2,8 +2,8 @@ package fixture
 
 import "github.com/arabian9ts/sweeTest/app/dto"
 
-func NewCreateStudentInputFormMock() dto.CreateStudentInputForm {
-	return dto.CreateStudentInputForm{
+func NewValidCreateStudentInputForm() *dto.CreateStudentInputForm {
+	return &dto.CreateStudentInputForm{
 		StudentNo: "121312312",
 		FirstName: "taku",
 		LastName:  "maeda",
@@ -12,8 +12,8 @@ func NewCreateStudentInputFormMock() dto.CreateStudentInputForm {
 	}
 }
 
-func NewCreateAssistantInputFormMock() dto.CreateAssistantInputForm {
-	return dto.CreateAssistantInputForm{
+func NewValidCreateAssistantInputForm() *dto.CreateAssistantInputForm {
+	return &dto.CreateAssistantInputForm{
 		StudentNo: "121312312",
 		FirstName: "taku",
 		LastName:  "maeda",
@@ -22,12 +22,70 @@ func NewCreateAssistantInputFormMock() dto.CreateAssistantInputForm {
 	}
 }
 
-func NewCreateTeacherInputFormMock() dto.CreateTeacherInputForm {
-	return dto.CreateTeacherInputForm{
+func NewValidCreateTeacherInputForm() *dto.CreateTeacherInputForm {
+	return &dto.CreateTeacherInputForm{
 		FirstName: "taku",
 		LastName:  "maeda",
 		Email:     "aaa@bbb.ccc",
 		Password:  "password",
+	}
+}
+
+func NewValidUpdateStudentInputForm() *dto.UpdateStudentInputForm {
+	return &dto.UpdateStudentInputForm{
+		ID:        1,
+		StudentNo: "121312312",
+		FirstName: "taku",
+		LastName:  "maeda",
+		Email:     "aaa@bbb.ccc",
+	}
+}
+
+func NewValidUpdateAssistantInputForm() *dto.UpdateAssistantInputForm {
+	return &dto.UpdateAssistantInputForm{
+		ID:        1,
+		StudentNo: "121312312",
+		FirstName: "taku",
+		LastName:  "maeda",
+		Email:     "aaa@bbb.ccc",
+	}
+}
+
+func NewValidUpdateTeacherInputForm() *dto.UpdateTeacherInputForm {
+	return &dto.UpdateTeacherInputForm{
+		ID:        1,
+		FirstName: "taku",
+		LastName:  "maeda",
+		Email:     "aaa@bbb.ccc",
+	}
+}
+
+func NewInValidUpdateStudentInputForm() *dto.UpdateStudentInputForm {
+	return &dto.UpdateStudentInputForm{
+		ID:        0,
+		StudentNo: "121312312",
+		FirstName: "taku",
+		LastName:  "maeda",
+		Email:     "aaa@bbb.ccc",
+	}
+}
+
+func NewInValidUpdateAssistantInputForm() *dto.UpdateAssistantInputForm {
+	return &dto.UpdateAssistantInputForm{
+		ID:        0,
+		StudentNo: "121312312",
+		FirstName: "taku",
+		LastName:  "maeda",
+		Email:     "aaa@bbb.ccc",
+	}
+}
+
+func NewInValidUpdateTeacherInputForm() *dto.UpdateTeacherInputForm {
+	return &dto.UpdateTeacherInputForm{
+		ID:        0,
+		FirstName: "taku",
+		LastName:  "maeda",
+		Email:     "aaa@bbb.ccc",
 	}
 }
 

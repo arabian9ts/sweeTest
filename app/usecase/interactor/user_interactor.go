@@ -54,3 +54,24 @@ func (interactor *UserInteractor) CreateTeacher(form *dto.CreateTeacherInputForm
 		interactor.UserRepository.InsertTeacher(teacher),
 	)
 }
+
+func (interactor *UserInteractor) UpdateStudent(form *dto.UpdateStudentInputForm) (*dto.UpdateStudentOutputForm, error) {
+	student := adapter.ConvertUpdateStudentInputFormToUser(form)
+	return interactor.UserOutput.HandleUpdateStudent(
+		interactor.UserRepository.UpdateStudent(student),
+	)
+}
+
+func (interactor *UserInteractor) UpdateAssistant(form *dto.UpdateAssistantInputForm) (*dto.UpdateAssistantOutputForm, error) {
+	assistant := adapter.ConvertUpdateAssistantInputFormToAssistant(form)
+	return interactor.UserOutput.HandleUpdateAssistant(
+		interactor.UserRepository.UpdateAssistant(assistant),
+	)
+}
+
+func (interactor *UserInteractor) UpdateTeacher(form *dto.UpdateTeacherInputForm) (*dto.UpdateTeacherOutputForm, error) {
+	teacher := adapter.ConvertUpdateTeacherInputFormToTeacher(form)
+	return interactor.UserOutput.HandleUpdateTeacher(
+		interactor.UserRepository.UpdateTeacher(teacher),
+	)
+}

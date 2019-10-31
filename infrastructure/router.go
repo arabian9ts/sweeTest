@@ -19,6 +19,7 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		studentEndPoint.GET("/me", handlers.MeHandler.StudentMeHandler())
 		studentEndPoint.POST("/", func(c *gin.Context) { controllers.StudentsController.Create(c) })
 		studentEndPoint.GET("/students/:student_id", func(c *gin.Context) { controllers.StudentsController.Show(c) })
+		studentEndPoint.PUT("/students/:student_id", func(c *gin.Context) { controllers.StudentsController.Update(c) })
 		studentEndPoint.GET("/lectures", func(c *gin.Context) { controllers.LecturesController.Index(c) })
 		studentEndPoint.POST("/lectures", func(c *gin.Context) { controllers.LecturesController.Create(c) })
 
@@ -50,6 +51,7 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		assistantEndPoint.GET("/me", handlers.MeHandler.AssistantMeHandler())
 		assistantEndPoint.POST("/", func(c *gin.Context) { controllers.AssistantsController.Create(c) })
 		assistantEndPoint.GET("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Show(c) })
+		assistantEndPoint.PUT("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Update(c) })
 	}
 
 	teacherEndPoint := router.Group("/teacher")
@@ -60,6 +62,7 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		teacherEndPoint.GET("/me", handlers.MeHandler.TeacherMeHandler())
 		teacherEndPoint.POST("/", func(c *gin.Context) { controllers.TeachersController.Create(c) })
 		teacherEndPoint.GET("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Show(c) })
+		teacherEndPoint.PUT("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Update(c) })
 	}
 
 	adminEndPoint := router.Group("/admins")
