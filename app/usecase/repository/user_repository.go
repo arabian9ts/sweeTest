@@ -3,9 +3,9 @@ package repository
 import "github.com/arabian9ts/sweeTest/app/domain/model"
 
 type UserRepository interface {
-	GetStudents(limit, offset int) ([]*model.Student, error)
-	GetAssistants(limit, offset int) ([]*model.Assistant, error)
-	GetTeachers(limit, offset int) ([]*model.Teacher, error)
+	GetStudents(limit, offset int) (model.Students, error)
+	GetAssistants(limit, offset int) (model.Assistants, error)
+	GetTeachers(limit, offset int) (model.Teachers, error)
 
 	GetStudentById(int64) (*model.Student, error)
 	GetAssistantById(int64) (*model.Assistant, error)
@@ -16,6 +16,10 @@ type UserRepository interface {
 	GetAssistantByStudentNo(studentNo string) (*model.Assistant, error)
 	GetTeacherByEmail(email string) (*model.Teacher, error)
 	GetAdminByEmail(email string) (*model.Admin, error)
+
+	GetParticipatingStudentsOfLecture(lectureID int64, limit int, offset int) (model.Students, error)
+	GetParticipatingAssistantsOfLecture(lectureID int64, limit int, offset int) (model.Assistants, error)
+	GetParticipatingTeachersOfLecture(lectureID int64, limit int, offset int) (model.Teachers, error)
 
 	InsertStudent(student *model.Student) (int64, error)
 	InsertAssistant(assistant *model.Assistant) (int64, error)

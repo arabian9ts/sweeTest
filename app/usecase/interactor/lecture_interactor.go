@@ -28,6 +28,24 @@ func (interactor *LectureInteractor) GetLectures(limit int, offset int) (dto.Get
 	)
 }
 
+func (interactor *LectureInteractor) GetParticipatingLecturesOfStudent(studentID int64, limit int, offset int) (dto.GetLecturesOutputForm, error) {
+	return interactor.LectureOutput.HandleGetLectures(
+		interactor.LectureRepository.GetParticipatedLecturesOfStudent(studentID, limit, offset),
+	)
+}
+
+func (interactor *LectureInteractor) GetParticipatingLecturesOfAssistant(studentID int64, limit int, offset int) (dto.GetLecturesOutputForm, error) {
+	return interactor.LectureOutput.HandleGetLectures(
+		interactor.LectureRepository.GetParticipatedLecturesOfAssistant(studentID, limit, offset),
+	)
+}
+
+func (interactor *LectureInteractor) GetParticipatingLecturesOfTeacher(teacherID int64, limit int, offset int) (dto.GetLecturesOutputForm, error) {
+	return interactor.LectureOutput.HandleGetLectures(
+		interactor.LectureRepository.GetParticipatedLecturesOfTeacher(teacherID, limit, offset),
+	)
+}
+
 func (interactor *LectureInteractor) CreateLecture(form *dto.CreateLectureInputForm) (*dto.CreateLectureOutputForm, error) {
 	lecture := adapter.ConvertCreateLectureInputFormToLecture(form)
 	return interactor.LectureOutput.HandleCreateLecture(

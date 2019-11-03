@@ -95,7 +95,24 @@ func InitializeRootController() (*controllers.RootController, error) {
 	if err != nil {
 		return nil, err
 	}
-	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, loginController, helpsController, commentsController)
+	participationRepository, err := database.NewParticipationRepository(sqlHandler)
+	if err != nil {
+		return nil, err
+	}
+	participationOutput := presenter.NewParticipationPresenter()
+	participationController, err := controllers.NewParticipationController(participationRepository, participationOutput, validation)
+	if err != nil {
+		return nil, err
+	}
+	participatingLecturesController, err := controllers.NewParticipatingLecturesController(lectureRepository, lectureOutput, validation)
+	if err != nil {
+		return nil, err
+	}
+	participantsController, err := controllers.NewParticipantsController(userRepository, userOutput, validation)
+	if err != nil {
+		return nil, err
+	}
+	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, loginController, helpsController, commentsController, participationController, participatingLecturesController, participantsController)
 	if err != nil {
 		return nil, err
 	}
@@ -129,4 +146,4 @@ var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRe
 
 var handlerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, handler.NewAuthHandler, handler.NewMeHandler, handler.NewRootHandler)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, database.NewHelpRepository, database.NewCommentRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, controllers.NewLoginController, controllers.NewHelpsController, controllers.NewCommentsController, interactor.NewUserInteractor, interactor.NewLectureInteractor, interactor.NewTaskInteractor, interactor.NewAuthInteractor, interactor.NewHelpInteractor, interactor.NewCommentInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, presenter.NewAuthPresenter, presenter.NewHelpPresenter, presenter.NewCommentPresenter, validator.NewDefaultValidator)
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, database.NewHelpRepository, database.NewCommentRepository, database.NewParticipationRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, controllers.NewLoginController, controllers.NewHelpsController, controllers.NewCommentsController, controllers.NewParticipationController, controllers.NewParticipatingLecturesController, controllers.NewParticipantsController, interactor.NewUserInteractor, interactor.NewLectureInteractor, interactor.NewTaskInteractor, interactor.NewAuthInteractor, interactor.NewHelpInteractor, interactor.NewCommentInteractor, interactor.NewParticipationInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, presenter.NewAuthPresenter, presenter.NewHelpPresenter, presenter.NewCommentPresenter, presenter.NewParticipationPresenter, validator.NewDefaultValidator)

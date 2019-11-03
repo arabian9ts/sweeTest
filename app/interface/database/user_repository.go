@@ -17,14 +17,13 @@ func NewUserRepository(sqlHandler SqlHandler) (repository.UserRepository, error)
 	return repo, nil
 }
 
-func (repo *UserRepository) GetStudents(limit, offset int) (students []*model.Student, err error) {
+func (repo *UserRepository) GetStudents(limit, offset int) (students model.Students, err error) {
 	rows, err := repo.SqlHandler.Query("SELECT * FROM `students` LIMIT ? OFFSET ?", limit, offset)
 	if err != nil {
 		return
 	}
 	defer rows.Close()
 
-	students = []*model.Student{}
 	for rows.Next() {
 		student := &model.Student{}
 		err = rows.Scan(&student.ID, &student.StudentNo, &student.FirstName, &student.LastName, &student.Email, &student.Digest, &student.CreatedAt, &student.UpdatedAt)
@@ -37,14 +36,13 @@ func (repo *UserRepository) GetStudents(limit, offset int) (students []*model.St
 	return
 }
 
-func (repo *UserRepository) GetAssistants(limit, offset int) (assistants []*model.Assistant, err error) {
+func (repo *UserRepository) GetAssistants(limit, offset int) (assistants model.Assistants, err error) {
 	rows, err := repo.SqlHandler.Query("SELECT * FROM `assistants` LIMIT ? OFFSET ?", limit, offset)
 	if err != nil {
 		return
 	}
 	defer rows.Close()
 
-	assistants = []*model.Assistant{}
 	for rows.Next() {
 		assistant := &model.Assistant{}
 		err = rows.Scan(&assistant.ID, &assistant.StudentNo, &assistant.FirstName, &assistant.LastName, &assistant.Email, &assistant.Digest, &assistant.CreatedAt, &assistant.UpdatedAt)
@@ -57,14 +55,13 @@ func (repo *UserRepository) GetAssistants(limit, offset int) (assistants []*mode
 	return
 }
 
-func (repo *UserRepository) GetTeachers(limit, offset int) (teachers []*model.Teacher, err error) {
+func (repo *UserRepository) GetTeachers(limit, offset int) (teachers model.Teachers, err error) {
 	rows, err := repo.SqlHandler.Query("SELECT * FROM `teachers` LIMIT ? OFFSET ?", limit, offset)
 	if err != nil {
 		return
 	}
 	defer rows.Close()
 
-	teachers = []*model.Teacher{}
 	for rows.Next() {
 		teacher := &model.Teacher{}
 		err = rows.Scan(&teacher.ID, &teacher.FirstName, &teacher.LastName, &teacher.Email, &teacher.Digest, &teacher.CreatedAt, &teacher.UpdatedAt)
@@ -165,6 +162,75 @@ func (repo *UserRepository) GetTeacherByEmail(email string) (teacher *model.Teac
 
 	teacher = &model.Teacher{}
 	err = row.Scan(&teacher.ID, &teacher.FirstName, &teacher.LastName, &teacher.Email, &teacher.Digest, &teacher.CreatedAt, &teacher.UpdatedAt)
+	return
+}
+
+func (repo *UserRepository) GetParticipatingStudentsOfLecture(lectureID int64, limit int, offset int) (students model.Students, err error) {
+	rows, err := repo.SqlHandler.Query("SELECT students.* FROM students INNER JOIN students_lectures ON students_lectures.student_id = students.id WHERE lecture_id = ? limit ? offset ?",
+		lectureID,
+		limit,
+		offset,
+	)
+	if err != nil {
+		return nil, nil
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		student := &model.Student{}
+		err = rows.Scan(&student.ID, &student.StudentNo, &student.FirstName, &student.LastName, &student.Email, &student.Digest, &student.CreatedAt, &student.UpdatedAt)
+		if err != nil {
+			continue
+		}
+		students = append(students, student)
+	}
+
+	return
+}
+
+func (repo *UserRepository) GetParticipatingAssistantsOfLecture(lectureID int64, limit int, offset int) (assistants model.Assistants, err error) {
+	rows, err := repo.SqlHandler.Query("SELECT assistants.* FROM assistants INNER JOIN assistants_lectures ON assistants_lectures.student_id = assistants.id WHERE lecture_id = ? limit ? offset ?",
+		lectureID,
+		limit,
+		offset,
+	)
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		assistant := &model.Assistant{}
+		err = rows.Scan(&assistant.ID, &assistant.StudentNo, &assistant.FirstName, &assistant.LastName, &assistant.Email, &assistant.Digest, &assistant.CreatedAt, &assistant.UpdatedAt)
+		if err != nil {
+			continue
+		}
+		assistants = append(assistants, assistant)
+	}
+
+	return
+}
+
+func (repo *UserRepository) GetParticipatingTeachersOfLecture(lectureID int64, limit int, offset int) (teachers model.Teachers, err error) {
+	rows, err := repo.SqlHandler.Query("SELECT teachers.* FROM teachers INNER JOIN teachers_lectures ON teachers_lectures.teacher_id = teachers.id WHERE lecture_id = ? limit ? offset ?",
+		lectureID,
+		limit,
+		offset,
+	)
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		teacher := &model.Teacher{}
+		err = rows.Scan(&teacher.ID, &teacher.FirstName, &teacher.LastName, &teacher.Email, &teacher.Digest, &teacher.CreatedAt, &teacher.UpdatedAt)
+		if err != nil {
+			continue
+		}
+		teachers = append(teachers, teacher)
+	}
+
 	return
 }
 

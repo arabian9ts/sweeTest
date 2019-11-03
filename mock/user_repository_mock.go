@@ -54,6 +54,48 @@ func (mock *UserRepositoryMock) GetAdminById(int64) (*model.Admin, error) {
 	return mock.AdminFixture, nil
 }
 
+func (mock *UserRepositoryMock) GetStudents(limit, offset int) (model.Students, error) {
+	if mock.Error != nil {
+		return nil, mock.Error
+	}
+	return []*model.Student{mock.StudentFixture}, nil
+}
+
+func (mock *UserRepositoryMock) GetAssistants(limit, offset int) (model.Assistants, error) {
+	if mock.Error != nil {
+		return nil, mock.Error
+	}
+	return []*model.Assistant{mock.AssistantFixture}, nil
+}
+
+func (mock *UserRepositoryMock) GetTeachers(limit, offset int) (model.Teachers, error) {
+	if mock.Error != nil {
+		return nil, mock.Error
+	}
+	return []*model.Teacher{mock.TeacherFixture}, nil
+}
+
+func (mock *UserRepositoryMock) GetParticipatingStudentsOfLecture(lectureID int64, limit int, offset int) (model.Students, error) {
+	if mock.Error != nil {
+		return nil, mock.Error
+	}
+	return []*model.Student{mock.StudentFixture}, nil
+}
+
+func (mock *UserRepositoryMock) GetParticipatingAssistantsOfLecture(lectureID int64, limit int, offset int) (model.Assistants, error) {
+	if mock.Error != nil {
+		return nil, mock.Error
+	}
+	return []*model.Assistant{mock.AssistantFixture}, nil
+}
+
+func (mock *UserRepositoryMock) GetParticipatingTeachersOfLecture(lectureID int64, limit int, offset int) (model.Teachers, error) {
+	if mock.Error != nil {
+		return nil, mock.Error
+	}
+	return []*model.Teacher{mock.TeacherFixture}, nil
+}
+
 func (mock *UserRepositoryMock) InsertStudent(student *model.Student) (int64, error) {
 	if mock.Error != nil {
 		return 0, mock.Error
