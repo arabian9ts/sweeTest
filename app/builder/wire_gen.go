@@ -76,19 +76,7 @@ func InitializeRootController() (*controllers.RootController, error) {
 		return nil, err
 	}
 	authOutput := presenter.NewAuthPresenter()
-	studentLoginController, err := controllers.NewStudentLoginController(userRepository, authOutput, validation)
-	if err != nil {
-		return nil, err
-	}
-	assistantLoginController, err := controllers.NewAssistantLoginController(userRepository, authOutput, validation)
-	if err != nil {
-		return nil, err
-	}
-	teacherLoginController, err := controllers.NewTeacherLoginController(userRepository, authOutput, validation)
-	if err != nil {
-		return nil, err
-	}
-	adminLoginController, err := controllers.NewAdminLoginController(userRepository, authOutput, validation)
+	loginController, err := controllers.NewLoginController(userRepository, authOutput, validation)
 	if err != nil {
 		return nil, err
 	}
@@ -103,19 +91,11 @@ func InitializeRootController() (*controllers.RootController, error) {
 	}
 	commentOutput := presenter.NewCommentPresenter()
 	commentRepository := database.NewCommentRepository(sqlHandler)
-	studentCommentsController, err := controllers.NewStudentCommentsController(commentOutput, commentRepository, validation)
+	commentsController, err := controllers.NewCommentsController(commentOutput, commentRepository, validation)
 	if err != nil {
 		return nil, err
 	}
-	assistantCommentsController, err := controllers.NewAssistantCommentsController(commentOutput, commentRepository, validation)
-	if err != nil {
-		return nil, err
-	}
-	teacherCommentsController, err := controllers.NewTeacherCommentsController(commentOutput, commentRepository, validation)
-	if err != nil {
-		return nil, err
-	}
-	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, studentLoginController, assistantLoginController, teacherLoginController, adminLoginController, helpsController, studentCommentsController, assistantCommentsController, teacherCommentsController)
+	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, loginController, helpsController, commentsController)
 	if err != nil {
 		return nil, err
 	}
@@ -149,4 +129,4 @@ var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRe
 
 var handlerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, handler.NewAuthHandler, handler.NewMeHandler, handler.NewRootHandler)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, database.NewHelpRepository, database.NewCommentRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, controllers.NewStudentLoginController, controllers.NewAssistantLoginController, controllers.NewTeacherLoginController, controllers.NewAdminLoginController, controllers.NewHelpsController, controllers.NewStudentCommentsController, controllers.NewAssistantCommentsController, controllers.NewTeacherCommentsController, interactor.NewUserInteractor, interactor.NewLectureInteractor, interactor.NewTaskInteractor, interactor.NewAuthInteractor, interactor.NewHelpInteractor, interactor.NewCommentInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, presenter.NewAuthPresenter, presenter.NewHelpPresenter, presenter.NewCommentPresenter, validator.NewDefaultValidator)
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, database.NewHelpRepository, database.NewCommentRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, controllers.NewLoginController, controllers.NewHelpsController, controllers.NewCommentsController, interactor.NewUserInteractor, interactor.NewLectureInteractor, interactor.NewTaskInteractor, interactor.NewAuthInteractor, interactor.NewHelpInteractor, interactor.NewCommentInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, presenter.NewAuthPresenter, presenter.NewHelpPresenter, presenter.NewCommentPresenter, validator.NewDefaultValidator)

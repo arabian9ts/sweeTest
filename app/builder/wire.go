@@ -8,8 +8,11 @@ package builder
 //	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 //	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 //	"github.com/arabian9ts/sweeTest/app/validator"
-//	"github.com/arabian9ts/sweeTest/infrastructure"
 //	"github.com/google/wire"
+//)
+//
+//import (
+//	"github.com/arabian9ts/sweeTest/infrastructure"
 //)
 //
 //var repositorySet = wire.NewSet(
@@ -39,14 +42,9 @@ package builder
 //	controllers.NewLecturesController,
 //	controllers.NewRootController,
 //	controllers.NewTasksController,
-//	controllers.NewStudentLoginController,
-//	controllers.NewAssistantLoginController,
-//	controllers.NewTeacherLoginController,
-//	controllers.NewAdminLoginController,
+//	controllers.NewLoginController,
 //	controllers.NewHelpsController,
-//	controllers.NewStudentCommentsController,
-//	controllers.NewAssistantCommentsController,
-//	controllers.NewTeacherCommentsController,
+//	controllers.NewCommentsController,
 //	interactor.NewUserInteractor,
 //	interactor.NewLectureInteractor,
 //	interactor.NewTaskInteractor,

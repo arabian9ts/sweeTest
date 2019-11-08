@@ -1,19 +1,14 @@
 package controllers
 
 type RootController struct {
-	StudentsController          *StudentsController
-	AssistantsController        *AssistantsController
-	TeachersController          *TeachersController
-	LecturesController          *LecturesController
-	TasksController             *TasksController
-	StudentLoginController      *StudentLoginController
-	AssistantLoginController    *AssistantLoginController
-	TeacherLoginController      *TeacherLoginController
-	AdminLoginController        *AdminLoginController
-	HelpsController             *HelpsController
-	StudentCommentsController   *StudentCommentsController
-	AssistantCommentsController *AssistantCommentsController
-	TeacherCommentsController   *TeacherCommentsController
+	StudentsController   *StudentsController
+	AssistantsController *AssistantsController
+	TeachersController   *TeachersController
+	LecturesController   *LecturesController
+	TasksController      *TasksController
+	LoginController      *LoginController
+	HelpsController      *HelpsController
+	CommentsController   *CommentsController
 }
 
 func NewRootController(
@@ -22,28 +17,18 @@ func NewRootController(
 	teachersController *TeachersController,
 	lecturesController *LecturesController,
 	tasksController *TasksController,
-	studentLoginController *StudentLoginController,
-	assistantLoginController *AssistantLoginController,
-	teacherLoginController *TeacherLoginController,
-	adminLoginController *AdminLoginController,
+	loginController *LoginController,
 	helpsCOntroller *HelpsController,
-	studentCommentsController *StudentCommentsController,
-	assistantCommentsController *AssistantCommentsController,
-	teacherCommentsController *TeacherCommentsController,
+	commentsController *CommentsController,
 ) (*RootController, error) {
 	return &RootController{
-		StudentsController:          studentsController,
-		AssistantsController:        assistantsController,
-		TeachersController:          teachersController,
-		LecturesController:          lecturesController,
-		TasksController:             tasksController,
-		StudentLoginController:      studentLoginController,
-		AssistantLoginController:    assistantLoginController,
-		TeacherLoginController:      teacherLoginController,
-		AdminLoginController:        adminLoginController,
-		HelpsController:             helpsCOntroller,
-		StudentCommentsController:   studentCommentsController,
-		AssistantCommentsController: assistantCommentsController,
-		TeacherCommentsController:   teacherCommentsController,
+		StudentsController:   studentsController,
+		AssistantsController: assistantsController,
+		TeachersController:   teachersController,
+		LecturesController:   lecturesController,
+		TasksController:      tasksController,
+		LoginController:      loginController,
+		HelpsController:      helpsCOntroller,
+		CommentsController:   commentsController,
 	}, nil
 }
