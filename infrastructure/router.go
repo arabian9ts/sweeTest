@@ -88,6 +88,11 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 
 		adminEndPoint.Use(handlers.AuthHandler.AdminAuthHandler())
 		adminEndPoint.GET("/me", handlers.MeHandler.AdminMeHandler())
+
+		adminEndPoint.GET("/teachers", func(c *gin.Context) {controllers.TeachersController.Index(c)})
+		adminEndPoint.POST("/teachers", func(c *gin.Context) {controllers.TeachersController.Create(c)})
+		adminEndPoint.GET("/teachers/:teacher_id", func(c *gin.Context) {controllers.TeachersController.Show(c)})
+		adminEndPoint.PUT("/teachers/:teacher_id", func(c *gin.Context) {controllers.TeachersController.Update(c)})
 	}
 
 	return

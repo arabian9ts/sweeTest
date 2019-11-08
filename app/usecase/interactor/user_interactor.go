@@ -16,19 +16,37 @@ func NewUserInteractor(repository repository.UserRepository, output port.UserOut
 	return &UserInteractor{UserRepository: repository, UserOutput: output}, nil
 }
 
-func (interactor *UserInteractor) GetStudentById(id int64) (*dto.GetStudentByIdOutputForm, error) {
+func (interactor *UserInteractor) GetStudents(limit int, offset int) (dto.GetStudentsOutputForm, error) {
+	return interactor.UserOutput.HandleGetStudents(
+		interactor.UserRepository.GetStudents(limit, offset),
+	)
+}
+
+func (interactor *UserInteractor) GetAssistants(limit int, offset int) (dto.GetAssistantsOutputForm, error) {
+	return interactor.UserOutput.HandleGetAssistants(
+		interactor.UserRepository.GetAssistants(limit, offset),
+	)
+}
+
+func (interactor *UserInteractor) GetTeachers(limit int, offset int) (dto.GetTeachersOutputForm, error) {
+	return interactor.UserOutput.HandleGetTeachers(
+		interactor.UserRepository.GetTeachers(limit, offset),
+	)
+}
+
+func (interactor *UserInteractor) GetStudentById(id int64) (*dto.GetStudentOutputForm, error) {
 	return interactor.UserOutput.HandleGetStudent(
 		interactor.UserRepository.GetStudentById(id),
 	)
 }
 
-func (interactor *UserInteractor) GetAssistantById(id int64) (*dto.GetAssistantByIdOutputForm, error) {
+func (interactor *UserInteractor) GetAssistantById(id int64) (*dto.GetAssistantOutputForm, error) {
 	return interactor.UserOutput.HandleGetAssistant(
 		interactor.UserRepository.GetAssistantById(id),
 	)
 }
 
-func (interactor *UserInteractor) GetTeacherById(id int64) (*dto.GetTeacherByIdOutputForm, error) {
+func (interactor *UserInteractor) GetTeacherById(id int64) (*dto.GetTeacherOutputForm, error) {
 	return interactor.UserOutput.HandleGetTeacher(
 		interactor.UserRepository.GetTeacherById(id),
 	)

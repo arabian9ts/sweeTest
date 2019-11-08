@@ -25,6 +25,19 @@ func NewTeachersController(userRepository repository.UserRepository, output port
 	}, nil
 }
 
+func (controller *TeachersController) Index(ctx Context) {
+	limit := getLimit(ctx)
+	offset := getOffset(ctx)
+
+	outputForm, err := controller.InputPort.GetTeachers(limit, offset)
+	if err != nil {
+		ctx.JSON(503, err)
+		return
+	}
+
+	ctx.JSON(200, outputForm)
+}
+
 func (controller *TeachersController) Show(ctx Context) {
 	id, err := strconv.Atoi(ctx.Param("teacher_id"))
 	if err != nil {

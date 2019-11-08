@@ -5,15 +5,22 @@ import (
 )
 
 type UserUseCase interface {
+	GetUsersUseCase
 	GetUserUseCase
 	CreateUserUseCase
 	UpdateUserUseCase
 }
 
+type GetUsersUseCase interface {
+	GetStudents(limit int, offset int) (dto.GetStudentsOutputForm, error)
+	GetAssistants(limit int, offset int) (dto.GetAssistantsOutputForm, error)
+	GetTeachers(limit int, offset int) (dto.GetTeachersOutputForm, error)
+}
+
 type GetUserUseCase interface {
-	GetStudentById(id int64) (*dto.GetStudentByIdOutputForm, error)
-	GetAssistantById(id int64) (*dto.GetAssistantByIdOutputForm, error)
-	GetTeacherById(id int64) (*dto.GetTeacherByIdOutputForm, error)
+	GetStudentById(id int64) (*dto.GetStudentOutputForm, error)
+	GetAssistantById(id int64) (*dto.GetAssistantOutputForm, error)
+	GetTeacherById(id int64) (*dto.GetTeacherOutputForm, error)
 }
 
 type CreateUserUseCase interface {

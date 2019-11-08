@@ -1,5 +1,7 @@
 package dto
 
+import "time"
+
 // Input
 type CreateStudentInputForm struct {
 	StudentNo string `validate:"required,lte=20" json:"student_no"`
@@ -48,24 +50,39 @@ type UpdateTeacherInputForm struct {
 }
 
 // Output
-type GetStudentByIdOutputForm struct {
-	StudentNo string `json:"student_no"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
+type GetStudentsOutputForm []*GetStudentOutputForm
+
+type GetAssistantsOutputForm []*GetAssistantOutputForm
+
+type GetTeachersOutputForm []*GetTeacherOutputForm
+
+type GetStudentOutputForm struct {
+	ID        int64     `json:"id"`
+	StudentNo string    `json:"student_no"`
+	FirstName string    `json:"first_name"`
+	LastName  string    `json:"last_name"`
+	Email     string    `json:"email"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type GetAssistantByIdOutputForm struct {
-	StudentNo string `json:"student_no"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
+type GetAssistantOutputForm struct {
+	ID        int64     `json:"id"`
+	StudentNo string    `json:"student_no"`
+	FirstName string    `json:"first_name"`
+	LastName  string    `json:"last_name"`
+	Email     string    `json:"email"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type GetTeacherByIdOutputForm struct {
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
+type GetTeacherOutputForm struct {
+	ID        int64     `json:"id"`
+	FirstName string    `json:"first_name"`
+	LastName  string    `json:"last_name"`
+	Email     string    `json:"email"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type CreateStudentOutputForm struct {
