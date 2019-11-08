@@ -11,7 +11,9 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 	router = gin.Default()
 	router.Use(cors.Default())
 
-	studentEndPoint := router.Group("/student")
+	v1APIEndpoint := router.Group("/api/v1")
+
+	studentEndPoint := v1APIEndpoint.Group("/student")
 	{
 		studentEndPoint.POST("/login", func(c *gin.Context) { controllers.StudentLoginController.Create(c) })
 
@@ -43,7 +45,7 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		studentEndPoint.DELETE("/lectures/:lecture_id/helps/:help_id/comments/:comment_id", func(c *gin.Context) { controllers.StudentCommentsController.Delete(c) })
 	}
 
-	assistantEndPoint := router.Group("/assistant")
+	assistantEndPoint := v1APIEndpoint.Group("/assistant")
 	{
 		assistantEndPoint.POST("/login", func(c *gin.Context) { controllers.AssistantLoginController.Create(c) })
 
@@ -54,7 +56,7 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		assistantEndPoint.PUT("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Update(c) })
 	}
 
-	teacherEndPoint := router.Group("/teacher")
+	teacherEndPoint := v1APIEndpoint.Group("/teacher")
 	{
 		teacherEndPoint.POST("/login", func(c *gin.Context) { controllers.TeacherLoginController.Create(c) })
 
@@ -65,7 +67,7 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		teacherEndPoint.PUT("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Update(c) })
 	}
 
-	adminEndPoint := router.Group("/admins")
+	adminEndPoint := v1APIEndpoint.Group("/admin")
 	{
 		adminEndPoint.POST("/login", func(c *gin.Context) { controllers.AdminLoginController.Create(c) })
 
