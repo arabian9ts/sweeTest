@@ -15,7 +15,7 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 
 	studentEndPoint := v1APIEndpoint.Group("/student")
 	{
-		studentEndPoint.POST("/login", func(c *gin.Context) { controllers.StudentLoginController.Create(c) })
+		studentEndPoint.POST("/login", func(c *gin.Context) { controllers.LoginController.Student.Create(c) })
 
 		studentEndPoint.Use(handlers.AuthHandler.StudentAuthHandler())
 		studentEndPoint.GET("/me", handlers.MeHandler.StudentMeHandler())
@@ -39,37 +39,52 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		studentEndPoint.PUT("/lectures/:lecture_id/helps/:help_id", func(c *gin.Context) { controllers.HelpsController.Update(c) })
 		studentEndPoint.DELETE("/lectures/:lecture_id/helps/:help_id", func(c *gin.Context) { controllers.HelpsController.Delete(c) })
 
-		studentEndPoint.GET("/lectures/:lecture_id/helps/:help_id/comments", func(c *gin.Context) { controllers.StudentCommentsController.Index(c) })
-		studentEndPoint.POST("/lectures/:lecture_id/helps/:help_id/comments", func(c *gin.Context) { controllers.StudentCommentsController.Create(c) })
-		studentEndPoint.PUT("/lectures/:lecture_id/helps/:help_id/comments/:comment_id", func(c *gin.Context) { controllers.StudentCommentsController.Update(c) })
-		studentEndPoint.DELETE("/lectures/:lecture_id/helps/:help_id/comments/:comment_id", func(c *gin.Context) { controllers.StudentCommentsController.Delete(c) })
+		studentEndPoint.GET("/lectures/:lecture_id/helps/:help_id/comments", func(c *gin.Context) { controllers.CommentsController.Student.Index(c) })
+		studentEndPoint.POST("/lectures/:lecture_id/helps/:help_id/comments", func(c *gin.Context) { controllers.CommentsController.Student.Create(c) })
+		studentEndPoint.PUT("/lectures/:lecture_id/helps/:help_id/comments/:comment_id", func(c *gin.Context) { controllers.CommentsController.Student.Update(c) })
+		studentEndPoint.DELETE("/lectures/:lecture_id/helps/:help_id/comments/:comment_id", func(c *gin.Context) { controllers.CommentsController.Student.Delete(c) })
 	}
 
 	assistantEndPoint := v1APIEndpoint.Group("/assistant")
 	{
-		assistantEndPoint.POST("/login", func(c *gin.Context) { controllers.AssistantLoginController.Create(c) })
+		assistantEndPoint.POST("/login", func(c *gin.Context) { controllers.LoginController.Assistant.Create(c) })
 
 		assistantEndPoint.Use(handlers.AuthHandler.AssistantAuthHandler())
 		assistantEndPoint.GET("/me", handlers.MeHandler.AssistantMeHandler())
 		assistantEndPoint.POST("/", func(c *gin.Context) { controllers.AssistantsController.Create(c) })
 		assistantEndPoint.GET("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Show(c) })
 		assistantEndPoint.PUT("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Update(c) })
+
+		assistantEndPoint.GET("/lectures/:lecture_id/helps", func(c *gin.Context) { controllers.HelpsController.Index(c) })
+		assistantEndPoint.POST("/lectures/:lecture_id/helps", func(c *gin.Context) { controllers.HelpsController.Create(c) })
+		assistantEndPoint.PUT("/lectures/:lecture_id/helps/:help_id", func(c *gin.Context) { controllers.HelpsController.Update(c) })
+		assistantEndPoint.DELETE("/lectures/:lecture_id/helps/:help_id", func(c *gin.Context) { controllers.HelpsController.Delete(c) })
+
+		assistantEndPoint.GET("/lectures/:lecture_id/helps/:help_id/comments", func(c *gin.Context) { controllers.CommentsController.Assistant.Index(c) })
+		assistantEndPoint.POST("/lectures/:lecture_id/helps/:help_id/comments", func(c *gin.Context) { controllers.CommentsController.Assistant.Create(c) })
+		assistantEndPoint.PUT("/lectures/:lecture_id/helps/:help_id/comments/:comment_id", func(c *gin.Context) { controllers.CommentsController.Assistant.Update(c) })
+		assistantEndPoint.DELETE("/lectures/:lecture_id/helps/:help_id/comments/:comment_id", func(c *gin.Context) { controllers.CommentsController.Assistant.Delete(c) })
 	}
 
 	teacherEndPoint := v1APIEndpoint.Group("/teacher")
 	{
-		teacherEndPoint.POST("/login", func(c *gin.Context) { controllers.TeacherLoginController.Create(c) })
+		teacherEndPoint.POST("/login", func(c *gin.Context) { controllers.LoginController.Teacher.Create(c) })
 
 		teacherEndPoint.Use(handlers.AuthHandler.TeacherAuthHandler())
 		teacherEndPoint.GET("/me", handlers.MeHandler.TeacherMeHandler())
 		teacherEndPoint.POST("/", func(c *gin.Context) { controllers.TeachersController.Create(c) })
 		teacherEndPoint.GET("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Show(c) })
 		teacherEndPoint.PUT("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Update(c) })
+
+		teacherEndPoint.GET("/lectures/:lecture_id/helps/:help_id/comments", func(c *gin.Context) { controllers.CommentsController.Teacher.Index(c) })
+		teacherEndPoint.POST("/lectures/:lecture_id/helps/:help_id/comments", func(c *gin.Context) { controllers.CommentsController.Teacher.Create(c) })
+		teacherEndPoint.PUT("/lectures/:lecture_id/helps/:help_id/comments/:comment_id", func(c *gin.Context) { controllers.CommentsController.Teacher.Update(c) })
+		teacherEndPoint.DELETE("/lectures/:lecture_id/helps/:help_id/comments/:comment_id", func(c *gin.Context) { controllers.CommentsController.Teacher.Delete(c) })
 	}
 
 	adminEndPoint := v1APIEndpoint.Group("/admin")
 	{
-		adminEndPoint.POST("/login", func(c *gin.Context) { controllers.AdminLoginController.Create(c) })
+		adminEndPoint.POST("/login", func(c *gin.Context) { controllers.LoginController.Admin.Create(c) })
 
 		adminEndPoint.Use(handlers.AuthHandler.AdminAuthHandler())
 		adminEndPoint.GET("/me", handlers.MeHandler.AdminMeHandler())
