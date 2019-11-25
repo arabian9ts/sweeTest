@@ -53,39 +53,40 @@ func (repo *LectureRepository) GetLectureById(id int64) (lecture *model.Lecture,
 	return
 }
 
-func (repo *LectureRepository) CreateLecture(lecture *model.Lecture) (int64, error) {
+func (repo *LectureRepository) CreateLecture(lecture *model.Lecture) (*model.Lecture, error) {
 	result, err := repo.SqlHandler.Execute(
 		"INSERT INTO lectures (name) VALUES (?)",
 		lecture.Name,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	id64, err := result.LastInsertId()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(id64), nil
+	lecture.ID = id64
+	return lecture, nil
 }
 
-func (repo *LectureRepository) UpdateLecture(lecture *model.Lecture) (int64, error) {
+func (repo *LectureRepository) UpdateLecture(lecture *model.Lecture) (*model.Lecture, error) {
 	result, err := repo.SqlHandler.Execute(
 		"UPDATE lectures SET name = ? WHERE id = ?",
 		lecture.Name,
 		lecture.ID,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	count, err := result.RowAffected()
+	_, err = result.RowAffected()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(count), nil
+	return lecture, nil
 }
 
 func (repo *LectureRepository) DeleteLecture(id int64) (int64, error) {
