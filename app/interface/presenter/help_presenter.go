@@ -28,22 +28,30 @@ func (*HelpPresenter) HandleGetHelpsByLectureID(helps model.Helps, err error) (d
 	return output, err
 }
 
-func (*HelpPresenter) HandleCreateHelp(id int64, err error) (*dto.CreateHelpOutputForm, error) {
+func (*HelpPresenter) HandleCreateHelp(help *model.Help, err error) (*dto.CreateHelpOutputForm, error) {
 	return &dto.CreateHelpOutputForm{
-		LastChangedHelpID: id,
+		ID:        help.ID,
+		LectureID: help.LectureID,
+		StudentID: help.StudentID,
+		Contents:  help.Contents,
+		CreatedAt: help.CreatedAt,
+		UpdatedAt: help.UpdatedAt,
 	}, err
 }
 
-func (*HelpPresenter) HandleUpdateHelp(count int64, err error) (*dto.UpdateHelpOutputForm, error) {
-	updated := count != 0
+func (*HelpPresenter) HandleUpdateHelp(help *model.Help, err error) (*dto.UpdateHelpOutputForm, error) {
 	return &dto.UpdateHelpOutputForm{
-		Updated: updated,
+		ID:        help.ID,
+		LectureID: help.LectureID,
+		StudentID: help.StudentID,
+		Contents:  help.Contents,
+		CreatedAt: help.CreatedAt,
+		UpdatedAt: help.UpdatedAt,
 	}, err
 }
 
 func (*HelpPresenter) HandleDeleteHelp(count int64, err error) (*dto.DeleteHelpOutputForm, error) {
-	deleted := count != 0
 	return &dto.DeleteHelpOutputForm{
-		Deleted: deleted,
+		AffectedRowsCount: count,
 	}, err
 }

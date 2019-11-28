@@ -62,7 +62,7 @@ func (controller *HelpsController) Update(ctx Context) {
 	student := getCurrentStudent(ctx)
 	helpID := getHelpID(ctx)
 	lectureID := getLectureID(ctx)
-	inputForm := &dto.UpdateHelpInputForm{ID: int64(helpID), LectureID: int64(lectureID), StudentID: student.ID}
+	inputForm := &dto.UpdateHelpInputForm{ID: int64(helpID), StudentID: student.ID, LectureID: int64(lectureID)}
 	ctx.Bind(&inputForm)
 
 	ok, msgs := controller.Validator.Validate(inputForm)

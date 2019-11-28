@@ -49,36 +49,37 @@ func (repo *CommentRepository) GetCommentsByUserTypeAndUserID(userType model.Use
 	return comments, nil
 }
 
-func (repo *CommentRepository) CreateComment(comment *model.Comment) (int64, error) {
+func (repo *CommentRepository) CreateComment(comment *model.Comment) (*model.Comment, error) {
 	row, err := repo.SqlHandler.Execute("INSERT INTO `comments` (`help_id`, `user_type`, `user_id`, `contents`) VALUES (?,?,?,?)",
 		comment.HelpID, comment.UserType, comment.UserID, comment.Contents,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	id, err := row.LastInsertId()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return id, nil
+	comment.ID = id
+	return comment, nil
 }
 
-func (repo *CommentRepository) UpdateComment(comment *model.Comment) (int64, error) {
+func (repo *CommentRepository) UpdateComment(comment *model.Comment) (*model.Comment, error) {
 	result, err := repo.SqlHandler.Execute("UPDATE `comments` SET `contents` = ? WHERE `id` = ? AND `user_type` = ? AND `user_id` = ?",
 		comment.ID, comment.Contents, comment.UserType, comment.UserID,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	count, err := result.RowAffected()
+	_, err = result.RowAffected()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return count, nil
+	return comment, nil
 }
 
 func (repo *CommentRepository) DeleteComment(id int64, userType model.UserType, userID int64) (int64, error) {

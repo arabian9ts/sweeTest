@@ -96,32 +96,32 @@ func (mock *UserRepositoryMock) GetParticipatingTeachersOfLecture(lectureID int6
 	return []*model.Teacher{mock.TeacherFixture}, nil
 }
 
-func (mock *UserRepositoryMock) InsertStudent(student *model.Student) (int64, error) {
+func (mock *UserRepositoryMock) InsertStudent(student *model.Student) (*model.Student, error) {
 	if mock.Error != nil {
-		return 0, mock.Error
+		return &model.Student{}, mock.Error
 	}
-	return mock.StudentFixture.ID, nil
+	return mock.StudentFixture, nil
 }
 
-func (mock *UserRepositoryMock) InsertAssistant(assistant *model.Assistant) (int64, error) {
+func (mock *UserRepositoryMock) InsertAssistant(assistant *model.Assistant) (*model.Assistant, error) {
 	if mock.Error != nil {
-		return 0, mock.Error
+		return &model.Assistant{}, mock.Error
 	}
-	return mock.AssistantFixture.ID, nil
+	return mock.AssistantFixture, nil
 }
 
-func (mock *UserRepositoryMock) InsertTeacher(teacher *model.Teacher) (int64, error) {
+func (mock *UserRepositoryMock) InsertTeacher(teacher *model.Teacher) (*model.Teacher, error) {
 	if mock.Error != nil {
-		return 0, mock.Error
+		return &model.Teacher{}, mock.Error
 	}
-	return mock.TeacherFixture.ID, nil
+	return mock.TeacherFixture, nil
 }
 
-func (mock *UserRepositoryMock) InsertAdmin(admin *model.Admin) (int64, error) {
+func (mock *UserRepositoryMock) InsertAdmin(admin *model.Admin) (*model.Admin, error) {
 	if mock.Error != nil {
-		return 0, mock.Error
+		return admin, mock.Error
 	}
-	return mock.AdminFixture.ID, nil
+	return mock.AdminFixture, nil
 }
 
 func (mock *UserRepositoryMock) GetStudentByStudentNo(studentNo string) (*model.Student, error) {
@@ -164,32 +164,32 @@ func (mock *UserRepositoryMock) GetAdminByEmail(email string) (*model.Admin, err
 	return mock.AdminFixture, nil
 }
 
-func (mock *UserRepositoryMock) UpdateStudent(student *model.Student) (int64, error) {
+func (mock *UserRepositoryMock) UpdateStudent(student *model.Student) (*model.Student, error) {
 	if mock.Error != nil {
-		return 0, mock.Error
+		return &model.Student{}, mock.Error
 	}
 	if student.ID != mock.StudentFixture.ID {
-		return int64(0), fmt.Errorf("student not exists")
+		return &model.Student{}, fmt.Errorf("student not exists")
 	}
-	return mock.StudentFixture.ID, nil
+	return student, nil
 }
 
-func (mock *UserRepositoryMock) UpdateAssistant(assistant *model.Assistant) (int64, error) {
+func (mock *UserRepositoryMock) UpdateAssistant(assistant *model.Assistant) (*model.Assistant, error) {
 	if mock.Error != nil {
-		return 0, mock.Error
+		return &model.Assistant{}, mock.Error
 	}
 	if assistant.ID != mock.AssistantFixture.ID {
-		return int64(0), fmt.Errorf("assistant not exists")
+		return &model.Assistant{}, fmt.Errorf("assistant not exists")
 	}
-	return mock.AssistantFixture.ID, nil
+	return assistant, nil
 }
 
-func (mock *UserRepositoryMock) UpdateTeacher(teacher *model.Teacher) (int64, error) {
+func (mock *UserRepositoryMock) UpdateTeacher(teacher *model.Teacher) (*model.Teacher, error) {
 	if mock.Error != nil {
-		return 0, mock.Error
+		return &model.Teacher{}, mock.Error
 	}
 	if teacher.ID != mock.TeacherFixture.ID {
-		return int64(0), fmt.Errorf("teacher not exists")
+		return &model.Teacher{}, fmt.Errorf("teacher not exists")
 	}
-	return mock.TeacherFixture.ID, nil
+	return teacher, nil
 }

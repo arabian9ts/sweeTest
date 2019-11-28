@@ -2,6 +2,7 @@ package mock
 
 import (
 	"fmt"
+
 	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 	"github.com/arabian9ts/sweeTest/fixture"
@@ -57,21 +58,21 @@ func (mock *LectureRepositoryMock) GetParticipatedLecturesOfTeacher(teacherID in
 	return []*model.Lecture{mock.LectureFixture}, nil
 }
 
-func (mock *LectureRepositoryMock) CreateLecture(lecture *model.Lecture) (int64, error) {
+func (mock *LectureRepositoryMock) CreateLecture(lecture *model.Lecture) (*model.Lecture, error) {
 	if mock.Error != nil {
-		return 0, mock.Error
+		return &model.Lecture{}, mock.Error
 	}
-	return mock.LectureFixture.ID, nil
+	return mock.LectureFixture, nil
 }
 
-func (mock *LectureRepositoryMock) UpdateLecture(lecture *model.Lecture) (int64, error) {
+func (mock *LectureRepositoryMock) UpdateLecture(lecture *model.Lecture) (*model.Lecture, error) {
 	if mock.Error != nil {
-		return 0, mock.Error
+		return &model.Lecture{}, mock.Error
 	}
 	if lecture.ID != mock.LectureFixture.ID {
-		return int64(0), fmt.Errorf("lecture not exists")
+		return &model.Lecture{}, fmt.Errorf("lecture not exists")
 	}
-	return mock.LectureFixture.ID, nil
+	return lecture, nil
 }
 
 func (mock *LectureRepositoryMock) DeleteLecture(id int64) (int64, error) {

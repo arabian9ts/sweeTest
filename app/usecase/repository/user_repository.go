@@ -21,12 +21,12 @@ type UserRepository interface {
 	GetParticipatingAssistantsOfLecture(lectureID int64, limit int, offset int) (model.Assistants, error)
 	GetParticipatingTeachersOfLecture(lectureID int64, limit int, offset int) (model.Teachers, error)
 
-	InsertStudent(student *model.Student) (int64, error)
-	InsertAssistant(assistant *model.Assistant) (int64, error)
-	InsertTeacher(teacher *model.Teacher) (int64, error)
-	InsertAdmin(admin *model.Admin) (int64, error)
+	InsertStudent(student *model.Student) (*model.Student, error)
+	InsertAssistant(assistant *model.Assistant) (*model.Assistant, error)
+	InsertTeacher(teacher *model.Teacher) (*model.Teacher, error)
+	InsertAdmin(admin *model.Admin) (*model.Admin, error)
 
-	UpdateStudent(student *model.Student) (int64, error)
-	UpdateAssistant(assistant *model.Assistant) (int64, error)
-	UpdateTeacher(teacher *model.Teacher) (int64, error)
+	UpdateStudent(student *model.Student) (*model.Student, error)
+	UpdateAssistant(assistant *model.Assistant) (*model.Assistant, error)
+	UpdateTeacher(teacher *model.Teacher) (*model.Teacher, error)
 }

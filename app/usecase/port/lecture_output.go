@@ -18,11 +18,11 @@ type GetLectureOutput interface {
 }
 
 type CreateLectureOutput interface {
-	HandleCreateLecture(id int64, err error) (*dto.CreateLectureOutputForm, error)
+	HandleCreateLecture(lecture *model.Lecture, err error) (*dto.CreateLectureOutputForm, error)
 }
 
 type UpdateLectureOutput interface {
-	HandleUpdateLecture(count int64, err error) (*dto.UpdateLectureOutputForm, error)
+	HandleUpdateLecture(lecture *model.Lecture, err error) (*dto.UpdateLectureOutputForm, error)
 }
 
 type DeleteLectureOutput interface {

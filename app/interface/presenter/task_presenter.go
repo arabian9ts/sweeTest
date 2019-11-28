@@ -8,7 +8,7 @@ import (
 
 type TaskPresenter struct{}
 
-func NewTaskPresenter() (port.TaskOutput) {
+func NewTaskPresenter() port.TaskOutput {
 	return &TaskPresenter{}
 }
 
@@ -26,22 +26,40 @@ func (*TaskPresenter) HandleGetTasksByLectureId(tasks model.Tasks, err error) (d
 		}
 		output = append(output, form)
 	}
+
 	return output, err
 }
 
-func (*TaskPresenter) HandleCreateTask(id int64, err error) (*dto.CreateTaskOutputForm, error) {
-	output := &dto.CreateTaskOutputForm{LastChangedTaskId: id}
+func (*TaskPresenter) HandleCreateTask(task *model.Task, err error) (*dto.CreateTaskOutputForm, error) {
+	output := &dto.CreateTaskOutputForm{
+		ID:        task.ID,
+		LectureID: task.LectureID,
+		Title:     task.Title,
+		Desc:      task.Desc,
+		Deadline:  task.Deadline,
+		CreatedAt: task.CreatedAt,
+		UpdatedAt: task.UpdatedAt,
+	}
+
 	return output, err
 }
 
-func (*TaskPresenter) HandleUpdateTask(count int64, err error) (*dto.UpdateTaskOutputForm, error) {
-	updated := count != 0
-	output := &dto.UpdateTaskOutputForm{Updated: updated}
+func (*TaskPresenter) HandleUpdateTask(task *model.Task, err error) (*dto.UpdateTaskOutputForm, error) {
+	output := &dto.UpdateTaskOutputForm{
+		ID:        task.ID,
+		LectureID: task.LectureID,
+		Title:     task.Title,
+		Desc:      task.Desc,
+		Deadline:  task.Deadline,
+		CreatedAt: task.CreatedAt,
+		UpdatedAt: task.UpdatedAt,
+	}
+
 	return output, err
 }
 
 func (*TaskPresenter) HandleDeleteTask(count int64, err error) (*dto.DeleteTaskOutputForm, error) {
-	deleted := count != 0
-	output := &dto.DeleteTaskOutputForm{Deleted: deleted}
+	output := &dto.DeleteTaskOutputForm{AffectedRowsCount: count}
+
 	return output, err
 }

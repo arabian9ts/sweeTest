@@ -1,14 +1,15 @@
 package fixture
 
-import "github.com/arabian9ts/sweeTest/app/dto"
+import (
+	"github.com/arabian9ts/sweeTest/app/dto"
+)
 
 func NewValidCreateStudentInputForm() *dto.CreateStudentInputForm {
 	return &dto.CreateStudentInputForm{
-		StudentNo: "121312312",
-		FirstName: "taku",
-		LastName:  "maeda",
-		Email:     "aaa@bbb.ccc",
-		Password:  "password",
+		StudentNo: "12345678",
+		FirstName: "First",
+		LastName:  "Last",
+		Email:     "Email@test.com",
 	}
 }
 

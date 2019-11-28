@@ -11,6 +11,6 @@ func NewLectureInputFormFixture() *dto.CreateLectureInputForm {
 func NewUpdateLectureInputFormFixture() *dto.UpdateLectureInputForm {
 	return &dto.UpdateLectureInputForm{
 		ID:   1,
-		Name: "lecture input form fixture",
+		Name: "update lecture input form fixture",
 	}
 }

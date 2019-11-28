@@ -23,13 +23,19 @@ type GetLectureByIdOutputForm struct {
 type GetLecturesOutputForm []*GetLectureByIdOutputForm
 
 type CreateLectureOutputForm struct {
-	LastChangedLectureId int64 `json:"changed_lecture_id"`
+	ID        int64     `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type UpdateLectureOutputForm struct {
-	Updated bool `json:"updated"`
+	ID        int64     `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type DeleteLectureOutputForm struct {
-	Deleted bool `json:"deleted"`
+	AffectedRowsCount int64 `json:"count"`
 }

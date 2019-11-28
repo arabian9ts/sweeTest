@@ -17,11 +17,11 @@ type GetHelpOutput interface {
 }
 
 type CreateHelpOutput interface {
-	HandleCreateHelp(id int64, err error) (*dto.CreateHelpOutputForm, error)
+	HandleCreateHelp(help *model.Help, err error) (*dto.CreateHelpOutputForm, error)
 }
 
 type UpdateHelpOutput interface {
-	HandleUpdateHelp(id int64, err error) (*dto.UpdateHelpOutputForm, error)
+	HandleUpdateHelp(help *model.Help, err error) (*dto.UpdateHelpOutputForm, error)
 }
 
 type DeleteHelpOutput interface {

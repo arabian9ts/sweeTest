@@ -32,13 +32,25 @@ type GetTaskOutputForm struct {
 type GetTasksByLectureIdOutputForm []*GetTaskOutputForm
 
 type CreateTaskOutputForm struct {
-	LastChangedTaskId int64 `json:"changed_task_id"`
+	ID        int64     `json:"id"`
+	LectureID int64     `json:"lecture_id"`
+	Title     string    `json:"title"`
+	Desc      string    `json:"desc"`
+	Deadline  time.Time `json:"deadline"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type UpdateTaskOutputForm struct {
-	Updated bool `json:"updated"`
+	ID        int64     `json:"id"`
+	LectureID int64     `json:"lecture_id"`
+	Title     string    `json:"title"`
+	Desc      string    `json:"desc"`
+	Deadline  time.Time `json:"deadline"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type DeleteTaskOutputForm struct {
-	Deleted bool `json:"deleted"`
+	AffectedRowsCount int64 `json:"count"`
 }
