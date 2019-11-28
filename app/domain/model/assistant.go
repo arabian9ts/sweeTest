@@ -12,3 +12,5 @@ type Assistant struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
+
+type Assistants = []*Assistant

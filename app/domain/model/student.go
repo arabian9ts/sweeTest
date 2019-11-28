@@ -14,3 +14,5 @@ type Student struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
+
+type Students []*Student

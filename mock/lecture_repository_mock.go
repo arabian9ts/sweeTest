@@ -36,6 +36,27 @@ func (mock *LectureRepositoryMock) GetLectureById(id int64) (*model.Lecture, err
 	return mock.LectureFixture, nil
 }
 
+func (mock *LectureRepositoryMock) GetParticipatedLecturesOfStudent(studentID int64, limit int, offset int) (model.Lectures, error) {
+	if mock.Error != nil {
+		return nil, mock.Error
+	}
+	return []*model.Lecture{mock.LectureFixture}, nil
+}
+
+func (mock *LectureRepositoryMock) GetParticipatedLecturesOfAssistant(studentID int64, limit int, offset int) (model.Lectures, error) {
+	if mock.Error != nil {
+		return nil, mock.Error
+	}
+	return []*model.Lecture{mock.LectureFixture}, nil
+}
+
+func (mock *LectureRepositoryMock) GetParticipatedLecturesOfTeacher(teacherID int64, limit int, offset int) (model.Lectures, error) {
+	if mock.Error != nil {
+		return nil, mock.Error
+	}
+	return []*model.Lecture{mock.LectureFixture}, nil
+}
+
 func (mock *LectureRepositoryMock) CreateLecture(lecture *model.Lecture) (int64, error) {
 	if mock.Error != nil {
 		return 0, mock.Error

@@ -1,7 +1,7 @@
 # example env settings
 mysql:
   username: sweeta
-  password: kaba8ki3TA6
+  password: kaba8ki3ta6
   database: sweetest
   dialect: mysql
   host: localhost
