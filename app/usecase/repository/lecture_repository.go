@@ -9,7 +9,7 @@ type LectureRepository interface {
 
 	GetLectures(limit int, offset int) (model.Lectures, error)
 	GetLectureById(id int64) (*model.Lecture, error)
-	CreateLecture(lecture *model.Lecture) (int64, error)
-	UpdateLecture(lecture *model.Lecture) (int64, error)
+	CreateLecture(lecture *model.Lecture) (*model.Lecture, error)
+	UpdateLecture(lecture *model.Lecture) (*model.Lecture, error)
 	DeleteLecture(id int64) (int64, error)
 }

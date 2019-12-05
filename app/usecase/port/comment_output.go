@@ -17,11 +17,11 @@ type GetCommentOutput interface {
 }
 
 type CreateCommentOutput interface {
-	HandleCreateComment(id int64, err error) (*dto.CreateCommentOutputForm, error)
+	HandleCreateComment(comment *model.Comment, err error) (*dto.CreateCommentOutputForm, error)
 }
 
 type UpdateCommentOutput interface {
-	HandleUpdateComment(count int64, err error) (*dto.UpdateCommentOutputForm, error)
+	HandleUpdateComment(comment *model.Comment, err error) (*dto.UpdateCommentOutputForm, error)
 }
 
 type DeleteCommentOutput interface {

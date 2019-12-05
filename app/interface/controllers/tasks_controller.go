@@ -1,12 +1,13 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 	"github.com/arabian9ts/sweeTest/app/validator"
-	"strconv"
 )
 
 type TasksController struct {

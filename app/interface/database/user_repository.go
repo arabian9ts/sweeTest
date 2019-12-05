@@ -247,75 +247,79 @@ func (repo *UserRepository) GetAdminByEmail(email string) (admin *model.Admin, e
 	return
 }
 
-func (repo *UserRepository) InsertStudent(student *model.Student) (int64, error) {
+func (repo *UserRepository) InsertStudent(student *model.Student) (*model.Student, error) {
 	result, err := repo.SqlHandler.Execute(
 		"INSERT INTO students (student_no, first_name, last_name, email, digest) VALUES (?,?,?,?,?)",
 		student.StudentNo, student.FirstName, student.LastName, student.Email, student.Digest,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	id64, err := result.LastInsertId()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(id64), nil
+	student.ID = id64
+	return student, nil
 }
 
-func (repo *UserRepository) InsertAssistant(assistant *model.Assistant) (int64, error) {
+func (repo *UserRepository) InsertAssistant(assistant *model.Assistant) (*model.Assistant, error) {
 	result, err := repo.SqlHandler.Execute(
 		"INSERT INTO assistants (student_no, first_name, last_name, email, digest) VALUES (?,?,?,?,?)",
 		assistant.StudentNo, assistant.FirstName, assistant.LastName, assistant.Email, assistant.Digest,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	id64, err := result.LastInsertId()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(id64), nil
+	assistant.ID = id64
+	return assistant, nil
 }
 
-func (repo *UserRepository) InsertTeacher(teacher *model.Teacher) (int64, error) {
+func (repo *UserRepository) InsertTeacher(teacher *model.Teacher) (*model.Teacher, error) {
 	result, err := repo.SqlHandler.Execute(
 		"INSERT INTO teachers (first_name, last_name, email, digest) VALUES (?,?,?,?)",
 		teacher.FirstName, teacher.LastName, teacher.Email, teacher.Digest,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	id64, err := result.LastInsertId()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(id64), nil
+	teacher.ID = id64
+	return teacher, nil
 }
 
-func (repo *UserRepository) InsertAdmin(admin *model.Admin) (int64, error) {
+func (repo *UserRepository) InsertAdmin(admin *model.Admin) (*model.Admin, error) {
 	result, err := repo.SqlHandler.Execute(
 		"INSERT INTO admins (first_name, last_name, email, digest) VALUES (?,?,?,?)",
 		admin.FirstName, admin.LastName, admin.Email, admin.Digest,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	id64, err := result.LastInsertId()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(id64), nil
+	admin.ID = id64
+	return admin, nil
 }
 
-func (repo *UserRepository) UpdateStudent(student *model.Student) (int64, error) {
+func (repo *UserRepository) UpdateStudent(student *model.Student) (*model.Student, error) {
 	result, err := repo.SqlHandler.Execute(
 		"UPDATE students SET student_no = ?, first_name = ?, last_name = ?, email = ? WHERE id = ?",
 		student.StudentNo,
@@ -325,18 +329,18 @@ func (repo *UserRepository) UpdateStudent(student *model.Student) (int64, error)
 		student.ID,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	count, err := result.RowAffected()
+	_, err = result.RowAffected()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(count), err
+	return student, err
 }
 
-func (repo *UserRepository) UpdateAssistant(assistant *model.Assistant) (int64, error) {
+func (repo *UserRepository) UpdateAssistant(assistant *model.Assistant) (*model.Assistant, error) {
 	result, err := repo.SqlHandler.Execute(
 		"UPDATE assistants SET assistant_no = ?, first_name = ?, last_name = ?, Email = ? WHERE id = ?",
 		assistant.StudentNo,
@@ -346,18 +350,18 @@ func (repo *UserRepository) UpdateAssistant(assistant *model.Assistant) (int64, 
 		assistant.ID,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	count, err := result.RowAffected()
+	_, err = result.RowAffected()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(count), err
+	return assistant, err
 }
 
-func (repo *UserRepository) UpdateTeacher(teacher *model.Teacher) (int64, error) {
+func (repo *UserRepository) UpdateTeacher(teacher *model.Teacher) (*model.Teacher, error) {
 	result, err := repo.SqlHandler.Execute(
 		"UPDATE teachers SET first_name = ?, last_name = ?, Email = ? WHERE id = ?",
 		teacher.FirstName,
@@ -366,13 +370,13 @@ func (repo *UserRepository) UpdateTeacher(teacher *model.Teacher) (int64, error)
 		teacher.ID,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	count, err := result.RowAffected()
+	_, err = result.RowAffected()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(count), err
+	return teacher, err
 }

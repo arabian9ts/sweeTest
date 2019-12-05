@@ -19,8 +19,8 @@ func TestCreateStudent(t *testing.T) {
 		outputForm, err := userInteractor.CreateStudent(student)
 
 		assert.Nil(t, err)
-		assert.NotNil(t, outputForm.LastInsertedId)
-		assert.NotEqual(t, outputForm.LastInsertedId, 0)
+		assert.NotNil(t, outputForm)
+		assert.NotEqual(t, outputForm.ID, int64(0))
 	})
 
 	t.Run("user=student, failed", func(t *testing.T) {
@@ -34,8 +34,7 @@ func TestCreateStudent(t *testing.T) {
 		outputForm, err := userInteractor.CreateStudent(student)
 
 		assert.NotNil(t, err)
-		assert.NotNil(t, outputForm.LastInsertedId)
-		assert.Equal(t, outputForm.LastInsertedId, int64(0))
+		assert.Equal(t, outputForm.ID, int64(0))
 	})
 }
 
@@ -48,8 +47,8 @@ func TestCreateAssistant(t *testing.T) {
 		outputForm, err := userInteractor.CreateAssistant(assistant)
 
 		assert.Nil(t, err)
-		assert.NotNil(t, outputForm.LastInsertedId)
-		assert.NotEqual(t, outputForm.LastInsertedId, 0)
+		assert.NotNil(t, outputForm)
+		assert.NotEqual(t, outputForm.ID, int64(0))
 	})
 
 	t.Run("user=assistant, failed", func(t *testing.T) {
@@ -63,8 +62,7 @@ func TestCreateAssistant(t *testing.T) {
 		outputForm, err := userInteractor.CreateAssistant(assistant)
 
 		assert.NotNil(t, err)
-		assert.NotNil(t, outputForm.LastInsertedId)
-		assert.Equal(t, outputForm.LastInsertedId, int64(0))
+		assert.Equal(t, outputForm.ID, int64(0))
 	})
 }
 
@@ -77,8 +75,8 @@ func TestCreateTeacher(t *testing.T) {
 		outputForm, err := userInteractor.CreateTeacher(teacher)
 
 		assert.Nil(t, err)
-		assert.NotNil(t, outputForm.LastInsertedId)
-		assert.NotEqual(t, outputForm.LastInsertedId, 0)
+		assert.NotNil(t, outputForm)
+		assert.NotEqual(t, outputForm.ID, int64(0))
 	})
 
 	t.Run("user=teacher, failed", func(t *testing.T) {
@@ -92,8 +90,7 @@ func TestCreateTeacher(t *testing.T) {
 		outputForm, err := userInteractor.CreateTeacher(teacher)
 
 		assert.NotNil(t, err)
-		assert.NotNil(t, outputForm.LastInsertedId)
-		assert.Equal(t, outputForm.LastInsertedId, int64(0))
+		assert.Equal(t, outputForm.ID, int64(0))
 	})
 }
 
@@ -109,7 +106,7 @@ func TestUpdateStudent(t *testing.T) {
 		outputForm, err := userInteractor.UpdateStudent(studentFixture)
 
 		assert.Nil(t, err)
-		assert.Equal(t, outputForm.Updated, true)
+		assert.Equal(t, studentFixture.ID, outputForm.ID)
 	})
 
 	t.Run("id=0, err=nil, failed", func(t *testing.T) {
@@ -124,7 +121,7 @@ func TestUpdateStudent(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.Updated, false)
+		assert.Equal(t, outputForm.ID, int64(0))
 	})
 
 	t.Run("id=1, err=not nil, failed", func(t *testing.T) {
@@ -139,7 +136,7 @@ func TestUpdateStudent(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.Updated, false)
+		assert.Equal(t, outputForm.ID, int64(0))
 	})
 }
 
@@ -155,7 +152,7 @@ func TestUpdateAssistant(t *testing.T) {
 		outputForm, err := userInteractor.UpdateAssistant(assistantFixture)
 
 		assert.Nil(t, err)
-		assert.Equal(t, outputForm.Updated, true)
+		assert.Equal(t, assistantFixture.ID, outputForm.ID)
 	})
 
 	t.Run("id=0, err=nil, failed", func(t *testing.T) {
@@ -171,7 +168,7 @@ func TestUpdateAssistant(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.Updated, false)
+		assert.Equal(t, int64(0), outputForm.ID)
 	})
 
 	t.Run("id=1, err=not nil, failed", func(t *testing.T) {
@@ -186,7 +183,7 @@ func TestUpdateAssistant(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.Updated, false)
+		assert.Equal(t, int64(0), outputForm.ID)
 	})
 }
 
@@ -202,7 +199,7 @@ func TestUpdateTeacher(t *testing.T) {
 		outputForm, err := userInteractor.UpdateTeacher(teacherFixture)
 
 		assert.Nil(t, err)
-		assert.Equal(t, outputForm.Updated, true)
+		assert.Equal(t, teacherFixture.ID, outputForm.ID)
 	})
 
 	t.Run("id=0, err=nil, failed", func(t *testing.T) {
@@ -218,7 +215,7 @@ func TestUpdateTeacher(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.Updated, false)
+		assert.Equal(t, int64(0), outputForm.ID)
 	})
 
 	t.Run("id=1, err=not nil, failed", func(t *testing.T) {
@@ -233,6 +230,6 @@ func TestUpdateTeacher(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.Updated, false)
+		assert.Equal(t, int64(0), outputForm.ID)
 	})
 }

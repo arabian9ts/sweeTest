@@ -37,19 +37,27 @@ func (*LecturePresenter) HandleGetLectureById(lecture *model.Lecture, err error)
 	return output, err
 }
 
-func (*LecturePresenter) HandleCreateLecture(id int64, err error) (*dto.CreateLectureOutputForm, error) {
-	output := &dto.CreateLectureOutputForm{LastChangedLectureId: id}
+func (*LecturePresenter) HandleCreateLecture(lecture *model.Lecture, err error) (*dto.CreateLectureOutputForm, error) {
+	output := &dto.CreateLectureOutputForm{
+		ID:        lecture.ID,
+		Name:      lecture.Name,
+		CreatedAt: lecture.CreatedAt,
+		UpdatedAt: lecture.UpdatedAt,
+	}
 	return output, err
 }
 
-func (*LecturePresenter) HandleUpdateLecture(count int64, err error) (*dto.UpdateLectureOutputForm, error) {
-	updated := count != 0
-	output := &dto.UpdateLectureOutputForm{Updated: updated}
+func (*LecturePresenter) HandleUpdateLecture(lecture *model.Lecture, err error) (*dto.UpdateLectureOutputForm, error) {
+	output := &dto.UpdateLectureOutputForm{
+		ID:        lecture.ID,
+		Name:      lecture.Name,
+		CreatedAt: lecture.CreatedAt,
+		UpdatedAt: lecture.UpdatedAt,
+	}
 	return output, err
 }
 
 func (*LecturePresenter) HandleDeleteLecture(count int64, err error) (*dto.DeleteLectureOutputForm, error) {
-	deleted := count != 0
-	output := &dto.DeleteLectureOutputForm{Deleted: deleted}
+	output := &dto.DeleteLectureOutputForm{AffectedRowsCount: count}
 	return output, err
 }

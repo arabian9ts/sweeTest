@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+
 	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 )
@@ -51,38 +52,39 @@ func (repo *HelpRepository) GetHelpsByLectureID(lectureID int64, limit int, offs
 	return helps, nil
 }
 
-func (repo *HelpRepository) CreateHelp(help *model.Help) (int64, error) {
+func (repo *HelpRepository) CreateHelp(help *model.Help) (*model.Help, error) {
 	result, err := repo.SqlHandler.Execute(
 		"INSERT INTO `helps` (`lecture_id`, `student_id`, `contents`) VALUES (?,?,?)",
 		help.LectureID, help.StudentID, help.Contents,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	count, err := result.LastInsertId()
+	id, err := result.LastInsertId()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(count), err
+	help.ID = id
+	return help, err
 }
 
-func (repo *HelpRepository) UpdateHelp(help *model.Help) (int64, error) {
+func (repo *HelpRepository) UpdateHelp(help *model.Help) (*model.Help, error) {
 	result, err := repo.SqlHandler.Execute(
 		"UPDATE `helps` SET `contents` = ? WHERE `lecture_id` = ? AND `student_id` = ?",
 		help.Contents, help.LectureID, help.StudentID,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	count, err := result.RowAffected()
+	_, err = result.RowAffected()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(count), err
+	return help, err
 }
 
 func (repo *HelpRepository) DeleteHelp(id int64, lectureID int64, studentID int64) (int64, error) {

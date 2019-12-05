@@ -89,38 +89,72 @@ func (*UserPresenter) HandleGetTeacher(teacher *model.Teacher, err error) (*dto.
 	return output, err
 }
 
-func (*UserPresenter) HandleCreateStudent(id int64, err error) (*dto.CreateStudentOutputForm, error) {
-	output := &dto.CreateStudentOutputForm{LastInsertedId: id}
+func (*UserPresenter) HandleCreateStudent(student *model.Student, err error) (*dto.CreateStudentOutputForm, error) {
+	output := &dto.CreateStudentOutputForm{
+		ID:        student.ID,
+		StudentNo: student.StudentNo,
+		FirstName: student.FirstName,
+		LastName:  student.LastName,
+		CreatedAt: student.CreatedAt,
+		UpdatedAt: student.UpdatedAt,
+	}
 	return output, err
 }
 
-func (*UserPresenter) HandleCreateAssistant(id int64, err error) (*dto.CreateAssistantOutputForm, error) {
-	output := &dto.CreateAssistantOutputForm{LastInsertedId: id}
+func (*UserPresenter) HandleCreateAssistant(assistant *model.Assistant, err error) (*dto.CreateAssistantOutputForm, error) {
+	output := &dto.CreateAssistantOutputForm{
+		ID:        assistant.ID,
+		StudentNo: assistant.StudentNo,
+		FirstName: assistant.FirstName,
+		LastName:  assistant.LastName,
+		CreatedAt: assistant.CreatedAt,
+		UpdatedAt: assistant.UpdatedAt,
+	}
 	return output, err
 }
 
-func (*UserPresenter) HandleCreateTeacher(id int64, err error) (*dto.CreateTeacherOutputForm, error) {
-	output := &dto.CreateTeacherOutputForm{LastInsertedId: id}
+func (*UserPresenter) HandleCreateTeacher(teacher *model.Teacher, err error) (*dto.CreateTeacherOutputForm, error) {
+	output := &dto.CreateTeacherOutputForm{
+		ID:        teacher.ID,
+		FirstName: teacher.FirstName,
+		LastName:  teacher.LastName,
+		CreatedAt: teacher.CreatedAt,
+		UpdatedAt: teacher.UpdatedAt,
+	}
 	return output, err
 }
 
-func (*UserPresenter) HandleUpdateStudent(count int64, err error) (*dto.UpdateStudentOutputForm, error) {
-	updated := count != 0
-	return &dto.UpdateStudentOutputForm{
-		Updated: updated,
-	}, err
+func (*UserPresenter) HandleUpdateStudent(student *model.Student, err error) (*dto.UpdateStudentOutputForm, error) {
+	output := &dto.UpdateStudentOutputForm{
+		ID:        student.ID,
+		StudentNo: student.StudentNo,
+		FirstName: student.FirstName,
+		LastName:  student.LastName,
+		CreatedAt: student.CreatedAt,
+		UpdatedAt: student.UpdatedAt,
+	}
+	return output, err
 }
 
-func (*UserPresenter) HandleUpdateAssistant(count int64, err error) (*dto.UpdateAssistantOutputForm, error) {
-	updated := count != 0
-	return &dto.UpdateAssistantOutputForm{
-		Updated: updated,
-	}, err
+func (*UserPresenter) HandleUpdateAssistant(assistant *model.Assistant, err error) (*dto.UpdateAssistantOutputForm, error) {
+	output := &dto.UpdateAssistantOutputForm{
+		ID:        assistant.ID,
+		StudentNo: assistant.StudentNo,
+		FirstName: assistant.FirstName,
+		LastName:  assistant.LastName,
+		CreatedAt: assistant.CreatedAt,
+		UpdatedAt: assistant.UpdatedAt,
+	}
+	return output, err
 }
 
-func (*UserPresenter) HandleUpdateTeacher(count int64, err error) (*dto.UpdateTeacherOutputForm, error) {
-	updated := count != 0
-	return &dto.UpdateTeacherOutputForm{
-		Updated: updated,
-	}, err
+func (*UserPresenter) HandleUpdateTeacher(teacher *model.Teacher, err error) (*dto.UpdateTeacherOutputForm, error) {
+	output := &dto.UpdateTeacherOutputForm{
+		ID:        teacher.ID,
+		FirstName: teacher.FirstName,
+		LastName:  teacher.LastName,
+		CreatedAt: teacher.CreatedAt,
+		UpdatedAt: teacher.UpdatedAt,
+	}
+	return output, err
 }

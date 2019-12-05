@@ -1,8 +1,9 @@
 package dto
 
 import (
-	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"time"
+
+	"github.com/arabian9ts/sweeTest/app/domain/model"
 )
 
 // Input
@@ -35,13 +36,25 @@ type GetCommentOutputForm struct {
 type GetCommentsOutputForm []*GetCommentOutputForm
 
 type CreateCommentOutputForm struct {
-	ID int64 `json:"id"`
+	ID        int64     `json:"id"`
+	HelpID    int64     `json:"help_id"`
+	UserType  string    `json:"user_type"`
+	UserID    int64     `json:"user_id"`
+	Contents  string    `json:"contents"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type UpdateCommentOutputForm struct {
-	Updated bool `json:"updated"`
+	ID        int64     `json:"id"`
+	HelpID    int64     `json:"help_id"`
+	UserType  string    `json:"user_type"`
+	UserID    int64     `json:"user_id"`
+	Contents  string    `json:"contents"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type DeleteCommentOutputForm struct {
-	Deleted bool `json:"deleted"`
+	AffectedRowsCount int64 `json:"count"`
 }

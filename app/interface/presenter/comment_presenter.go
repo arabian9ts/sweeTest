@@ -29,22 +29,30 @@ func (*CommentPresenter) HandleGetComments(comments model.Comments, err error) (
 	return output, err
 }
 
-func (*CommentPresenter) HandleCreateComment(id int64, err error) (*dto.CreateCommentOutputForm, error) {
+func (*CommentPresenter) HandleCreateComment(comment *model.Comment, err error) (*dto.CreateCommentOutputForm, error) {
 	return &dto.CreateCommentOutputForm{
-		ID: id,
+		ID:        comment.ID,
+		HelpID:    comment.HelpID,
+		UserType:  model.UserType.String(comment.UserType),
+		UserID:    comment.UserID,
+		Contents:  comment.Contents,
+		CreatedAt: comment.CreatedAt,
+		UpdatedAt: comment.UpdatedAt,
 	}, err
 }
 
-func (*CommentPresenter) HandleUpdateComment(count int64, err error) (*dto.UpdateCommentOutputForm, error) {
-	updated := count != 0
+func (*CommentPresenter) HandleUpdateComment(comment *model.Comment, err error) (*dto.UpdateCommentOutputForm, error) {
 	return &dto.UpdateCommentOutputForm{
-		Updated: updated,
+		ID:        comment.ID,
+		HelpID:    comment.HelpID,
+		UserType:  model.UserType.String(comment.UserType),
+		UserID:    comment.UserID,
+		Contents:  comment.Contents,
+		CreatedAt: comment.CreatedAt,
+		UpdatedAt: comment.UpdatedAt,
 	}, err
 }
 
 func (*CommentPresenter) HandleDeleteComment(count int64, err error) (*dto.DeleteCommentOutputForm, error) {
-	deleted := count != 0
-	return &dto.DeleteCommentOutputForm{
-		Deleted: deleted,
-	}, err
+	return &dto.DeleteCommentOutputForm{AffectedRowsCount: count}, err
 }

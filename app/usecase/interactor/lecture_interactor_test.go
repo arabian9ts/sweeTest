@@ -99,7 +99,7 @@ func TestCreateLecture(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.NotEqual(t, outputForm.LastChangedLectureId, int64(0))
+		assert.NotEqual(t, outputForm.ID, int64(0))
 	})
 
 	t.Run("err=not nil, failed", func(t *testing.T) {
@@ -114,7 +114,7 @@ func TestCreateLecture(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.LastChangedLectureId, int64(0))
+		assert.Equal(t, outputForm.ID, int64(0))
 	})
 }
 
@@ -128,7 +128,7 @@ func TestDeleteLecture(t *testing.T) {
 		lectureOutput := &presenter.LecturePresenter{}
 		lectureInteractor, _ := NewLectureInteractor(mockRepository, lectureOutput)
 		outputForm, err := lectureInteractor.DeleteLecture(lectureFixture.ID)
-		expected := &dto.DeleteLectureOutputForm{Deleted: true}
+		expected := &dto.DeleteLectureOutputForm{AffectedRowsCount: int64(1)}
 
 		assert.Nil(t, err)
 		assert.Equal(t, outputForm, expected)
@@ -147,7 +147,7 @@ func TestDeleteLecture(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.Deleted, false)
+		assert.Equal(t, int64(0), outputForm.AffectedRowsCount)
 	})
 
 	t.Run("id=1, err=not nil, failed", func(t *testing.T) {
@@ -162,7 +162,7 @@ func TestDeleteLecture(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.Deleted, false)
+		assert.Equal(t, int64(0), outputForm.AffectedRowsCount)
 	})
 }
 
@@ -176,10 +176,13 @@ func TestUpdateLecture(t *testing.T) {
 		lectureOutput := &presenter.LecturePresenter{}
 		lectureInteractor, _ := NewLectureInteractor(mockRepository, lectureOutput)
 		outputForm, err := lectureInteractor.UpdateLecture(lectureFixture)
-		expected := &dto.UpdateLectureOutputForm{Updated: true}
+		expected := &dto.UpdateLectureOutputForm{
+			ID:   1,
+			Name: "update lecture input form fixture",
+		}
 
 		assert.Nil(t, err)
-		assert.Equal(t, outputForm, expected)
+		assert.Equal(t, outputForm.Name, expected.Name)
 	})
 
 	t.Run("id=0, err=nil, failed", func(t *testing.T) {
@@ -195,7 +198,7 @@ func TestUpdateLecture(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.Updated, false)
+		assert.NotEqual(t, fixture.NewValidLecture(), outputForm)
 	})
 
 	t.Run("id=1, err=not nil, failed", func(t *testing.T) {
@@ -210,6 +213,6 @@ func TestUpdateLecture(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.NotNil(t, outputForm)
-		assert.Equal(t, outputForm.Updated, false)
+		assert.NotEqual(t, lectureFixture.Name, outputForm.Name)
 	})
 }

@@ -1,9 +1,10 @@
 package database
 
 import (
+	"time"
+
 	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
-	"time"
 )
 
 type TaskRepository struct {
@@ -46,7 +47,7 @@ func (repo *TaskRepository) GetTasksByLectureId(lectureId int64, limit int, offs
 	return tasks, nil
 }
 
-func (repo *TaskRepository) CreateTask(task *model.Task) (int64, error) {
+func (repo *TaskRepository) CreateTask(task *model.Task) (*model.Task, error) {
 	result, err := repo.SqlHandler.Execute(
 		"INSERT INTO `tasks` (`lecture_id`, `title`, `desc`, `deadline`) VALUES (?,?,?,?)",
 		task.LectureID,
@@ -55,18 +56,19 @@ func (repo *TaskRepository) CreateTask(task *model.Task) (int64, error) {
 		task.Deadline,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	id64, err := result.LastInsertId()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(id64), nil
+	task.ID = id64
+	return task, nil
 }
 
-func (repo *TaskRepository) UpdateTask(task *model.Task) (int64, error) {
+func (repo *TaskRepository) UpdateTask(task *model.Task) (*model.Task, error) {
 	result, err := repo.SqlHandler.Execute(
 		"UPDATE `tasks` SET `lecture_id` = ?, `title` = ?, `desc` = ?, `deadline` = ? WHERE `id` = ?",
 		task.LectureID,
@@ -76,15 +78,15 @@ func (repo *TaskRepository) UpdateTask(task *model.Task) (int64, error) {
 		task.ID,
 	)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	count, err := result.RowAffected()
+	_, err = result.RowAffected()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return int64(count), err
+	return task, err
 }
 
 func (repo *TaskRepository) DeleteTask(id int64, lectureID int64) (int64, error) {

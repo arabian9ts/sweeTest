@@ -17,11 +17,11 @@ type GetTaskOutput interface {
 }
 
 type CreateTaskOutput interface {
-	HandleCreateTask(id int64, err error) (*dto.CreateTaskOutputForm, error)
+	HandleCreateTask(task *model.Task, err error) (*dto.CreateTaskOutputForm, error)
 }
 
 type UpdateTaskOutput interface {
-	HandleUpdateTask(count int64, err error) (*dto.UpdateTaskOutputForm, error)
+	HandleUpdateTask(task *model.Task, err error) (*dto.UpdateTaskOutputForm, error)
 }
 
 type DeleteTaskOutput interface {

@@ -4,49 +4,51 @@ import "time"
 
 // Input
 type CreateStudentInputForm struct {
-	StudentNo string `validate:"required,lte=20" json:"student_no"`
-	FirstName string `validate:"required,lte=15" json:"first_name"`
-	LastName  string `validate:"required,lte=15" json:"last_name"`
-	Email     string `validate:"required,lte=100,email" json:"email"`
-	Password  string `validate:"required,lte=100" json:"password"`
-}
-
-type UpdateStudentInputForm struct {
-	ID        int64  `validate:"required,gt=0" json:"-"`
-	StudentNo string `validate:"required,lte=20" json:"student_no"`
-	FirstName string `validate:"required,lte=15" json:"first_name"`
-	LastName  string `validate:"required,lte=15" json:"last_name"`
-	Email     string `validate:"required,lte=100,email" json:"email"`
+	StudentNo string `json:"student_no" validate:"required,lte=20"`
+	FirstName string `json:"first_name" validate:"required,lte=15"`
+	LastName  string `json:"last_name"  validate:"required,lte=15"`
+	Email     string `json:"email"      validate:"required,lte=100,email"`
+	Password  string `json:"password"   validate:"required,lte=100"`
 }
 
 type CreateAssistantInputForm struct {
-	StudentNo string `validate:"required,lte=20" json:"student_no"`
-	FirstName string `validate:"required,lte=15" json:"first_name"`
-	LastName  string `validate:"required,lte=15" json:"last_name"`
-	Email     string `validate:"required,lte=100,email" json:"email"`
-	Password  string `validate:"required,lte=100" json:"password"`
-}
-
-type UpdateAssistantInputForm struct {
-	ID        int64  `validate:"required,gt=0" json:"-"`
-	StudentNo string `validate:"required,lte=20" json:"student_no"`
-	FirstName string `validate:"required,lte=15" json:"first_name"`
-	LastName  string `validate:"required,lte=15" json:"last_name"`
-	Email     string `validate:"required,lte=100,email" json:"email"`
+	StudentNo string `json:"student_no" validate:"required,lte=20"`
+	FirstName string `json:"first_name" validate:"required,lte=15"`
+	LastName  string `json:"last_name"  validate:"required,lte=15"`
+	Email     string `json:"email"      validate:"required,lte=100,email"`
+	Password  string `json:"password"   validate:"required,lte=100"`
 }
 
 type CreateTeacherInputForm struct {
-	FirstName string `validate:"required,lte=15" json:"first_name"`
-	LastName  string `validate:"required,lte=15" json:"last_name"`
-	Email     string `validate:"required,lte=100,email" json:"email"`
-	Password  string `validate:"required,lte=100" json:"password"`
+	FirstName string `json:"first_name" validate:"required,lte=15"`
+	LastName  string `json:"last_name"  validate:"required,lte=15"`
+	Email     string `json:"email"      validate:"required,lte=100,email"`
+	Password  string `json:"password"   validate:"required,lte=100"`
+}
+
+type UpdateStudentInputForm struct {
+	ID        int64  `json:"-"          validate:"required,gt=0"`
+	StudentNo string `json:"student_no" validate:"required,lte=20"`
+	FirstName string `json:"first_name" validate:"required,lte=15"`
+	LastName  string `json:"last_name"  validate:"required,lte=15"`
+	Email     string `json:"email"      validate:"required,lte=100,email"`
+	Password  string `json:"password"   validate:"required,lte=100"`
+}
+
+type UpdateAssistantInputForm struct {
+	ID        int64  `json:"-"          validate:"required,gt=0"`
+	StudentNo string `json:"student_no" validate:"required,lte=20"`
+	FirstName string `json:"first_name" validate:"required,lte=15"`
+	LastName  string `json:"last_name"  validate:"required,lte=15"`
+	Email     string `json:"email"      validate:"required,lte=100,email"`
+	Password  string `json:"password"   validate:"required,lte=100"`
 }
 
 type UpdateTeacherInputForm struct {
-	ID        int64  `validate:"required,gt=0" json:"-"`
-	FirstName string `validate:"required,lte=15" json:"first_name"`
-	LastName  string `validate:"required,lte=15" json:"last_name"`
-	Email     string `validate:"required,lte=100,email" json:"email"`
+	ID        int64  `json:"-"          validate:"required,gt=0"`
+	FirstName string `json:"first_name" validate:"required,lte=15"`
+	LastName  string `json:"last_name"  validate:"required,lte=15"`
+	Email     string `json:"email"      validate:"required,lte=100,email"`
 }
 
 // Output
@@ -86,37 +88,75 @@ type GetTeacherOutputForm struct {
 }
 
 type CreateStudentOutputForm struct {
-	LastInsertedId int64 `json:"inserted_id"`
-}
-
-type UpdateStudentOutputForm struct {
-	Updated bool `json:"updated"`
-}
-
-type DeleteStudentOutputForm struct {
-	Deleted bool `json:"deleted"`
+	ID        int64     `json:"id"`
+	StudentNo string    `json:"student_no" validate:"required,lte=20"`
+	FirstName string    `json:"first_name" validate:"required,lte=15"`
+	LastName  string    `json:"last_name"  validate:"required,lte=15"`
+	Email     string    `json:"email"      validate:"required,lte=100,email"`
+	Password  string    `json:"password"   validate:"required,lte=100"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type CreateAssistantOutputForm struct {
-	LastInsertedId int64 `json:"inserted_id"`
-}
-
-type UpdateAssistantOutputForm struct {
-	Updated bool `json:"updated"`
-}
-
-type DeleteAssistantOutputForm struct {
-	Deleted bool `json:"deleted"`
+	ID        int64     `json:"id"`
+	StudentNo string    `json:"student_no" validate:"required,lte=20"`
+	FirstName string    `json:"first_name" validate:"required,lte=15"`
+	LastName  string    `json:"last_name"  validate:"required,lte=15"`
+	Email     string    `json:"email"      validate:"required,lte=100,email"`
+	Password  string    `json:"password"   validate:"required,lte=100"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type CreateTeacherOutputForm struct {
-	LastInsertedId int64 `json:"inserted_id"`
+	ID        int64     `json:"id"`
+	FirstName string    `json:"first_name"`
+	LastName  string    `json:"last_name"`
+	Email     string    `json:"email"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type UpdateStudentOutputForm struct {
+	ID        int64     `json:"id"`
+	StudentNo string    `json:"student_no" validate:"required,lte=20"`
+	FirstName string    `json:"first_name" validate:"required,lte=15"`
+	LastName  string    `json:"last_name"  validate:"required,lte=15"`
+	Email     string    `json:"email"      validate:"required,lte=100,email"`
+	Password  string    `json:"password"   validate:"required,lte=100"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type UpdateAssistantOutputForm struct {
+	ID        int64     `json:"id"`
+	StudentNo string    `json:"student_no" validate:"required,lte=20"`
+	FirstName string    `json:"first_name" validate:"required,lte=15"`
+	LastName  string    `json:"last_name"  validate:"required,lte=15"`
+	Email     string    `json:"email"      validate:"required,lte=100,email"`
+	Password  string    `json:"password"   validate:"required,lte=100"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type UpdateTeacherOutputForm struct {
-	Updated bool `json:"updated"`
+	ID        int64     `json:"id"`
+	FirstName string    `json:"first_name" validate:"required,lte=15"`
+	LastName  string    `json:"last_name"  validate:"required,lte=15"`
+	Email     string    `json:"email"      validate:"required,lte=100,email"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type DeleteStudentOutputForm struct {
+	AffectedRowsCount int64 `json:"count"`
+}
+
+type DeleteAssistantOutputForm struct {
+	AffectedRowsCount int64 `json:"count"`
 }
 
 type DeleteTeacherOutputForm struct {
-	Deleted bool `json:"deleted"`
+	AffectedRowsCount int64 `json:"count"`
 }

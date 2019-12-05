@@ -25,13 +25,13 @@ type GetUserOutput interface {
 }
 
 type CreateUserOutput interface {
-	HandleCreateStudent(id int64, err error) (*dto.CreateStudentOutputForm, error)
-	HandleCreateAssistant(id int64, err error) (*dto.CreateAssistantOutputForm, error)
-	HandleCreateTeacher(id int64, err error) (*dto.CreateTeacherOutputForm, error)
+	HandleCreateStudent(student *model.Student, err error) (*dto.CreateStudentOutputForm, error)
+	HandleCreateAssistant(assistant *model.Assistant, err error) (*dto.CreateAssistantOutputForm, error)
+	HandleCreateTeacher(teacher *model.Teacher, err error) (*dto.CreateTeacherOutputForm, error)
 }
 
 type UpdateUserOutput interface {
-	HandleUpdateStudent(id int64, err error) (*dto.UpdateStudentOutputForm, error)
-	HandleUpdateAssistant(id int64, err error) (*dto.UpdateAssistantOutputForm, error)
-	HandleUpdateTeacher(id int64, err error) (*dto.UpdateTeacherOutputForm, error)
+	HandleUpdateStudent(student *model.Student, err error) (*dto.UpdateStudentOutputForm, error)
+	HandleUpdateAssistant(assistant *model.Assistant, err error) (*dto.UpdateAssistantOutputForm, error)
+	HandleUpdateTeacher(teacher *model.Teacher, err error) (*dto.UpdateTeacherOutputForm, error)
 }
