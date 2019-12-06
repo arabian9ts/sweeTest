@@ -25,7 +25,7 @@ func (repo *HelpRepository) GetHelpsByStudentID(studentID int64, limit int, offs
 
 	for rows.Next() {
 		help := &model.Help{}
-		if err = rows.Scan(help.ID, help.LectureID, help.StudentID, help.Contents, help.CreatedAt, help.UpdatedAt); err != nil {
+		if err = rows.Scan(help.ID, help.LectureID, help.StudentID, help.Title, help.Contents, help.CreatedAt, help.UpdatedAt); err != nil {
 			continue
 		}
 		helps = append(helps, help)
@@ -43,7 +43,7 @@ func (repo *HelpRepository) GetHelpsByLectureID(lectureID int64, limit int, offs
 
 	for rows.Next() {
 		help := &model.Help{}
-		if err = rows.Scan(&help.ID, &help.LectureID, &help.StudentID, &help.Contents, &help.CreatedAt, &help.UpdatedAt); err != nil {
+		if err = rows.Scan(&help.ID, &help.LectureID, &help.StudentID, &help.Title, &help.Contents, &help.CreatedAt, &help.UpdatedAt); err != nil {
 			fmt.Println(err)
 			continue
 		}
@@ -54,8 +54,8 @@ func (repo *HelpRepository) GetHelpsByLectureID(lectureID int64, limit int, offs
 
 func (repo *HelpRepository) CreateHelp(help *model.Help) (*model.Help, error) {
 	result, err := repo.SqlHandler.Execute(
-		"INSERT INTO `helps` (`lecture_id`, `student_id`, `contents`) VALUES (?,?,?)",
-		help.LectureID, help.StudentID, help.Contents,
+		"INSERT INTO `helps` (`lecture_id`, `student_id`, `title`, `contents`) VALUES (?,?,?,?)",
+		help.LectureID, help.StudentID, help.Title, help.Contents,
 	)
 	if err != nil {
 		return nil, err
@@ -72,8 +72,8 @@ func (repo *HelpRepository) CreateHelp(help *model.Help) (*model.Help, error) {
 
 func (repo *HelpRepository) UpdateHelp(help *model.Help) (*model.Help, error) {
 	result, err := repo.SqlHandler.Execute(
-		"UPDATE `helps` SET `contents` = ? WHERE `lecture_id` = ? AND `student_id` = ?",
-		help.Contents, help.LectureID, help.StudentID,
+		"UPDATE `helps` SET `title` = ?, `contents` = ? WHERE `lecture_id` = ? AND `student_id` = ?",
+		help.Title, help.Contents, help.LectureID, help.StudentID,
 	)
 	if err != nil {
 		return nil, err

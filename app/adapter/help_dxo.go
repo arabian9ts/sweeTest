@@ -9,6 +9,7 @@ func ConvertCreateHelpInputFormToHelp(form *dto.CreateHelpInputForm) (help *mode
 	help = &model.Help{
 		LectureID: form.LectureID,
 		StudentID: form.StudentID,
+		Title:     form.Title,
 		Contents:  form.Contents,
 	}
 	return
@@ -19,6 +20,7 @@ func ConvertUpdateHelpInputFormToHelp(form *dto.UpdateHelpInputForm) (help *mode
 		ID:        form.ID,
 		LectureID: form.LectureID,
 		StudentID: form.StudentID,
+		Title:     form.Title,
 		Contents:  form.Contents,
 	}
 	return
