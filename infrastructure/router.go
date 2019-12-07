@@ -23,11 +23,8 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		studentEndPoint.GET("/students/:student_id", func(c *gin.Context) { controllers.StudentsController.Show(c) })
 		studentEndPoint.PUT("/students/:student_id", func(c *gin.Context) { controllers.StudentsController.Update(c) })
 		studentEndPoint.GET("/lectures", func(c *gin.Context) { controllers.LecturesController.Index(c) })
-		studentEndPoint.POST("/lectures", func(c *gin.Context) { controllers.LecturesController.Create(c) })
 
 		studentEndPoint.GET("/lectures/:lecture_id", func(c *gin.Context) { controllers.LecturesController.Show(c) })
-		studentEndPoint.PUT("/lectures/:lecture_id", func(c *gin.Context) { controllers.LecturesController.Update(c) })
-		studentEndPoint.DELETE("/lectures/:lecture_id", func(c *gin.Context) { controllers.LecturesController.Delete(c) })
 
 		studentEndPoint.GET("/lectures/:lecture_id/tasks", func(c *gin.Context) { controllers.TasksController.Index(c) })
 		studentEndPoint.POST("/lectures/:lecture_id/tasks", func(c *gin.Context) { controllers.TasksController.Create(c) })
@@ -60,6 +57,10 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		assistantEndPoint.GET("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Show(c) })
 		assistantEndPoint.PUT("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Update(c) })
 
+		assistantEndPoint.GET("/lectures", func(c *gin.Context) { controllers.LecturesController.Index(c) })
+		assistantEndPoint.POST("/lectures", func(c *gin.Context) { controllers.LecturesController.Create(c) })
+		assistantEndPoint.GET("/lectures/:lecture_id", func(c *gin.Context) { controllers.LecturesController.Show(c) })
+
 		assistantEndPoint.GET("/lectures/:lecture_id/helps", func(c *gin.Context) { controllers.HelpsController.Index(c) })
 		assistantEndPoint.POST("/lectures/:lecture_id/helps", func(c *gin.Context) { controllers.HelpsController.Create(c) })
 		assistantEndPoint.PUT("/lectures/:lecture_id/helps/:help_id", func(c *gin.Context) { controllers.HelpsController.Update(c) })
@@ -90,6 +91,16 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		teacherEndPoint.GET("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Show(c) })
 		teacherEndPoint.PUT("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Update(c) })
 
+		teacherEndPoint.GET("/lectures", func(c *gin.Context) { controllers.LecturesController.Index(c) })
+		teacherEndPoint.POST("/lectures", func(c *gin.Context) { controllers.LecturesController.Create(c) })
+		teacherEndPoint.GET("/lectures/:lecture_id", func(c *gin.Context) { controllers.LecturesController.Show(c) })
+		teacherEndPoint.PUT("lectures/:lecture_id", func(c *gin.Context) { controllers.LecturesController.Update(c) })
+
+		teacherEndPoint.GET("/lectures/:lecture_id/helps", func(c *gin.Context) { controllers.HelpsController.Index(c) })
+		teacherEndPoint.POST("/lectures/:lecture_id/helps", func(c *gin.Context) { controllers.HelpsController.Create(c) })
+		teacherEndPoint.PUT("/lectures/:lecture_id/helps/:help_id", func(c *gin.Context) { controllers.HelpsController.Update(c) })
+		teacherEndPoint.DELETE("/lectures/:lecture_id/helps/:help_id", func(c *gin.Context) { controllers.HelpsController.Delete(c) })
+
 		teacherEndPoint.GET("/lectures/:lecture_id/helps/:help_id/comments", func(c *gin.Context) { controllers.CommentsController.Teacher.Index(c) })
 		teacherEndPoint.POST("/lectures/:lecture_id/helps/:help_id/comments", func(c *gin.Context) { controllers.CommentsController.Teacher.Create(c) })
 		teacherEndPoint.PUT("/lectures/:lecture_id/helps/:help_id/comments/:comment_id", func(c *gin.Context) { controllers.CommentsController.Teacher.Update(c) })
@@ -112,13 +123,23 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		adminEndPoint.Use(handlers.AuthHandler.AdminAuthHandler())
 		adminEndPoint.GET("/me", handlers.MeHandler.AdminMeHandler())
 
+		adminEndPoint.POST("/students", func(c *gin.Context) { controllers.StudentsController.Create(c) })
+		adminEndPoint.GET("/students/:student_id", func(c *gin.Context) { controllers.StudentsController.Show(c) })
+		adminEndPoint.PUT("/students/:student_id", func(c *gin.Context) { controllers.StudentsController.Update(c) })
+
+		adminEndPoint.POST("/assistants", func(c *gin.Context) { controllers.AssistantsController.Create(c) })
+		adminEndPoint.GET("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Show(c) })
+		adminEndPoint.PUT("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Update(c) })
+
+		adminEndPoint.POST("/teachers", func(c *gin.Context) { controllers.TeachersController.Create(c) })
+		adminEndPoint.GET("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Show(c) })
+		adminEndPoint.PUT("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Update(c) })
+
 		adminEndPoint.GET("/lectures", func(c *gin.Context) { controllers.LecturesController.Index(c) })
 		adminEndPoint.POST("/lectures", func(c *gin.Context) { controllers.LecturesController.Create(c) })
 
 		adminEndPoint.GET("/teachers", func(c *gin.Context) { controllers.TeachersController.Index(c) })
 		adminEndPoint.POST("/teachers", func(c *gin.Context) { controllers.TeachersController.Create(c) })
-		adminEndPoint.GET("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Show(c) })
-		adminEndPoint.PUT("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Update(c) })
 	}
 
 	return
