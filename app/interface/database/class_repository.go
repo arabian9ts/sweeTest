@@ -13,7 +13,7 @@ func NewClassRepository(sqlHandler SqlHandler) (repository.ClassRepository, erro
 	return &ClassRepository{SqlHandler: sqlHandler}, nil
 }
 
-func (repo *ClassRepository) GetClassesBySLectureID(lectureID int64, limit int, offset int) (model.Classes, error) {
+func (repo *ClassRepository) GetClassesByLectureID(lectureID int64, limit int, offset int) (model.Classes, error) {
 	classes := model.Classes{}
 	rows, err := repo.SqlHandler.Query("SELECT * FROM `classes` WHERE `lecture_id` = ? LIMIT ? OFFSET ?", lectureID, limit, offset)
 	if err != nil {
