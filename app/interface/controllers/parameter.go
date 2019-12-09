@@ -44,3 +44,12 @@ func getCommentID(ctx Context) (commentID int64) {
 	commentID = int64(id)
 	return
 }
+
+func getClassID(ctx Context) (classID int64) {
+	id, err := strconv.Atoi(ctx.Param("class_id"))
+	if err != nil {
+		id = 0
+	}
+	classID = int64(id)
+	return
+}
