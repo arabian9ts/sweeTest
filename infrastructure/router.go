@@ -131,15 +131,13 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 		adminEndPoint.GET("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Show(c) })
 		adminEndPoint.PUT("/assistants/:assistant_id", func(c *gin.Context) { controllers.AssistantsController.Update(c) })
 
-		adminEndPoint.POST("/teachers", func(c *gin.Context) { controllers.TeachersController.Create(c) })
+		adminEndPoint.GET("/teachers", func(c *gin.Context) { controllers.TeachersController.Index(c) })
 		adminEndPoint.GET("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Show(c) })
 		adminEndPoint.PUT("/teachers/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Update(c) })
 
 		adminEndPoint.GET("/lectures", func(c *gin.Context) { controllers.LecturesController.Index(c) })
 		adminEndPoint.POST("/lectures", func(c *gin.Context) { controllers.LecturesController.Create(c) })
 
-		adminEndPoint.GET("/teachers", func(c *gin.Context) { controllers.TeachersController.Index(c) })
-		adminEndPoint.POST("/teachers", func(c *gin.Context) { controllers.TeachersController.Create(c) })
 	}
 
 	return
