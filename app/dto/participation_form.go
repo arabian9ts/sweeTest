@@ -37,7 +37,7 @@ type CreateAssistantLectureOutputForm struct {
 
 type CreateTeacherLectureOutputForm struct {
 	ID        int64     `json:"id"`
-	TeacherID int64     `validate:"required,gt=0" json:"student_id"`
+	TeacherID int64     `validate:"required,gt=0" json:"teacher_id"`
 	LectureID int64     `validate:"required,gt=0" json:"lecture_id"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
