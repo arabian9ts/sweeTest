@@ -19,12 +19,14 @@ docker-build:
 .PHONY: test
 test:
 	@echo 'Execute go test'
-	-@go test github.com/arabian9ts/sweeTest/app/usecase/interactor github.com/arabian9ts/sweeTest/app/domain/model github.com/arabian9ts/sweeTest/app/util
+	-@go test ./...
 
 .PHONY: setup
 setup:
 	@echo 'go get -u github.com/golang/dep/cmd/dep'
 	-@go get -u github.com/golang/dep/cmd/dep
+	@echo 'go get -u github.com/rubenv/sql-migrate'
+	-@go get -u github.com/rubenv/sql-migrate
 	@echo 'dep ensure'
 	-@dep ensure
 
