@@ -3,10 +3,16 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
+	"os"
+	"os/signal"
+	"syscall"
+
+	migrate "github.com/rubenv/sql-migrate"
+
 	"github.com/arabian9ts/sweeTest/app/builder"
 	"github.com/arabian9ts/sweeTest/config"
 	"github.com/arabian9ts/sweeTest/infrastructure"
-	migrate "github.com/rubenv/sql-migrate"
 )
 
 func main() {
@@ -36,4 +42,9 @@ func main() {
 	}
 
 	infrastructure.Router(controllers, handlers).Run()
+
+	q := make(chan os.Signal, 1)
+	signal.Notify(q, syscall.SIGTERM, os.Interrupt)
+
+	log.Println("shutting down SIGNAL:", <-q)
 }
