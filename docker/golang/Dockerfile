@@ -4,7 +4,7 @@ ENV CGO_ENABLED=0
 WORKDIR /go/src/github.com/arabian9ts/sweeTest
 COPY . .
 RUN make setup
-RUN GOENV=container GOOS=linux GOARCH=amd64 go build -o sweeTest
+RUN SWEETEST_ENV=container GOOS=linux GOARCH=amd64 go build -o sweeTest
 
 FROM alpine
 RUN apk add --no-cache ca-certificates
