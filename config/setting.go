@@ -46,13 +46,13 @@ func (jwt *Jwt) ExpiresTime() time.Time {
 }
 
 func NewSettings() (*Settings, error) {
-	environment := os.Getenv("GOENV")
+	environment := os.Getenv("SWEETEST_ENV")
 	if len(environment) == 0 {
 		environment = "development"
 	}
 
-	// Note: if use binary in container, envPath is ./config/envs/{GOENV}.yml
-	// otherwise, /{project absolute path to project}/config/envs/{GOENV}.yml
+	// Note: if use binary in container, envPath is ./config/envs/{SWEETEST_ENV}.yml
+	// otherwise, /{project absolute path to project}/config/envs/{SWEETEST_ENV}.yml
 	project := "sweeTest"
 	prefix := project + "/"
 	configPath := fmt.Sprintf("config/envs/%s.yml", environment)
