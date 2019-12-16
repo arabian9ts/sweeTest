@@ -57,7 +57,7 @@ func NewParticipationController(repository repository.ParticipationRepository, o
 	}, nil
 }
 
-func (controller *studentParticipationController) Create(ctx Context) {
+func (controller *studentParticipationController) ParticipateToLecture(ctx Context) {
 	student := getCurrentStudent(ctx)
 	lectureID := getLectureID(ctx)
 	inputForm := &dto.CreateStudentLectureInputForm{StudentID: student.ID, LectureID: lectureID}
@@ -78,7 +78,7 @@ func (controller *studentParticipationController) Create(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *studentParticipationController) Delete(ctx Context) {
+func (controller *studentParticipationController) ExitFromLecture(ctx Context) {
 	student := getCurrentStudent(ctx)
 	lectureID := getLectureID(ctx)
 
@@ -91,7 +91,7 @@ func (controller *studentParticipationController) Delete(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *assistantParticipationController) Create(ctx Context) {
+func (controller *assistantParticipationController) ParticipateToLecture(ctx Context) {
 	assistant := getCurrentAssistant(ctx)
 	lectureID := getLectureID(ctx)
 	inputForm := &dto.CreateAssistantLectureInputForm{StudentID: assistant.ID, LectureID: lectureID}
@@ -112,7 +112,7 @@ func (controller *assistantParticipationController) Create(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *assistantParticipationController) Delete(ctx Context) {
+func (controller *assistantParticipationController) ExitFromLecture(ctx Context) {
 	assistant := getCurrentAssistant(ctx)
 	lectureID := getLectureID(ctx)
 
@@ -125,7 +125,7 @@ func (controller *assistantParticipationController) Delete(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *teacherParticipationController) Create(ctx Context) {
+func (controller *teacherParticipationController) ParticipateToLecture(ctx Context) {
 	teacher := getCurrentTeacher(ctx)
 	lectureID := getLectureID(ctx)
 	inputForm := &dto.CreateTeacherLectureInputForm{TeacherID: teacher.ID, LectureID: lectureID}
@@ -146,7 +146,7 @@ func (controller *teacherParticipationController) Create(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *teacherParticipationController) Delete(ctx Context) {
+func (controller *teacherParticipationController) ExitFromLecture(ctx Context) {
 	teacher := getCurrentTeacher(ctx)
 	lectureID := getLectureID(ctx)
 

@@ -19,9 +19,9 @@ type GetUsersUseCase interface {
 }
 
 type GetParticipatedUsersCase interface {
-	GetParticipatedStudents(lectureID int64, limit int, offset int) (dto.GetStudentsOutputForm, error)
-	GetParticipatedAssistants(lectureID int64, limit int, offset int) (dto.GetAssistantsOutputForm, error)
-	GetParticipatedTeachers(lectureID int64, limit int, offset int) (dto.GetTeachersOutputForm, error)
+	GetStudentsByLectureId(lectureID int64, limit int, offset int) (dto.GetStudentsOutputForm, error)
+	GetAssistantsByLectureId(lectureID int64, limit int, offset int) (dto.GetAssistantsOutputForm, error)
+	GetTeachersByLectureId(lectureID int64, limit int, offset int) (dto.GetTeachersOutputForm, error)
 }
 
 type GetUserUseCase interface {

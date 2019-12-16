@@ -1,17 +1,17 @@
 package controllers
 
 type RootController struct {
-	StudentsController            *StudentsController
-	AssistantsController          *AssistantsController
-	TeachersController            *TeachersController
-	LecturesController            *LecturesController
-	TasksController               *TasksController
-	LoginController               *LoginController
-	HelpsController               *HelpsController
-	CommentsController            *CommentsController
-	ParticipationController       *ParticipationController
-	ParticipatedLectureController *ParticipatingLecturesController
-	ParticipantsController        *ParticipantsController
+	StudentsController             *StudentsController
+	AssistantsController           *AssistantsController
+	TeachersController             *TeachersController
+	LecturesController             *LecturesController
+	TasksController                *TasksController
+	LoginController                *LoginController
+	HelpsController                *HelpsController
+	CommentsController             *CommentsController
+	ParticipationController        *ParticipationController
+	ParticipatingLectureController *ParticipatingLecturesController
+	ParticipantsController         *ParticipantsController
 }
 
 func NewRootController(
@@ -24,20 +24,20 @@ func NewRootController(
 	helpsController *HelpsController,
 	commentsController *CommentsController,
 	participationController *ParticipationController,
-	participatedLectureController *ParticipatingLecturesController,
+	participatingLectureController *ParticipatingLecturesController,
 	participantsController *ParticipantsController,
 ) (*RootController, error) {
 	return &RootController{
-		StudentsController:            studentsController,
-		AssistantsController:          assistantsController,
-		TeachersController:            teachersController,
-		LecturesController:            lecturesController,
-		TasksController:               tasksController,
-		LoginController:               loginController,
-		HelpsController:               helpsController,
-		CommentsController:            commentsController,
-		ParticipationController:       participationController,
-		ParticipatedLectureController: participatedLectureController,
-		ParticipantsController:        participantsController,
+		StudentsController:             studentsController,
+		AssistantsController:           assistantsController,
+		TeachersController:             teachersController,
+		LecturesController:             lecturesController,
+		TasksController:                tasksController,
+		LoginController:                loginController,
+		HelpsController:                helpsController,
+		CommentsController:             commentsController,
+		ParticipationController:        participationController,
+		ParticipatingLectureController: participatingLectureController,
+		ParticipantsController:         participantsController,
 	}, nil
 }
