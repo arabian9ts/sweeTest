@@ -11,22 +11,22 @@ import (
 
 type (
 	ParticipatingLecturesController struct {
-		Student   *studentLectureController
-		Assistant *assistantLectureController
-		Teacher   *teacherLectureController
+		Student   *studentParticipatingLecturesController
+		Assistant *assistantParticipatingLecturesController
+		Teacher   *teacherParticipatingLecturesController
 	}
 
-	studentLectureController struct {
+	studentParticipatingLecturesController struct {
 		InputPort port.LectureUseCase
 		Validator validator.Validation
 	}
 
-	assistantLectureController struct {
+	assistantParticipatingLecturesController struct {
 		InputPort port.LectureUseCase
 		Validator validator.Validation
 	}
 
-	teacherLectureController struct {
+	teacherParticipatingLecturesController struct {
 		InputPort port.LectureUseCase
 		Validator validator.Validation
 	}
@@ -34,21 +34,21 @@ type (
 
 func NewParticipatingLecturesController(repository repository.LectureRepository, output port.LectureOutput, validator validator.Validation) (*ParticipatingLecturesController, error) {
 	return &ParticipatingLecturesController{
-		Student: &studentLectureController{
+		Student: &studentParticipatingLecturesController{
 			InputPort: &interactor.LectureInteractor{
 				LectureRepository: repository,
 				LectureOutput:     output,
 			},
 			Validator: validator,
 		},
-		Assistant: &assistantLectureController{
+		Assistant: &assistantParticipatingLecturesController{
 			InputPort: &interactor.LectureInteractor{
 				LectureRepository: repository,
 				LectureOutput:     output,
 			},
 			Validator: validator,
 		},
-		Teacher: &teacherLectureController{
+		Teacher: &teacherParticipatingLecturesController{
 			InputPort: &interactor.LectureInteractor{
 				LectureRepository: repository,
 				LectureOutput:     output,
@@ -58,7 +58,7 @@ func NewParticipatingLecturesController(repository repository.LectureRepository,
 	}, nil
 }
 
-func (controller *studentLectureController) Index(ctx Context) {
+func (controller *studentParticipatingLecturesController) GetLectures(ctx Context) {
 	student := getCurrentStudent(ctx)
 	limit, err := strconv.Atoi(ctx.Query("limit"))
 	if err != nil {
@@ -79,7 +79,7 @@ func (controller *studentLectureController) Index(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *assistantLectureController) Index(ctx Context) {
+func (controller *assistantParticipatingLecturesController) GetLectures(ctx Context) {
 	assistant := getCurrentAssistant(ctx)
 	limit, err := strconv.Atoi(ctx.Query("limit"))
 	if err != nil {
@@ -100,7 +100,7 @@ func (controller *assistantLectureController) Index(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *teacherLectureController) Index(ctx Context) {
+func (controller *teacherParticipatingLecturesController) GetLectures(ctx Context) {
 	teacher := getCurrentTeacher(ctx)
 	limit, err := strconv.Atoi(ctx.Query("limit"))
 	if err != nil {

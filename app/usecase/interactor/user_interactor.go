@@ -52,19 +52,19 @@ func (interactor *UserInteractor) GetTeacherById(id int64) (*dto.GetTeacherOutpu
 	)
 }
 
-func (interactor *UserInteractor) GetParticipatedStudents(lectureID int64, limit int, offset int) (dto.GetStudentsOutputForm, error) {
+func (interactor *UserInteractor) GetStudentsByLectureId(lectureID int64, limit int, offset int) (dto.GetStudentsOutputForm, error) {
 	return interactor.UserOutput.HandleGetStudents(
 		interactor.UserRepository.GetParticipatingStudentsOfLecture(lectureID, limit, offset),
 	)
 }
 
-func (interactor *UserInteractor) GetParticipatedAssistants(lectureID int64, limit int, offset int) (dto.GetAssistantsOutputForm, error) {
+func (interactor *UserInteractor) GetAssistantsByLectureId(lectureID int64, limit int, offset int) (dto.GetAssistantsOutputForm, error) {
 	return interactor.UserOutput.HandleGetAssistants(
 		interactor.UserRepository.GetParticipatingAssistantsOfLecture(lectureID, limit, offset),
 	)
 }
 
-func (interactor *UserInteractor) GetParticipatedTeachers(lectureID int64, limit int, offset int) (dto.GetTeachersOutputForm, error) {
+func (interactor *UserInteractor) GetTeachersByLectureId(lectureID int64, limit int, offset int) (dto.GetTeachersOutputForm, error) {
 	return interactor.UserOutput.HandleGetTeachers(
 		interactor.UserRepository.GetParticipatingTeachersOfLecture(lectureID, limit, offset),
 	)

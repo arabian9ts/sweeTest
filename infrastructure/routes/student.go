@@ -16,14 +16,18 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 
 		studentV1.Use(handlers.AuthHandler.StudentAuthHandler())
 
+		//
 		// me
+		//
 		{
 			me := studentV1.Group("/me")
 			me.GET("", handlers.MeHandler.StudentMeHandler())
-			me.GET("/lectures", func(c *gin.Context) { controllers.ParticipatedLectureController.Student.Index(c) })
+			me.GET("/lectures", func(c *gin.Context) { controllers.ParticipatingLectureController.Student.GetLectures(c) })
 		}
 
+		//
 		// lectures
+		//
 		{
 			lectures := studentV1.Group("/lectures")
 			lecture := lectures.Group("/:lecture_id")
@@ -31,7 +35,30 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 			lectures.GET("", func(c *gin.Context) { controllers.LecturesController.Index(c) })
 			lecture.GET("", func(c *gin.Context) { controllers.LecturesController.Show(c) })
 
+			//
+			// participants
+			//
+			{
+				// get participating students by LectureId
+				lecture.GET("/participants", func(c *gin.Context) { controllers.ParticipantsController.Student.GetStudentsByLectureId(c) })
+			}
+
+			//
+			// participation
+			//
+			{
+				participation := lecture.Group("/participation")
+
+				// participate to lecture
+				participation.POST("/participation", func(c *gin.Context) { controllers.ParticipationController.Student.ParticipateToLecture(c) })
+
+				// exit from lecture
+				participation.DELETE("/participation", func(c *gin.Context) { controllers.ParticipationController.Student.ExitFromLecture(c) })
+			}
+
+			//
 			// tasks
+			//
 			{
 				tasks := lecture.Group("/tasks")
 				task := tasks.Group("/:task_id")
@@ -42,7 +69,9 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 				task.DELETE("", func(c *gin.Context) { controllers.TasksController.Delete(c) })
 			}
 
+			//
 			// helps
+			//
 			{
 				helps := lecture.Group("/helps")
 				help := helps.Group("/:help_id")
@@ -52,7 +81,9 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 				help.PUT("", func(c *gin.Context) { controllers.HelpsController.Update(c) })
 				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.Delete(c) })
 
+				//
 				// comments
+				//
 				{
 					comments := help.Group("/comments")
 					comment := comments.Group("/:comment_id")
