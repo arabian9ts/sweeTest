@@ -75,10 +75,10 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 				helps := lecture.Group("/helps")
 				help := helps.Group("/:help_id")
 
-				helps.GET("", func(c *gin.Context) { controllers.HelpsController.GetHelpsByLectureId(c) })
-				helps.POST("", func(c *gin.Context) { controllers.HelpsController.CreateHelp(c) })
-				help.PUT("", func(c *gin.Context) { controllers.HelpsController.UpdateHelp(c) })
-				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.DeleteHelp(c) })
+				helps.GET("", func(c *gin.Context) { controllers.HelpsController.Student.GetHelpsByLectureId(c) })
+				helps.POST("", func(c *gin.Context) { controllers.HelpsController.Student.CreateHelp(c) })
+				help.PUT("", func(c *gin.Context) { controllers.HelpsController.Student.UpdateHelp(c) })
+				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.Student.DeleteHelp(c) })
 
 				//
 				// comments
