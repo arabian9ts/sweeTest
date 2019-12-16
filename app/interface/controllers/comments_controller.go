@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"net/http"
+
 	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
@@ -66,11 +68,11 @@ func (controller *studentCommentsController) GetCommentsByHelpId(ctx Context) {
 
 	outputForm, err := controller.InputPort.GetCommentsByHelpID(helpID, limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *studentCommentsController) CreateComment(ctx Context) {
@@ -81,17 +83,17 @@ func (controller *studentCommentsController) CreateComment(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.CreateComment(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *studentCommentsController) UpdateComment(ctx Context) {
@@ -103,17 +105,17 @@ func (controller *studentCommentsController) UpdateComment(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.UpdateComment(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *studentCommentsController) DeleteComment(ctx Context) {
@@ -122,11 +124,11 @@ func (controller *studentCommentsController) DeleteComment(ctx Context) {
 
 	outputForm, err := controller.InputPort.DeleteComment(id, model.StudentUser, student.ID)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *assistantCommentsController) GetCommentsByHelpId(ctx Context) {
@@ -136,11 +138,11 @@ func (controller *assistantCommentsController) GetCommentsByHelpId(ctx Context) 
 
 	outputForm, err := controller.InputPort.GetCommentsByHelpID(helpID, limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *assistantCommentsController) CreateComment(ctx Context) {
@@ -151,17 +153,17 @@ func (controller *assistantCommentsController) CreateComment(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.CreateComment(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *assistantCommentsController) UpdateComment(ctx Context) {
@@ -173,17 +175,17 @@ func (controller *assistantCommentsController) UpdateComment(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.UpdateComment(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *assistantCommentsController) DeleteComment(ctx Context) {
@@ -192,11 +194,11 @@ func (controller *assistantCommentsController) DeleteComment(ctx Context) {
 
 	outputForm, err := controller.InputPort.DeleteComment(id, model.AssistantUser, assistant.ID)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *teacherCommentsController) Index(ctx Context) {
@@ -206,11 +208,11 @@ func (controller *teacherCommentsController) Index(ctx Context) {
 
 	outputForm, err := controller.InputPort.GetCommentsByHelpID(helpID, limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *teacherCommentsController) Create(ctx Context) {
@@ -221,17 +223,17 @@ func (controller *teacherCommentsController) Create(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.CreateComment(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *teacherCommentsController) Update(ctx Context) {
@@ -243,17 +245,17 @@ func (controller *teacherCommentsController) Update(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.UpdateComment(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *teacherCommentsController) Delete(ctx Context) {
@@ -262,9 +264,9 @@ func (controller *teacherCommentsController) Delete(ctx Context) {
 
 	outputForm, err := controller.InputPort.DeleteComment(id, model.TeacherUser, teacher.ID)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }

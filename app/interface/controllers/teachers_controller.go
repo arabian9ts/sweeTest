@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"net/http"
 	"strconv"
 
 	"github.com/arabian9ts/sweeTest/app/dto"
@@ -25,69 +26,69 @@ func NewTeachersController(userRepository repository.UserRepository, output port
 	}, nil
 }
 
-func (controller *TeachersController) Index(ctx Context) {
+func (controller *TeachersController) GetTeachers(ctx Context) {
 	limit := getLimit(ctx)
 	offset := getOffset(ctx)
 
 	outputForm, err := controller.InputPort.GetTeachers(limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *TeachersController) Show(ctx Context) {
+func (controller *TeachersController) GetTeacherById(ctx Context) {
 	id, err := strconv.Atoi(ctx.Param("teacher_id"))
 	if err != nil {
-		ctx.JSON(404, err)
+		ctx.JSON(http.StatusNotFound, err)
 		return
 	}
 	outputForm, err := controller.InputPort.GetTeacherById(int64(id))
 	if err != nil {
-		ctx.JSON(404, err)
+		ctx.JSON(http.StatusNotFound, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *TeachersController) Create(ctx Context) {
+func (controller *TeachersController) CreateTeacher(ctx Context) {
 	inputForm := &dto.CreateTeacherInputForm{}
 	ctx.Bind(&inputForm)
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.CreateTeacher(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *TeachersController) Update(ctx Context) {
+func (controller *TeachersController) UpdateTeacher(ctx Context) {
 	teacher := getCurrentTeacher(ctx)
 	inputForm := &dto.UpdateTeacherInputForm{ID: teacher.ID}
 	ctx.Bind(&inputForm)
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.UpdateTeacher(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }

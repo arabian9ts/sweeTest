@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"net/http"
 	"strconv"
 
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
@@ -72,11 +73,11 @@ func (controller *studentParticipatingLecturesController) GetLectures(ctx Contex
 
 	outputForm, err := controller.InputPort.GetParticipatingLecturesOfStudent(student.ID, limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *assistantParticipatingLecturesController) GetLectures(ctx Context) {
@@ -93,11 +94,11 @@ func (controller *assistantParticipatingLecturesController) GetLectures(ctx Cont
 
 	outputForm, err := controller.InputPort.GetParticipatingLecturesOfAssistant(assistant.ID, limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *teacherParticipatingLecturesController) GetLectures(ctx Context) {
@@ -114,9 +115,9 @@ func (controller *teacherParticipatingLecturesController) GetLectures(ctx Contex
 
 	outputForm, err := controller.InputPort.GetParticipatingLecturesOfTeacher(teacher.ID, limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }

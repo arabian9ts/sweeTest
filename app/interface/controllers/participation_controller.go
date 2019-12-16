@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"net/http"
+
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
@@ -36,7 +38,7 @@ func NewParticipationController(repository repository.ParticipationRepository, o
 		Student: &studentParticipationController{
 			InputPort: &interactor.ParticipationInteractor{
 				ParticipationRepository: repository,
-				ParticipationOutput: output,
+				ParticipationOutput:     output,
 			},
 			Validator: validator,
 		},
@@ -65,17 +67,17 @@ func (controller *studentParticipationController) ParticipateToLecture(ctx Conte
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.CreateStudentLecture(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *studentParticipationController) ExitFromLecture(ctx Context) {
@@ -84,11 +86,11 @@ func (controller *studentParticipationController) ExitFromLecture(ctx Context) {
 
 	outputForm, err := controller.InputPort.DeleteStudentLecture(student.ID, lectureID)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *assistantParticipationController) ParticipateToLecture(ctx Context) {
@@ -99,17 +101,17 @@ func (controller *assistantParticipationController) ParticipateToLecture(ctx Con
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.CreateAssistantLecture(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *assistantParticipationController) ExitFromLecture(ctx Context) {
@@ -118,11 +120,11 @@ func (controller *assistantParticipationController) ExitFromLecture(ctx Context)
 
 	outputForm, err := controller.InputPort.DeleteAssistantLecture(assistant.ID, lectureID)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *teacherParticipationController) ParticipateToLecture(ctx Context) {
@@ -133,17 +135,17 @@ func (controller *teacherParticipationController) ParticipateToLecture(ctx Conte
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.CreateTeacherLecture(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *teacherParticipationController) ExitFromLecture(ctx Context) {
@@ -152,9 +154,9 @@ func (controller *teacherParticipationController) ExitFromLecture(ctx Context) {
 
 	outputForm, err := controller.InputPort.DeleteTeacherLecture(teacher.ID, lectureID)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
