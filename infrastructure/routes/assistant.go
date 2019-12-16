@@ -65,8 +65,8 @@ func NewAssistant(r *gin.RouterGroup, controllers *controllers.RootController, h
 				helps := lecture.Group("/helps")
 				help := helps.Group("/:help_id")
 
-				helps.GET("", func(c *gin.Context) { controllers.HelpsController.GetHelpsByLectureId(c) })
-				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.DeleteHelp(c) })
+				helps.GET("", func(c *gin.Context) { controllers.HelpsController.Assistant.GetHelpsByLectureId(c) })
+				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.Assistant.DeleteHelp(c) })
 
 				//
 				// comments
