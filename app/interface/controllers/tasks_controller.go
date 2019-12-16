@@ -25,7 +25,7 @@ func NewTasksController(taskRepository repository.TaskRepository, output port.Ta
 	}, nil
 }
 
-func (controller *TasksController) Index(ctx Context) {
+func (controller *TasksController) GetTasksByLectureId(ctx Context) {
 	lectureID, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
 		ctx.JSON(404, err)
@@ -49,7 +49,7 @@ func (controller *TasksController) Index(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *TasksController) Create(ctx Context) {
+func (controller *TasksController) CreateTask(ctx Context) {
 	lectureID, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
 		ctx.JSON(404, err)
@@ -73,7 +73,7 @@ func (controller *TasksController) Create(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *TasksController) Update(ctx Context) {
+func (controller *TasksController) UpdateTask(ctx Context) {
 	lectureID, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
 		ctx.JSON(404, err)
@@ -102,7 +102,7 @@ func (controller *TasksController) Update(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *TasksController) Delete(ctx Context) {
+func (controller *TasksController) DeleteTask(ctx Context) {
 	lectureID, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
 		ctx.JSON(404, err)

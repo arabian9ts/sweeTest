@@ -37,9 +37,9 @@ func NewTeacher(r *gin.RouterGroup, controllers *controllers.RootController, han
 		{
 			lectures := teacherV1.Group("/lectures")
 			lecture := lectures.Group("/:lecture_id")
-			lectures.GET("", func(c *gin.Context) { controllers.LecturesController.Index(c) })
-			lectures.POST("", func(c *gin.Context) { controllers.LecturesController.Create(c) })
-			lecture.GET("", func(c *gin.Context) { controllers.LecturesController.Show(c) })
+			lectures.GET("", func(c *gin.Context) { controllers.LecturesController.GetLectures(c) })
+			lectures.POST("", func(c *gin.Context) { controllers.LecturesController.CreateLecture(c) })
+			lecture.GET("", func(c *gin.Context) { controllers.LecturesController.GetLectureById(c) })
 			lecture.PUT("", func(c *gin.Context) { controllers.LecturesController.Update(c) })
 
 			//
@@ -59,9 +59,9 @@ func NewTeacher(r *gin.RouterGroup, controllers *controllers.RootController, han
 			// participants
 			//
 			{
-				lecture.GET("/students", func(c *gin.Context) { controllers.ParticipantsController.Teacher.GetStudentsByLectureId(c) })
-				lecture.GET("/assistants", func(c *gin.Context) { controllers.ParticipantsController.Teacher.GetAssistantsByLectureId(c) })
-				lecture.GET("/teachers", func(c *gin.Context) { controllers.ParticipantsController.Teacher.GetTeachersByLectureId(c) })
+				lecture.GET("/students", func(c *gin.Context) { controllers.ParticipantsController.GetStudentsByLectureId(c) })
+				lecture.GET("/assistants", func(c *gin.Context) { controllers.ParticipantsController.GetAssistantsByLectureId(c) })
+				lecture.GET("/teachers", func(c *gin.Context) { controllers.ParticipantsController.GetTeachersByLectureId(c) })
 			}
 
 			//
@@ -70,10 +70,10 @@ func NewTeacher(r *gin.RouterGroup, controllers *controllers.RootController, han
 			{
 				helps := lecture.Group("/helps")
 				help := helps.Group("/:help_id")
-				helps.GET("", func(c *gin.Context) { controllers.HelpsController.Index(c) })
-				helps.POST("", func(c *gin.Context) { controllers.HelpsController.Create(c) })
-				help.PUT("", func(c *gin.Context) { controllers.HelpsController.Update(c) })
-				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.Delete(c) })
+				helps.GET("", func(c *gin.Context) { controllers.HelpsController.GetHelpsByLectureId(c) })
+				helps.POST("", func(c *gin.Context) { controllers.HelpsController.CreateHelp(c) })
+				help.PUT("", func(c *gin.Context) { controllers.HelpsController.UpdateHelp(c) })
+				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.DeleteHelp(c) })
 
 				//
 				// comments

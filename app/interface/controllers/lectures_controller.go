@@ -24,7 +24,7 @@ func NewLecturesController(lectureRepository repository.LectureRepository, outpu
 	}, nil
 }
 
-func (controller *LecturesController) Index(ctx Context) {
+func (controller *LecturesController) GetLectures(ctx Context) {
 	limit, err := strconv.Atoi(ctx.Query("limit"))
 	if err != nil {
 		limit = 10
@@ -43,7 +43,7 @@ func (controller *LecturesController) Index(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *LecturesController) Show(ctx Context) {
+func (controller *LecturesController) GetLectureById(ctx Context) {
 	id, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
 		ctx.JSON(404, err)
@@ -59,7 +59,7 @@ func (controller *LecturesController) Show(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *LecturesController) Create(ctx Context) {
+func (controller *LecturesController) CreateLecture(ctx Context) {
 	inputForm := &dto.CreateLectureInputForm{}
 	ctx.Bind(&inputForm)
 

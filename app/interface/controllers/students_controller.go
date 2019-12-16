@@ -40,7 +40,7 @@ func (controller *StudentsController) Show(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *StudentsController) Create(ctx Context) {
+func (controller *StudentsController) SignUp(ctx Context) {
 	inputForm := &dto.CreateStudentInputForm{}
 	ctx.Bind(&inputForm)
 

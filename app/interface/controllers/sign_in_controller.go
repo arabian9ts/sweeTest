@@ -70,7 +70,7 @@ func NewLoginController(userRepository repository.UserRepository, output port.Au
 	}, nil
 }
 
-func (controller *studentLoginController) Create(ctx Context) {
+func (controller *studentLoginController) LogIn(ctx Context) {
 	inputForm := &dto.AuthorizeStudentInputForm{}
 	ctx.Bind(&inputForm)
 
@@ -89,7 +89,7 @@ func (controller *studentLoginController) Create(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *assistantLoginController) Create(ctx Context) {
+func (controller *assistantLoginController) SignIn(ctx Context) {
 	inputForm := &dto.AuthorizeAssistantInputForm{}
 	ctx.Bind(&inputForm)
 
