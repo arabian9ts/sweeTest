@@ -58,7 +58,7 @@ func NewCommentsController(output port.CommentOutput, repository repository.Comm
 	}, nil
 }
 
-func (controller *studentCommentsController) Index(ctx Context) {
+func (controller *studentCommentsController) GetCommentsByHelpId(ctx Context) {
 	_ = getCurrentStudent(ctx)
 	helpID := getHelpID(ctx)
 	limit := getLimit(ctx)
@@ -73,7 +73,7 @@ func (controller *studentCommentsController) Index(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *studentCommentsController) Create(ctx Context) {
+func (controller *studentCommentsController) CreateComment(ctx Context) {
 	student := getCurrentStudent(ctx)
 	helpID := getHelpID(ctx)
 	inputForm := &dto.CreateCommentInputForm{HelpID: helpID, UserType: model.StudentUser, UserID: student.ID}
@@ -94,7 +94,7 @@ func (controller *studentCommentsController) Create(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *studentCommentsController) Update(ctx Context) {
+func (controller *studentCommentsController) UpdateComment(ctx Context) {
 	id := getCommentID(ctx)
 	student := getCurrentStudent(ctx)
 	helpID := getHelpID(ctx)
@@ -116,7 +116,7 @@ func (controller *studentCommentsController) Update(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *studentCommentsController) Delete(ctx Context) {
+func (controller *studentCommentsController) DeleteComment(ctx Context) {
 	id := getCommentID(ctx)
 	student := getCurrentStudent(ctx)
 
@@ -129,7 +129,7 @@ func (controller *studentCommentsController) Delete(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *assistantCommentsController) Index(ctx Context) {
+func (controller *assistantCommentsController) GetCommentsByHelpId(ctx Context) {
 	helpID := getHelpID(ctx)
 	limit := getLimit(ctx)
 	offset := getOffset(ctx)
@@ -143,7 +143,7 @@ func (controller *assistantCommentsController) Index(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *assistantCommentsController) Create(ctx Context) {
+func (controller *assistantCommentsController) CreateComment(ctx Context) {
 	assistant := getCurrentAssistant(ctx)
 	helpID := getHelpID(ctx)
 	inputForm := &dto.CreateCommentInputForm{HelpID: helpID, UserType: model.AssistantUser, UserID: assistant.ID}
@@ -164,7 +164,7 @@ func (controller *assistantCommentsController) Create(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *assistantCommentsController) Update(ctx Context) {
+func (controller *assistantCommentsController) UpdateComment(ctx Context) {
 	id := getCommentID(ctx)
 	assistant := getCurrentAssistant(ctx)
 	helpID := getHelpID(ctx)
@@ -186,7 +186,7 @@ func (controller *assistantCommentsController) Update(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *assistantCommentsController) Delete(ctx Context) {
+func (controller *assistantCommentsController) DeleteComment(ctx Context) {
 	id := getCommentID(ctx)
 	assistant := getCurrentAssistant(ctx)
 

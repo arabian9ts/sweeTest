@@ -23,7 +23,7 @@ func NewHelpsController(output port.HelpOutput, repository repository.HelpReposi
 	}, nil
 }
 
-func (controller *HelpsController) Index(ctx Context) {
+func (controller *HelpsController) GetHelpsByLectureId(ctx Context) {
 	lectureID := getLectureID(ctx)
 	limit := getLimit(ctx)
 	offset := getOffset(ctx)
@@ -37,7 +37,7 @@ func (controller *HelpsController) Index(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *HelpsController) Create(ctx Context) {
+func (controller *HelpsController) CreateHelp(ctx Context) {
 	student := getCurrentStudent(ctx)
 	lectureID := getLectureID(ctx)
 	inputForm := &dto.CreateHelpInputForm{StudentID: student.ID, LectureID: int64(lectureID)}
@@ -58,7 +58,7 @@ func (controller *HelpsController) Create(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *HelpsController) Update(ctx Context) {
+func (controller *HelpsController) UpdateHelp(ctx Context) {
 	student := getCurrentStudent(ctx)
 	helpID := getHelpID(ctx)
 	lectureID := getLectureID(ctx)
@@ -80,7 +80,7 @@ func (controller *HelpsController) Update(ctx Context) {
 	ctx.JSON(200, outputForm)
 }
 
-func (controller *HelpsController) Delete(ctx Context) {
+func (controller *HelpsController) DeleteHelp(ctx Context) {
 	student := getCurrentStudent(ctx)
 	id := getHelpID(ctx)
 	lectureID := getLectureID(ctx)

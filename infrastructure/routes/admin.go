@@ -24,7 +24,7 @@ func NewAdmin(r *gin.RouterGroup, controllers *controllers.RootController, handl
 		{
 			students := adminV1.Group("/students")
 			student := students.Group("/:student_id")
-			students.POST("", func(c *gin.Context) { controllers.StudentsController.Create(c) })
+			students.POST("", func(c *gin.Context) { controllers.StudentsController.SignUp(c) })
 			student.GET("", func(c *gin.Context) { controllers.StudentsController.Show(c) })
 			student.PUT("", func(c *gin.Context) { controllers.StudentsController.Update(c) })
 		}
@@ -51,8 +51,8 @@ func NewAdmin(r *gin.RouterGroup, controllers *controllers.RootController, handl
 		// lectures
 		{
 			lectures := adminV1.Group("/lectures")
-			lectures.GET("", func(c *gin.Context) { controllers.LecturesController.Index(c) })
-			lectures.POST("", func(c *gin.Context) { controllers.LecturesController.Create(c) })
+			lectures.GET("", func(c *gin.Context) { controllers.LecturesController.GetLectures(c) })
+			lectures.POST("", func(c *gin.Context) { controllers.LecturesController.CreateLecture(c) })
 		}
 	}
 }

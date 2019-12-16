@@ -11,9 +11,8 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 	{
 		studentV1 := r.Group("/v1/student")
 
-		studentV1.POST("/login", func(c *gin.Context) { controllers.LoginController.Student.Create(c) })
-		studentV1.POST("/sign_up", func(c *gin.Context) { controllers.StudentsController.Create(c) })
-
+		studentV1.POST("/sign_in", func(c *gin.Context) { controllers.LoginController.Student.LogIn(c) })
+		studentV1.POST("/sign_up", func(c *gin.Context) { controllers.StudentsController.SignUp(c) })
 		studentV1.Use(handlers.AuthHandler.StudentAuthHandler())
 
 		//
@@ -32,15 +31,15 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 			lectures := studentV1.Group("/lectures")
 			lecture := lectures.Group("/:lecture_id")
 
-			lectures.GET("", func(c *gin.Context) { controllers.LecturesController.Index(c) })
-			lecture.GET("", func(c *gin.Context) { controllers.LecturesController.Show(c) })
+			lectures.GET("", func(c *gin.Context) { controllers.LecturesController.GetLectures(c) })
+			lecture.GET("", func(c *gin.Context) { controllers.LecturesController.GetLectureById(c) })
 
 			//
 			// participants
 			//
 			{
 				// get participating students by LectureId
-				lecture.GET("/participants", func(c *gin.Context) { controllers.ParticipantsController.Student.GetStudentsByLectureId(c) })
+				lecture.GET("/participants", func(c *gin.Context) { controllers.ParticipantsController.GetStudentsByLectureId(c) })
 			}
 
 			//
@@ -63,10 +62,10 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 				tasks := lecture.Group("/tasks")
 				task := tasks.Group("/:task_id")
 
-				tasks.GET("", func(c *gin.Context) { controllers.TasksController.Index(c) })
-				tasks.POST("", func(c *gin.Context) { controllers.TasksController.Create(c) })
-				task.PUT("", func(c *gin.Context) { controllers.TasksController.Update(c) })
-				task.DELETE("", func(c *gin.Context) { controllers.TasksController.Delete(c) })
+				tasks.GET("", func(c *gin.Context) { controllers.TasksController.GetTasksByLectureId(c) })
+				tasks.POST("", func(c *gin.Context) { controllers.TasksController.CreateTask(c) })
+				task.PUT("", func(c *gin.Context) { controllers.TasksController.UpdateTask(c) })
+				task.DELETE("", func(c *gin.Context) { controllers.TasksController.DeleteTask(c) })
 			}
 
 			//
@@ -76,10 +75,10 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 				helps := lecture.Group("/helps")
 				help := helps.Group("/:help_id")
 
-				helps.GET("", func(c *gin.Context) { controllers.HelpsController.Index(c) })
-				helps.POST("", func(c *gin.Context) { controllers.HelpsController.Create(c) })
-				help.PUT("", func(c *gin.Context) { controllers.HelpsController.Update(c) })
-				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.Delete(c) })
+				helps.GET("", func(c *gin.Context) { controllers.HelpsController.GetHelpsByLectureId(c) })
+				helps.POST("", func(c *gin.Context) { controllers.HelpsController.CreateHelp(c) })
+				help.PUT("", func(c *gin.Context) { controllers.HelpsController.UpdateHelp(c) })
+				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.DeleteHelp(c) })
 
 				//
 				// comments
@@ -88,10 +87,10 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 					comments := help.Group("/comments")
 					comment := comments.Group("/:comment_id")
 
-					comments.GET("", func(c *gin.Context) { controllers.CommentsController.Student.Index(c) })
-					comments.POST("", func(c *gin.Context) { controllers.CommentsController.Student.Create(c) })
-					comment.PUT("", func(c *gin.Context) { controllers.CommentsController.Student.Update(c) })
-					comment.DELETE("", func(c *gin.Context) { controllers.CommentsController.Student.Delete(c) })
+					comments.GET("", func(c *gin.Context) { controllers.CommentsController.Student.GetCommentsByHelpId(c) })
+					comments.POST("", func(c *gin.Context) { controllers.CommentsController.Student.CreateComment(c) })
+					comment.PUT("", func(c *gin.Context) { controllers.CommentsController.Student.UpdateComment(c) })
+					comment.DELETE("", func(c *gin.Context) { controllers.CommentsController.Student.DeleteComment(c) })
 				}
 			}
 		}

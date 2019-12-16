@@ -10,8 +10,7 @@ import (
 func NewAssistant(r *gin.RouterGroup, controllers *controllers.RootController, handlers *handler.RootHandler) {
 	{
 		assistantV1 := r.Group("/v1/assistant")
-		assistantV1.POST("/login", func(c *gin.Context) { controllers.LoginController.Assistant.Create(c) })
-
+		assistantV1.POST("/sign_in", func(c *gin.Context) { controllers.LoginController.Assistant.SignIn(c) })
 		assistantV1.Use(handlers.AuthHandler.AssistantAuthHandler())
 
 		//
@@ -30,9 +29,9 @@ func NewAssistant(r *gin.RouterGroup, controllers *controllers.RootController, h
 			lectures := assistantV1.Group("/lectures")
 			lecture := lectures.Group("/:lecture_id")
 
-			lectures.GET("", func(c *gin.Context) { controllers.LecturesController.Index(c) })
-			lectures.POST("", func(c *gin.Context) { controllers.LecturesController.Create(c) })
-			lecture.GET("", func(c *gin.Context) { controllers.LecturesController.Show(c) })
+			lectures.GET("", func(c *gin.Context) { controllers.LecturesController.GetLectures(c) })
+			lectures.POST("", func(c *gin.Context) { controllers.LecturesController.CreateLecture(c) })
+			lecture.GET("", func(c *gin.Context) { controllers.LecturesController.GetLectureById(c) })
 
 			//
 			// participation
@@ -50,13 +49,13 @@ func NewAssistant(r *gin.RouterGroup, controllers *controllers.RootController, h
 			//
 			{
 				// get participating students by LectureId
-				lecture.GET("/students", func(c *gin.Context) { controllers.ParticipantsController.Assistant.GetStudentsByLectureId(c) })
+				lecture.GET("/students", func(c *gin.Context) { controllers.ParticipantsController.GetStudentsByLectureId(c) })
 
 				// get participating assistants by LectureId
-				lecture.GET("/assistants", func(c *gin.Context) { controllers.ParticipantsController.Assistant.GetAssistantsByLectureId(c) })
+				lecture.GET("/assistants", func(c *gin.Context) { controllers.ParticipantsController.GetAssistantsByLectureId(c) })
 
 				// get participating teachers by LectureId
-				lecture.GET("/teachers", func(c *gin.Context) { controllers.ParticipantsController.Assistant.GetTeachersByLectureId(c) })
+				lecture.GET("/teachers", func(c *gin.Context) { controllers.ParticipantsController.GetTeachersByLectureId(c) })
 			}
 
 			//
@@ -66,10 +65,8 @@ func NewAssistant(r *gin.RouterGroup, controllers *controllers.RootController, h
 				helps := lecture.Group("/helps")
 				help := helps.Group("/:help_id")
 
-				helps.GET("", func(c *gin.Context) { controllers.HelpsController.Index(c) })
-				helps.POST("", func(c *gin.Context) { controllers.HelpsController.Create(c) })
-				help.PUT("", func(c *gin.Context) { controllers.HelpsController.Update(c) })
-				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.Delete(c) })
+				helps.GET("", func(c *gin.Context) { controllers.HelpsController.GetHelpsByLectureId(c) })
+				help.DELETE("", func(c *gin.Context) { controllers.HelpsController.DeleteHelp(c) })
 
 				//
 				// comments
@@ -78,10 +75,10 @@ func NewAssistant(r *gin.RouterGroup, controllers *controllers.RootController, h
 					comments := help.Group("/comments")
 					comment := comments.Group("/:comment_id")
 
-					comments.GET("", func(c *gin.Context) { controllers.CommentsController.Assistant.Index(c) })
-					comments.POST("", func(c *gin.Context) { controllers.CommentsController.Assistant.Create(c) })
-					comment.PUT("", func(c *gin.Context) { controllers.CommentsController.Assistant.Update(c) })
-					comment.DELETE("", func(c *gin.Context) { controllers.CommentsController.Assistant.Delete(c) })
+					comments.GET("", func(c *gin.Context) { controllers.CommentsController.Assistant.GetCommentsByHelpId(c) })
+					comments.POST("", func(c *gin.Context) { controllers.CommentsController.Assistant.CreateComment(c) })
+					comment.PUT("", func(c *gin.Context) { controllers.CommentsController.Assistant.UpdateComment(c) })
+					comment.DELETE("", func(c *gin.Context) { controllers.CommentsController.Assistant.DeleteComment(c) })
 				}
 			}
 		}
