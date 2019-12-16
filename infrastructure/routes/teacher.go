@@ -81,9 +81,21 @@ func NewTeacher(r *gin.RouterGroup, controllers *controllers.RootController, han
 					comment := comments.Group("/:comment_id")
 					comments.GET("", func(c *gin.Context) { controllers.CommentsController.Teacher.Index(c) })
 					comments.POST("", func(c *gin.Context) { controllers.CommentsController.Teacher.Create(c) })
-					comment.PUT("/:comment_id", func(c *gin.Context) { controllers.CommentsController.Teacher.Update(c) })
-					comment.DELETE("/:comment_id", func(c *gin.Context) { controllers.CommentsController.Teacher.Delete(c) })
+					comment.PUT("", func(c *gin.Context) { controllers.CommentsController.Teacher.Update(c) })
+					comment.DELETE("", func(c *gin.Context) { controllers.CommentsController.Teacher.Delete(c) })
 				}
+			}
+
+			//
+			// classes
+			//
+			{
+				classes := lecture.Group("/classes")
+				class := classes.Group("/:class_id")
+				classes.GET("", func(c *gin.Context) { controllers.ClassesController.GetClassesByLectureId(c) })
+				classes.POST("", func(c *gin.Context) { controllers.ClassesController.CreateClass(c) })
+				class.GET("", func(c *gin.Context) { controllers.ClassesController.GetClassById(c) })
+				class.PUT("", func(c *gin.Context) { controllers.ClassesController.UpdateClass(c) })
 			}
 		}
 	}
