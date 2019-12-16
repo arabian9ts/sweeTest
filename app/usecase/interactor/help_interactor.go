@@ -41,3 +41,15 @@ func (interactor *HelpInteractor) DeleteHelp(id int64, lectureID int64, studentI
 		interactor.HelpRepository.DeleteHelp(id, lectureID, studentID),
 	)
 }
+
+func (interactor *HelpInteractor) DeleteHelpByAssistant(id int64, lectureID int64) (*dto.DeleteHelpOutputForm, error) {
+	return interactor.HelpOutput.HandleDeleteHelp(
+		interactor.HelpRepository.DeleteHelpWithoutStudentId(id, lectureID),
+	)
+}
+
+func (interactor *HelpInteractor) DeleteHelpWithoutStudentId(id int64, lectureID int64) (*dto.DeleteHelpOutputForm, error) {
+	return interactor.HelpOutput.HandleDeleteHelp(
+		interactor.HelpRepository.DeleteHelpWithoutStudentId(id, lectureID),
+	)
+}

@@ -25,4 +25,5 @@ type UpdateHelpUseCase interface {
 
 type DeleteHelpUseCase interface {
 	DeleteHelp(id int64, lectureID int64, studentID int64) (*dto.DeleteHelpOutputForm, error)
+	DeleteHelpWithoutStudentId(id int64, lectureID int64) (*dto.DeleteHelpOutputForm, error)
 }

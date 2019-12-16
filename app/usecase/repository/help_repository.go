@@ -8,4 +8,5 @@ type HelpRepository interface {
 	CreateHelp(help *model.Help) (*model.Help, error)
 	UpdateHelp(help *model.Help) (*model.Help, error)
 	DeleteHelp(id int64, lectureID int64, studentID int64) (int64, error)
+	DeleteHelpWithoutStudentId(id int64, lectureID int64) (int64, error)
 }
