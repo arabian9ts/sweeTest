@@ -34,3 +34,8 @@ setup:
 build:
 	@echo 'go build -ldflags "-X main.version=$(VERSION)" -o sweeTest'
 	-@go build -ldflags "-X main.version=$(VERSION)" -o sweeTest
+
+.PHONY: prd-build
+prd-build:
+	@echo 'GOOS=linux GOARCH=amd64 go build -o sweeTest'
+	-@GOOS=linux GOARCH=amd64 go build -o sweeTest
