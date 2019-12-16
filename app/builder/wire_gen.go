@@ -133,7 +133,11 @@ func InitializeRootHandler() (*handler.RootHandler, error) {
 	if err != nil {
 		return nil, err
 	}
-	rootHandler, err := handler.NewRootHandler(authHandler, meHandler)
+	aliveHandler, err := handler.NewAliveHandler()
+	if err != nil {
+		return nil, err
+	}
+	rootHandler, err := handler.NewRootHandler(authHandler, meHandler, aliveHandler)
 	if err != nil {
 		return nil, err
 	}
@@ -144,6 +148,6 @@ func InitializeRootHandler() (*handler.RootHandler, error) {
 
 var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository)
 
-var handlerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, handler.NewAuthHandler, handler.NewMeHandler, handler.NewRootHandler)
+var handlerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, handler.NewAuthHandler, handler.NewMeHandler, handler.NewRootHandler, handler.NewAliveHandler)
 
 var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, database.NewHelpRepository, database.NewCommentRepository, database.NewParticipationRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, controllers.NewLoginController, controllers.NewHelpsController, controllers.NewCommentsController, controllers.NewParticipationController, controllers.NewParticipatingLecturesController, controllers.NewParticipantsController, interactor.NewUserInteractor, interactor.NewLectureInteractor, interactor.NewTaskInteractor, interactor.NewAuthInteractor, interactor.NewHelpInteractor, interactor.NewCommentInteractor, interactor.NewParticipationInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, presenter.NewAuthPresenter, presenter.NewHelpPresenter, presenter.NewCommentPresenter, presenter.NewParticipationPresenter, validator.NewDefaultValidator)
