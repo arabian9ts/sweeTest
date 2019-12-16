@@ -56,3 +56,7 @@
 [[constraint]]
   branch = "v3"
   name = "gopkg.in/yaml.v3"
+
+[[constraint]]
+  name = "github.com/sirupsen/logrus"
+  version = "1.4.2"
