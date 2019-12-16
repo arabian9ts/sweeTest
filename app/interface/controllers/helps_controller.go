@@ -151,11 +151,10 @@ func (controller *assistantHelpsController) GetHelpsByLectureId(ctx Context) {
 }
 
 func (controller *assistantHelpsController) DeleteHelp(ctx Context) {
-	student := getCurrentStudent(ctx)
 	id := getHelpID(ctx)
 	lectureID := getLectureID(ctx)
 
-	outputForm, err := controller.InputPort.DeleteHelp(id, lectureID, student.ID)
+	outputForm, err := controller.InputPort.DeleteHelpWithoutStudentId(id, lectureID)
 	if err != nil {
 		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
@@ -182,11 +181,10 @@ func (controller *teacherHelpsController) GetHelpsByLectureId(ctx Context) {
 }
 
 func (controller *teacherHelpsController) DeleteHelp(ctx Context) {
-	student := getCurrentStudent(ctx)
 	id := getHelpID(ctx)
 	lectureID := getLectureID(ctx)
 
-	outputForm, err := controller.InputPort.DeleteHelp(id, lectureID, student.ID)
+	outputForm, err := controller.InputPort.DeleteHelpWithoutStudentId(id, lectureID)
 	if err != nil {
 		ctx.JSON(http.StatusServiceUnavailable, err)
 		return

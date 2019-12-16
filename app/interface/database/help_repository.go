@@ -98,5 +98,19 @@ func (repo *HelpRepository) DeleteHelp(id int64, lectureID int64, studentID int6
 		return 0, err
 	}
 
-	return int64(count), nil
+	return count, nil
+}
+
+func (repo *HelpRepository) DeleteHelpWithoutStudentId(id int64, lectureID int64) (int64, error) {
+	result, err := repo.SqlHandler.Execute("DELETE FROM `helps` WHERE `id` = ? AND `lecture_id` = ?", id, lectureID)
+	if err != nil {
+		return 0, err
+	}
+
+	count, err := result.RowAffected()
+	if err != nil {
+		return 0, err
+	}
+
+	return count, nil
 }
