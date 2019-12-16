@@ -37,5 +37,5 @@ build:
 
 .PHONY: prd-build
 prd-build:
-	@echo 'GOOS=linux GOARCH=amd64 go build -o sweeTest'
-	-@GOOS=linux GOARCH=amd64 go build -o sweeTest
+	@echo 'GOOS=linux GOARCH=amd64 go build -ldflags "-X main.version=$(VERSION)" -o sweeTest'
+	-@GOOS=linux GOARCH=amd64 go build -ldflags "-X main.version=$(VERSION)" -o sweeTest
