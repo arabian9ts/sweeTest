@@ -1,12 +1,14 @@
 package controllers
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 	"github.com/arabian9ts/sweeTest/app/validator"
-	"strconv"
 )
 
 type LecturesController struct {
@@ -36,27 +38,27 @@ func (controller *LecturesController) GetLectures(ctx Context) {
 
 	outputForm, err := controller.InputPort.GetLectures(limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *LecturesController) GetLectureById(ctx Context) {
 	id, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
-		ctx.JSON(404, err)
+		ctx.JSON(http.StatusNotFound, err)
 		return
 	}
 
 	outputForm, err := controller.InputPort.GetLectureById(int64(id))
 	if err != nil {
-		ctx.JSON(404, err)
+		ctx.JSON(http.StatusNotFound, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *LecturesController) CreateLecture(ctx Context) {
@@ -65,23 +67,23 @@ func (controller *LecturesController) CreateLecture(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.CreateLecture(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *LecturesController) Update(ctx Context) {
+func (controller *LecturesController) UpdateLecture(ctx Context) {
 	id, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
-		ctx.JSON(404, err)
+		ctx.JSON(http.StatusNotFound, err)
 		return
 	}
 
@@ -90,31 +92,31 @@ func (controller *LecturesController) Update(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.UpdateLecture(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *LecturesController) Delete(ctx Context) {
+func (controller *LecturesController) DeleteLecture(ctx Context) {
 	id, err := strconv.Atoi(ctx.Param("lecture_id"))
 	if err != nil {
-		ctx.JSON(404, err)
+		ctx.JSON(http.StatusNotFound, err)
 		return
 	}
 
 	outputForm, err := controller.InputPort.DeleteLecture(int64(id))
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }

@@ -27,8 +27,8 @@ func NewTeacher(r *gin.RouterGroup, controllers *controllers.RootController, han
 		//
 		{
 			teachers := teacherV1.Group("/teachers")
-			teachers.GET("/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Show(c) })
-			teachers.PUT("/:teacher_id", func(c *gin.Context) { controllers.TeachersController.Update(c) })
+			teachers.GET("/:teacher_id", func(c *gin.Context) { controllers.TeachersController.GetTeacherById(c) })
+			teachers.PUT("/:teacher_id", func(c *gin.Context) { controllers.TeachersController.UpdateTeacher(c) })
 		}
 
 		//
@@ -40,7 +40,7 @@ func NewTeacher(r *gin.RouterGroup, controllers *controllers.RootController, han
 			lectures.GET("", func(c *gin.Context) { controllers.LecturesController.GetLectures(c) })
 			lectures.POST("", func(c *gin.Context) { controllers.LecturesController.CreateLecture(c) })
 			lecture.GET("", func(c *gin.Context) { controllers.LecturesController.GetLectureById(c) })
-			lecture.PUT("", func(c *gin.Context) { controllers.LecturesController.Update(c) })
+			lecture.PUT("", func(c *gin.Context) { controllers.LecturesController.UpdateLecture(c) })
 
 			//
 			// participation

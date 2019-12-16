@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"net/http"
+
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
@@ -28,56 +30,56 @@ func (controller *HelpsController) GetHelpsByLectureId(ctx Context) {
 	limit := getLimit(ctx)
 	offset := getOffset(ctx)
 
-	outputForm, err := controller.InputPort.GetHelpsByLectureID(int64(lectureID), limit, offset)
+	outputForm, err := controller.InputPort.GetHelpsByLectureID(lectureID, limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *HelpsController) CreateHelp(ctx Context) {
 	student := getCurrentStudent(ctx)
 	lectureID := getLectureID(ctx)
-	inputForm := &dto.CreateHelpInputForm{StudentID: student.ID, LectureID: int64(lectureID)}
+	inputForm := &dto.CreateHelpInputForm{StudentID: student.ID, LectureID: lectureID}
 	ctx.Bind(&inputForm)
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.CreateHelp(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *HelpsController) UpdateHelp(ctx Context) {
 	student := getCurrentStudent(ctx)
 	helpID := getHelpID(ctx)
 	lectureID := getLectureID(ctx)
-	inputForm := &dto.UpdateHelpInputForm{ID: int64(helpID), StudentID: student.ID, LectureID: int64(lectureID)}
+	inputForm := &dto.UpdateHelpInputForm{ID: helpID, StudentID: student.ID, LectureID: lectureID}
 	ctx.Bind(&inputForm)
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.UpdateHelp(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *HelpsController) DeleteHelp(ctx Context) {
@@ -85,11 +87,11 @@ func (controller *HelpsController) DeleteHelp(ctx Context) {
 	id := getHelpID(ctx)
 	lectureID := getLectureID(ctx)
 
-	outputForm, err := controller.InputPort.DeleteHelp(int64(id), int64(lectureID), student.ID)
+	outputForm, err := controller.InputPort.DeleteHelp(id, lectureID, student.ID)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }

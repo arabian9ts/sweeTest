@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"net/http"
 	"strconv"
 
 	"github.com/arabian9ts/sweeTest/app/dto"
@@ -25,56 +26,56 @@ func NewAssistantsController(userRepository repository.UserRepository, output po
 	}, nil
 }
 
-func (controller *AssistantsController) Show(ctx Context) {
+func (controller *AssistantsController) GetAssistantById(ctx Context) {
 	id, err := strconv.Atoi(ctx.Param("assistant_id"))
 	if err != nil {
-		ctx.JSON(404, err)
+		ctx.JSON(http.StatusNotFound, err)
 		return
 	}
 	outputForm, err := controller.InputPort.GetAssistantById(int64(id))
 	if err != nil {
-		ctx.JSON(404, err)
+		ctx.JSON(http.StatusNotFound, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *AssistantsController) Create(ctx Context) {
+func (controller *AssistantsController) CreateAssistant(ctx Context) {
 	inputForm := &dto.CreateAssistantInputForm{}
 	ctx.Bind(&inputForm)
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.CreateAssistant(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *AssistantsController) Update(ctx Context) {
+func (controller *AssistantsController) UpdateAssistant(ctx Context) {
 	assistant := getCurrentAssistant(ctx)
 	inputForm := &dto.UpdateAssistantInputForm{ID: assistant.ID}
 	ctx.Bind(&inputForm)
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(400, msgs)
+		ctx.JSON(http.StatusBadRequest, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.UpdateAssistant(inputForm)
 	if err != nil {
-		ctx.JSON(400, err)
+		ctx.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }

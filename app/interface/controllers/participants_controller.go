@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"net/http"
 	"strconv"
 
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
@@ -27,7 +28,7 @@ func NewParticipantsController(repository repository.UserRepository, output port
 }
 
 func (controller *ParticipantsController) GetStudentsByLectureId(ctx Context) {
-	lecture := getLectureID(ctx)
+	lectureId := getLectureID(ctx)
 	limit, err := strconv.Atoi(ctx.Query("limit"))
 	if err != nil {
 		limit = 10
@@ -38,17 +39,17 @@ func (controller *ParticipantsController) GetStudentsByLectureId(ctx Context) {
 		offset = 0
 	}
 
-	outputForm, err := controller.InputPort.GetStudentsByLectureId(lecture, limit, offset)
+	outputForm, err := controller.InputPort.GetStudentsByLectureId(lectureId, limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *ParticipantsController) GetAssistantsByLectureId(ctx Context) {
-	lecture := getLectureID(ctx)
+	lectureId := getLectureID(ctx)
 	limit, err := strconv.Atoi(ctx.Query("limit"))
 	if err != nil {
 		limit = 10
@@ -59,17 +60,17 @@ func (controller *ParticipantsController) GetAssistantsByLectureId(ctx Context) 
 		offset = 0
 	}
 
-	outputForm, err := controller.InputPort.GetAssistantsByLectureId(lecture, limit, offset)
+	outputForm, err := controller.InputPort.GetAssistantsByLectureId(lectureId, limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *ParticipantsController) GetTeachersByLectureId(ctx Context) {
-	lecture := getLectureID(ctx)
+	lectureId := getLectureID(ctx)
 	limit, err := strconv.Atoi(ctx.Query("limit"))
 	if err != nil {
 		limit = 10
@@ -80,11 +81,11 @@ func (controller *ParticipantsController) GetTeachersByLectureId(ctx Context) {
 		offset = 0
 	}
 
-	outputForm, err := controller.InputPort.GetTeachersByLectureId(lecture, limit, offset)
+	outputForm, err := controller.InputPort.GetTeachersByLectureId(lectureId, limit, offset)
 	if err != nil {
-		ctx.JSON(503, err)
+		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }

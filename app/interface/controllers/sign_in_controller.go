@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"net/http"
+
 	"github.com/arabian9ts/sweeTest/app/dto"
 	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 	"github.com/arabian9ts/sweeTest/app/usecase/port"
@@ -76,17 +78,17 @@ func (controller *studentLoginController) LogIn(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(401, msgs)
+		ctx.JSON(http.StatusUnauthorized, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.AuthorizeStudent(inputForm.StudentNo, inputForm.Password)
 	if err != nil {
-		ctx.JSON(401, err)
+		ctx.JSON(http.StatusUnauthorized, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *assistantLoginController) SignIn(ctx Context) {
@@ -95,17 +97,17 @@ func (controller *assistantLoginController) SignIn(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(401, msgs)
+		ctx.JSON(http.StatusUnauthorized, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.AuthorizeAssistant(inputForm.StudentNo, inputForm.Password)
 	if err != nil {
-		ctx.JSON(401, err)
+		ctx.JSON(http.StatusUnauthorized, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *teacherLoginController) Create(ctx Context) {
@@ -114,17 +116,17 @@ func (controller *teacherLoginController) Create(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(401, msgs)
+		ctx.JSON(http.StatusUnauthorized, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.AuthorizeTeacher(inputForm.Email, inputForm.Password)
 	if err != nil {
-		ctx.JSON(401, err)
+		ctx.JSON(http.StatusUnauthorized, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
 
 func (controller *adminLoginController) Create(ctx Context) {
@@ -133,15 +135,15 @@ func (controller *adminLoginController) Create(ctx Context) {
 
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
-		ctx.JSON(401, msgs)
+		ctx.JSON(http.StatusUnauthorized, msgs)
 		return
 	}
 
 	outputForm, err := controller.InputPort.AuthorizeAdmin(inputForm.Email, inputForm.Password)
 	if err != nil {
-		ctx.JSON(401, err)
+		ctx.JSON(http.StatusUnauthorized, err)
 		return
 	}
 
-	ctx.JSON(200, outputForm)
+	ctx.JSON(http.StatusOK, outputForm)
 }
