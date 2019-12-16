@@ -12,22 +12,6 @@ import (
 
 type (
 	ParticipationController struct {
-		Student   *studentParticipationController
-		Assistant *assistantParticipationController
-		Teacher   *teacherParticipationController
-	}
-
-	studentParticipationController struct {
-		InputPort port.ParticipationUseCase
-		Validator validator.Validation
-	}
-
-	assistantParticipationController struct {
-		InputPort port.ParticipationUseCase
-		Validator validator.Validation
-	}
-
-	teacherParticipationController struct {
 		InputPort port.ParticipationUseCase
 		Validator validator.Validation
 	}
@@ -35,31 +19,15 @@ type (
 
 func NewParticipationController(repository repository.ParticipationRepository, output port.ParticipationOutput, validator validator.Validation) (*ParticipationController, error) {
 	return &ParticipationController{
-		Student: &studentParticipationController{
-			InputPort: &interactor.ParticipationInteractor{
-				ParticipationRepository: repository,
-				ParticipationOutput:     output,
-			},
-			Validator: validator,
+		InputPort: &interactor.ParticipationInteractor{
+			ParticipationRepository: repository,
+			ParticipationOutput:     output,
 		},
-		Assistant: &assistantParticipationController{
-			InputPort: &interactor.ParticipationInteractor{
-				ParticipationRepository: repository,
-				ParticipationOutput:     output,
-			},
-			Validator: validator,
-		},
-		Teacher: &teacherParticipationController{
-			InputPort: &interactor.ParticipationInteractor{
-				ParticipationRepository: repository,
-				ParticipationOutput:     output,
-			},
-			Validator: validator,
-		},
+		Validator: validator,
 	}, nil
 }
 
-func (controller *studentParticipationController) ParticipateToLecture(ctx Context) {
+func (controller *ParticipationController) StudentParticipateToLecture(ctx Context) {
 	student := getCurrentStudent(ctx)
 	lectureID := getLectureID(ctx)
 	inputForm := &dto.CreateStudentLectureInputForm{StudentID: student.ID, LectureID: lectureID}
@@ -80,7 +48,7 @@ func (controller *studentParticipationController) ParticipateToLecture(ctx Conte
 	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *studentParticipationController) ExitFromLecture(ctx Context) {
+func (controller *ParticipationController) StudentExitFromLecture(ctx Context) {
 	student := getCurrentStudent(ctx)
 	lectureID := getLectureID(ctx)
 
@@ -93,7 +61,7 @@ func (controller *studentParticipationController) ExitFromLecture(ctx Context) {
 	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *assistantParticipationController) ParticipateToLecture(ctx Context) {
+func (controller *ParticipationController) AssistantParticipateToLecture(ctx Context) {
 	assistant := getCurrentAssistant(ctx)
 	lectureID := getLectureID(ctx)
 	inputForm := &dto.CreateAssistantLectureInputForm{StudentID: assistant.ID, LectureID: lectureID}
@@ -114,7 +82,7 @@ func (controller *assistantParticipationController) ParticipateToLecture(ctx Con
 	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *assistantParticipationController) ExitFromLecture(ctx Context) {
+func (controller *ParticipationController) AssistantExitFromLecture(ctx Context) {
 	assistant := getCurrentAssistant(ctx)
 	lectureID := getLectureID(ctx)
 
@@ -127,7 +95,7 @@ func (controller *assistantParticipationController) ExitFromLecture(ctx Context)
 	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *teacherParticipationController) ParticipateToLecture(ctx Context) {
+func (controller *ParticipationController) TeacherParticipateToLecture(ctx Context) {
 	teacher := getCurrentTeacher(ctx)
 	lectureID := getLectureID(ctx)
 	inputForm := &dto.CreateTeacherLectureInputForm{TeacherID: teacher.ID, LectureID: lectureID}
@@ -148,7 +116,7 @@ func (controller *teacherParticipationController) ParticipateToLecture(ctx Conte
 	ctx.JSON(http.StatusOK, outputForm)
 }
 
-func (controller *teacherParticipationController) ExitFromLecture(ctx Context) {
+func (controller *ParticipationController) TeacherExitFromLecture(ctx Context) {
 	teacher := getCurrentTeacher(ctx)
 	lectureID := getLectureID(ctx)
 

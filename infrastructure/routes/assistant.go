@@ -37,11 +37,13 @@ func NewAssistant(r *gin.RouterGroup, controllers *controllers.RootController, h
 			// participation
 			//
 			{
+				participation := lecture.Group("/participation")
+
 				// participate to lecture
-				lecture.POST("/participation", func(c *gin.Context) { controllers.ParticipationController.Assistant.ParticipateToLecture(c) })
+				participation.POST("", func(c *gin.Context) { controllers.ParticipationController.AssistantParticipateToLecture(c) })
 
 				// exit from lecture
-				lecture.DELETE("/participation", func(c *gin.Context) { controllers.ParticipationController.Assistant.ExitFromLecture(c) })
+				participation.DELETE("", func(c *gin.Context) { controllers.ParticipationController.AssistantExitFromLecture(c) })
 			}
 
 			//

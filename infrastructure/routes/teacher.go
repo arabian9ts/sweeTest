@@ -49,10 +49,10 @@ func NewTeacher(r *gin.RouterGroup, controllers *controllers.RootController, han
 				participation := lecture.Group("/participation")
 
 				// participate to lecture
-				participation.POST("", func(c *gin.Context) { controllers.ParticipationController.Teacher.ParticipateToLecture(c) })
+				participation.POST("", func(c *gin.Context) { controllers.ParticipationController.TeacherParticipateToLecture(c) })
 
 				// exit from lecture
-				participation.DELETE("", func(c *gin.Context) { controllers.ParticipationController.Teacher.ExitFromLecture(c) })
+				participation.DELETE("", func(c *gin.Context) { controllers.ParticipationController.TeacherExitFromLecture(c) })
 			}
 
 			//
