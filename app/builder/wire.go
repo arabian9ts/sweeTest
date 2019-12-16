@@ -1,6 +1,8 @@
 package builder
 
 //import (
+//	"github.com/google/wire"
+//
 //	"github.com/arabian9ts/sweeTest/app/interface/controllers"
 //	"github.com/arabian9ts/sweeTest/app/interface/database"
 //	"github.com/arabian9ts/sweeTest/app/interface/handler"
@@ -8,10 +10,6 @@ package builder
 //	"github.com/arabian9ts/sweeTest/app/usecase/interactor"
 //	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 //	"github.com/arabian9ts/sweeTest/app/validator"
-//	"github.com/google/wire"
-//)
-//
-//import (
 //	"github.com/arabian9ts/sweeTest/infrastructure"
 //)
 //
@@ -27,6 +25,7 @@ package builder
 //	handler.NewAuthHandler,
 //	handler.NewMeHandler,
 //	handler.NewRootHandler,
+//	handler.NewAliveHandler,
 //)
 //
 //var controllerSet = wire.NewSet(

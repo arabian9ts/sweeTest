@@ -15,6 +15,10 @@ import (
 	"github.com/arabian9ts/sweeTest/infrastructure"
 )
 
+var (
+	version string
+)
+
 func main() {
 	migrations := &migrate.FileMigrationSource{
 		Dir: "db/migrations",
@@ -41,7 +45,7 @@ func main() {
 		panic("failed to initialize auth handler")
 	}
 
-	infrastructure.Router(controllers, handlers).Run()
+	infrastructure.Router(controllers, handlers, version).Run()
 
 	q := make(chan os.Signal, 1)
 	signal.Notify(q, syscall.SIGTERM, os.Interrupt)

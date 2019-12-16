@@ -13,7 +13,7 @@ import (
 	"github.com/arabian9ts/sweeTest/infrastructure/routes"
 )
 
-func Router(controllers *controllers.RootController, handlers *handler.RootHandler) (router *gin.Engine) {
+func Router(controllers *controllers.RootController, handlers *handler.RootHandler, version string) (router *gin.Engine) {
 	logFile, err := os.OpenFile("./stdout.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		panic(err)
@@ -32,6 +32,7 @@ func Router(controllers *controllers.RootController, handlers *handler.RootHandl
 	router.Use(gin.Recovery())
 
 	api := router.Group("/api")
+	api.GET("/alive", handlers.AliveHandler.Echo(version))
 
 	routes.NewStudent(api, controllers, handlers)
 	routes.NewAssistant(api, controllers, handlers)
