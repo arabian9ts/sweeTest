@@ -16,9 +16,9 @@ func NewTaskInteractor(repository repository.TaskRepository, output port.TaskOut
 	return &TaskInteractor{TaskRepository: repository, TaskOutput: output}, nil
 }
 
-func (interactor *TaskInteractor) GetTasksByLectureId(lectureId int64, limit int, offset int) (dto.GetTasksByLectureIdOutputForm, error) {
-	return interactor.TaskOutput.HandleGetTasksByLectureId(
-		interactor.TaskRepository.GetTasksByLectureId(lectureId, limit, offset),
+func (interactor *TaskInteractor) GetTasksByClassId(classId int64, limit int, offset int) (dto.GetTasksByClassIdOutputForm, error) {
+	return interactor.TaskOutput.HandleGetTasksByClassId(
+		interactor.TaskRepository.GetTasksByClassId(classId, limit, offset),
 	)
 }
 
@@ -36,8 +36,8 @@ func (interactor *TaskInteractor) UpdateTask(form *dto.UpdateTaskInputForm) (*dt
 	)
 }
 
-func (interactor *TaskInteractor) DeleteTask(id int64, lectureID int64) (*dto.DeleteTaskOutputForm, error) {
+func (interactor *TaskInteractor) DeleteTask(id int64, classID int64) (*dto.DeleteTaskOutputForm, error) {
 	return interactor.TaskOutput.HandleDeleteTask(
-		interactor.TaskRepository.DeleteTask(id, lectureID),
+		interactor.TaskRepository.DeleteTask(id, classID),
 	)
 }

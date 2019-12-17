@@ -12,12 +12,12 @@ func NewTaskPresenter() port.TaskOutput {
 	return &TaskPresenter{}
 }
 
-func (*TaskPresenter) HandleGetTasksByLectureId(tasks model.Tasks, err error) (dto.GetTasksByLectureIdOutputForm, error) {
-	output := dto.GetTasksByLectureIdOutputForm{}
+func (*TaskPresenter) HandleGetTasksByClassId(tasks model.Tasks, err error) (dto.GetTasksByClassIdOutputForm, error) {
+	output := dto.GetTasksByClassIdOutputForm{}
 	for _, task := range tasks {
 		form := &dto.GetTaskOutputForm{
 			ID:        task.ID,
-			LectureID: task.LectureID,
+			ClassID:   task.ClassID,
 			Title:     task.Title,
 			Desc:      task.Desc,
 			Deadline:  task.Deadline,
@@ -33,7 +33,7 @@ func (*TaskPresenter) HandleGetTasksByLectureId(tasks model.Tasks, err error) (d
 func (*TaskPresenter) HandleCreateTask(task *model.Task, err error) (*dto.CreateTaskOutputForm, error) {
 	output := &dto.CreateTaskOutputForm{
 		ID:        task.ID,
-		LectureID: task.LectureID,
+		ClassID:   task.ClassID,
 		Title:     task.Title,
 		Desc:      task.Desc,
 		Deadline:  task.Deadline,
@@ -47,7 +47,7 @@ func (*TaskPresenter) HandleCreateTask(task *model.Task, err error) (*dto.Create
 func (*TaskPresenter) HandleUpdateTask(task *model.Task, err error) (*dto.UpdateTaskOutputForm, error) {
 	output := &dto.UpdateTaskOutputForm{
 		ID:        task.ID,
-		LectureID: task.LectureID,
+		ClassID:   task.ClassID,
 		Title:     task.Title,
 		Desc:      task.Desc,
 		Deadline:  task.Deadline,

@@ -1,8 +1,6 @@
 package database
 
 import (
-	"time"
-
 	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 )
@@ -15,42 +13,28 @@ func NewTaskRepository(sqlHandler SqlHandler) (repository.TaskRepository, error)
 	return &TaskRepository{SqlHandler: sqlHandler}, nil
 }
 
-func (repo *TaskRepository) GetTasksByLectureId(lectureId int64, limit int, offset int) (model.Tasks, error) {
+func (repo *TaskRepository) GetTasksByClassId(classID int64, limit int, offset int) (model.Tasks, error) {
 	tasks := model.Tasks{}
-	rows, err := repo.SqlHandler.Query("SELECT * FROM `tasks` WHERE `tasks`.`lecture_id` = ? LIMIT ? OFFSET ?", lectureId, limit, offset)
+	rows, err := repo.SqlHandler.Query("SELECT * FROM `tasks` WHERE `tasks`.`class_id` = ? LIMIT ? OFFSET ?", classID, limit, offset)
 	if err != nil {
 		return tasks, err
 	}
 	defer rows.Close()
 
-	var id int64
-	var lectureID int64
-	var title string
-	var desc string
-	var deadline time.Time
-	var createdAt time.Time
-	var updatedAt time.Time
 	for rows.Next() {
-		if err = rows.Scan(&id, &lectureID, &title, &desc, &deadline, &createdAt, &updatedAt); err != nil {
+		task := model.Task{}
+		if err = rows.Scan(&task.ID, &task.ClassID, &task.Title, &task.Desc, &task.Deadline, &task.CreatedAt, &task.UpdatedAt); err != nil {
 			continue
 		}
-		tasks = append(tasks, &model.Task{
-			ID:        id,
-			LectureID: lectureID,
-			Title:     title,
-			Desc:      desc,
-			Deadline:  deadline,
-			CreatedAt: createdAt,
-			UpdatedAt: updatedAt,
-		})
+		tasks = append(tasks, &task)
 	}
 	return tasks, nil
 }
 
 func (repo *TaskRepository) CreateTask(task *model.Task) (*model.Task, error) {
 	result, err := repo.SqlHandler.Execute(
-		"INSERT INTO `tasks` (`lecture_id`, `title`, `desc`, `deadline`) VALUES (?,?,?,?)",
-		task.LectureID,
+		"INSERT INTO `tasks` (`class_id`, `title`, `desc`, `deadline`) VALUES (?,?,?,?)",
+		task.ClassID,
 		task.Title,
 		task.Desc,
 		task.Deadline,
@@ -70,8 +54,8 @@ func (repo *TaskRepository) CreateTask(task *model.Task) (*model.Task, error) {
 
 func (repo *TaskRepository) UpdateTask(task *model.Task) (*model.Task, error) {
 	result, err := repo.SqlHandler.Execute(
-		"UPDATE `tasks` SET `lecture_id` = ?, `title` = ?, `desc` = ?, `deadline` = ? WHERE `id` = ?",
-		task.LectureID,
+		"UPDATE `tasks` SET `class_id` = ?, `title` = ?, `desc` = ?, `deadline` = ? WHERE `id` = ?",
+		task.ClassID,
 		task.Title,
 		task.Desc,
 		task.Deadline,
@@ -89,8 +73,8 @@ func (repo *TaskRepository) UpdateTask(task *model.Task) (*model.Task, error) {
 	return task, err
 }
 
-func (repo *TaskRepository) DeleteTask(id int64, lectureID int64) (int64, error) {
-	result, err := repo.SqlHandler.Execute("DELETE FROM `tasks` WHERE `id` = ? AND `lecture_id` = ?", id, lectureID)
+func (repo *TaskRepository) DeleteTask(id int64, classID int64) (int64, error) {
+	result, err := repo.SqlHandler.Execute("DELETE FROM `tasks` WHERE `id` = ? AND `class_id` = ?", id, classID)
 	if err != nil {
 		return 0, err
 	}

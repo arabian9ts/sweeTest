@@ -13,7 +13,7 @@ type TaskOutput interface {
 }
 
 type GetTaskOutput interface {
-	HandleGetTasksByLectureId(tasks model.Tasks, err error) (dto.GetTasksByLectureIdOutputForm, error)
+	HandleGetTasksByClassId(tasks model.Tasks, err error) (dto.GetTasksByClassIdOutputForm, error)
 }
 
 type CreateTaskOutput interface {

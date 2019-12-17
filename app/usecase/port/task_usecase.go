@@ -12,7 +12,7 @@ type TaskUseCase interface {
 }
 
 type GetTaskUseCase interface {
-	GetTasksByLectureId(lectureId int64, limit int, offset int) (dto.GetTasksByLectureIdOutputForm, error)
+	GetTasksByClassId(lectureId int64, limit int, offset int) (dto.GetTasksByClassIdOutputForm, error)
 }
 
 type CreateTaskUseCase interface {

@@ -4,7 +4,7 @@ import "time"
 
 type Task struct {
 	ID        int64
-	LectureID int64
+	ClassID   int64
 	Title     string
 	Desc      string
 	Deadline  time.Time

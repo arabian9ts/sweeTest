@@ -96,6 +96,19 @@ func NewTeacher(r *gin.RouterGroup, controllers *controllers.RootController, han
 				classes.POST("", func(c *gin.Context) { controllers.ClassesController.CreateClass(c) })
 				class.GET("", func(c *gin.Context) { controllers.ClassesController.GetClassById(c) })
 				class.PUT("", func(c *gin.Context) { controllers.ClassesController.UpdateClass(c) })
+
+				//
+				// tasks
+				//
+				{
+					tasks := class.Group("/tasks")
+					task := tasks.Group("/:task_id")
+
+					tasks.GET("", func(c *gin.Context) { controllers.TasksController.GetTasksByClassId(c) })
+					tasks.POST("", func(c *gin.Context) { controllers.TasksController.CreateTask(c) })
+					task.PUT("", func(c *gin.Context) { controllers.TasksController.UpdateTask(c) })
+					task.DELETE("", func(c *gin.Context) { controllers.TasksController.DeleteTask(c) })
+				}
 			}
 		}
 	}
