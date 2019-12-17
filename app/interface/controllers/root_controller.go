@@ -12,6 +12,7 @@ type RootController struct {
 	ParticipationController        *ParticipationController
 	ParticipatingLectureController *ParticipatingLecturesController
 	ParticipantsController         *ParticipantsController
+	ClassesController              *ClassesController
 }
 
 func NewRootController(
@@ -26,6 +27,7 @@ func NewRootController(
 	participationController *ParticipationController,
 	participatingLectureController *ParticipatingLecturesController,
 	participantsController *ParticipantsController,
+	classesController *ClassesController,
 ) (*RootController, error) {
 	return &RootController{
 		StudentsController:             studentsController,
@@ -39,5 +41,6 @@ func NewRootController(
 		ParticipationController:        participationController,
 		ParticipatingLectureController: participatingLectureController,
 		ParticipantsController:         participantsController,
+		ClassesController:              classesController,
 	}, nil
 }
