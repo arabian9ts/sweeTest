@@ -1,6 +1,8 @@
 package dto
 
-import "time"
+import (
+	"time"
+)
 
 // Input
 type CreateLectureInputForm struct {
@@ -21,6 +23,11 @@ type GetLectureByIdOutputForm struct {
 }
 
 type GetLecturesOutputForm []*GetLectureByIdOutputForm
+
+type GetTotalLecturesOutputForm struct {
+	Total    int64                 `json:"total"`
+	Lectures GetLecturesOutputForm `json:"lectures"`
+}
 
 type CreateLectureOutputForm struct {
 	ID        int64     `json:"id"`

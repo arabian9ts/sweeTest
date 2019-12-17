@@ -13,11 +13,11 @@ type LectureUseCase interface {
 
 type GetLectureUseCase interface {
 	GetLectureById(id int64) (*dto.GetLectureByIdOutputForm, error)
-	GetLectures(limit int, offset int) (dto.GetLecturesOutputForm, error)
+	GetLectures(limit int, offset int) (dto.GetTotalLecturesOutputForm, error)
 
-	GetParticipatingLecturesOfStudent(studentID int64, limit int, offset int) (dto.GetLecturesOutputForm, error)
-	GetParticipatingLecturesOfAssistant(studentID int64, limit int, offset int) (dto.GetLecturesOutputForm, error)
-	GetParticipatingLecturesOfTeacher(teacherID int64, limit int, offset int) (dto.GetLecturesOutputForm, error)
+	GetParticipatingLecturesOfStudent(studentID int64, limit int, offset int) (dto.GetTotalLecturesOutputForm, error)
+	GetParticipatingLecturesOfAssistant(studentID int64, limit int, offset int) (dto.GetTotalLecturesOutputForm, error)
+	GetParticipatingLecturesOfTeacher(teacherID int64, limit int, offset int) (dto.GetTotalLecturesOutputForm, error)
 }
 
 type CreateLectureUseCase interface {

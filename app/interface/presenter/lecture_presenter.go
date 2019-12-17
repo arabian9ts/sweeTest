@@ -9,11 +9,11 @@ import (
 type LecturePresenter struct {
 }
 
-func NewLecturePresenter() (port.LectureOutput) {
+func NewLecturePresenter() port.LectureOutput {
 	return &LecturePresenter{}
 }
 
-func (*LecturePresenter) HandleGetLectures(lectures model.Lectures, err error) (dto.GetLecturesOutputForm, error) {
+func (*LecturePresenter) HandleGetLectures(total int64, lectures model.Lectures, err error) (dto.GetTotalLecturesOutputForm, error) {
 	output := dto.GetLecturesOutputForm{}
 	for _, lecture := range lectures {
 		form := &dto.GetLectureByIdOutputForm{
@@ -24,7 +24,12 @@ func (*LecturePresenter) HandleGetLectures(lectures model.Lectures, err error) (
 		}
 		output = append(output, form)
 	}
-	return output, err
+
+	outputs := dto.GetTotalLecturesOutputForm{
+		Total:    total,
+		Lectures: output,
+	}
+	return outputs, err
 }
 
 func (*LecturePresenter) HandleGetLectureById(lecture *model.Lecture, err error) (*dto.GetLectureByIdOutputForm, error) {
