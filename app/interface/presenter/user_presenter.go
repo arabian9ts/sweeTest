@@ -95,6 +95,7 @@ func (*UserPresenter) HandleCreateStudent(student *model.Student, err error) (*d
 		StudentNo: student.StudentNo,
 		FirstName: student.FirstName,
 		LastName:  student.LastName,
+		Email:     student.Email,
 		CreatedAt: student.CreatedAt,
 		UpdatedAt: student.UpdatedAt,
 	}
@@ -107,6 +108,7 @@ func (*UserPresenter) HandleCreateAssistant(assistant *model.Assistant, err erro
 		StudentNo: assistant.StudentNo,
 		FirstName: assistant.FirstName,
 		LastName:  assistant.LastName,
+		Email:     assistant.Email,
 		CreatedAt: assistant.CreatedAt,
 		UpdatedAt: assistant.UpdatedAt,
 	}
@@ -118,6 +120,7 @@ func (*UserPresenter) HandleCreateTeacher(teacher *model.Teacher, err error) (*d
 		ID:        teacher.ID,
 		FirstName: teacher.FirstName,
 		LastName:  teacher.LastName,
+		Email:     teacher.Email,
 		CreatedAt: teacher.CreatedAt,
 		UpdatedAt: teacher.UpdatedAt,
 	}
@@ -130,6 +133,7 @@ func (*UserPresenter) HandleUpdateStudent(student *model.Student, err error) (*d
 		StudentNo: student.StudentNo,
 		FirstName: student.FirstName,
 		LastName:  student.LastName,
+		Email:     student.Email,
 		CreatedAt: student.CreatedAt,
 		UpdatedAt: student.UpdatedAt,
 	}
@@ -142,6 +146,7 @@ func (*UserPresenter) HandleUpdateAssistant(assistant *model.Assistant, err erro
 		StudentNo: assistant.StudentNo,
 		FirstName: assistant.FirstName,
 		LastName:  assistant.LastName,
+		Email:     assistant.Email,
 		CreatedAt: assistant.CreatedAt,
 		UpdatedAt: assistant.UpdatedAt,
 	}
@@ -153,6 +158,7 @@ func (*UserPresenter) HandleUpdateTeacher(teacher *model.Teacher, err error) (*d
 		ID:        teacher.ID,
 		FirstName: teacher.FirstName,
 		LastName:  teacher.LastName,
+		Email:     teacher.Email,
 		CreatedAt: teacher.CreatedAt,
 		UpdatedAt: teacher.UpdatedAt,
 	}
