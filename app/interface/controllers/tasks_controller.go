@@ -26,8 +26,8 @@ func NewTasksController(taskRepository repository.TaskRepository, output port.Ta
 	}, nil
 }
 
-func (controller *TasksController) GetTasksByLectureId(ctx Context) {
-	lectureID, err := strconv.Atoi(ctx.Param("lecture_id"))
+func (controller *TasksController) GetTasksByClassId(ctx Context) {
+	classID, err := strconv.Atoi(ctx.Param("class_id"))
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, err)
 		return
@@ -41,7 +41,7 @@ func (controller *TasksController) GetTasksByLectureId(ctx Context) {
 		offset = 0
 	}
 
-	outputForm, err := controller.InputPort.GetTasksByLectureId(int64(lectureID), limit, offset)
+	outputForm, err := controller.InputPort.GetTasksByClassId(int64(classID), limit, offset)
 	if err != nil {
 		ctx.JSON(http.StatusServiceUnavailable, err)
 		return
@@ -51,12 +51,12 @@ func (controller *TasksController) GetTasksByLectureId(ctx Context) {
 }
 
 func (controller *TasksController) CreateTask(ctx Context) {
-	lectureID, err := strconv.Atoi(ctx.Param("lecture_id"))
+	classID, err := strconv.Atoi(ctx.Param("class_id"))
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, err)
 		return
 	}
-	inputForm := &dto.CreateTaskInputForm{LectureID: int64(lectureID)}
+	inputForm := &dto.CreateTaskInputForm{ClassID: int64(classID)}
 	ctx.Bind(&inputForm)
 
 	ok, msgs := controller.Validator.Validate(inputForm)
@@ -75,7 +75,7 @@ func (controller *TasksController) CreateTask(ctx Context) {
 }
 
 func (controller *TasksController) UpdateTask(ctx Context) {
-	lectureID, err := strconv.Atoi(ctx.Param("lecture_id"))
+	classID, err := strconv.Atoi(ctx.Param("class_id"))
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, err)
 		return
@@ -87,7 +87,7 @@ func (controller *TasksController) UpdateTask(ctx Context) {
 		return
 	}
 
-	inputForm := &dto.UpdateTaskInputForm{ID: int64(id), LectureID: int64(lectureID)}
+	inputForm := &dto.UpdateTaskInputForm{ID: int64(id), ClassID: int64(classID)}
 	ok, msgs := controller.Validator.Validate(inputForm)
 	if !ok {
 		ctx.JSON(http.StatusBadRequest, msgs)
@@ -104,7 +104,7 @@ func (controller *TasksController) UpdateTask(ctx Context) {
 }
 
 func (controller *TasksController) DeleteTask(ctx Context) {
-	lectureID, err := strconv.Atoi(ctx.Param("lecture_id"))
+	classID, err := strconv.Atoi(ctx.Param("class_id"))
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, err)
 		return
@@ -116,7 +116,7 @@ func (controller *TasksController) DeleteTask(ctx Context) {
 		return
 	}
 
-	outputForm, err := controller.InputPort.DeleteTask(int64(taskID), int64(lectureID))
+	outputForm, err := controller.InputPort.DeleteTask(int64(taskID), int64(classID))
 	if err != nil {
 		ctx.JSON(http.StatusServiceUnavailable, err)
 		return

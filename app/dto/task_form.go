@@ -4,24 +4,24 @@ import "time"
 
 // Input
 type CreateTaskInputForm struct {
-	LectureID int64     `validate:"required,gt=0" json:"-"`
-	Title     string    `validate:"lte=100" json:"title"`
-	Desc      string    `json:"desc"`
-	Deadline  time.Time `json:"deadline"`
+	ClassID  int64     `validate:"required,gt=0" json:"-"`
+	Title    string    `validate:"lte=100" json:"title"`
+	Desc     string    `json:"desc"`
+	Deadline time.Time `json:"deadline"`
 }
 
 type UpdateTaskInputForm struct {
-	ID        int64     `validate:"required,gt=0" json:"-"`
-	LectureID int64     `validate:"required,gt=0" json:"-"`
-	Title     string    `validate:"required,lte=100" json:"title"`
-	Desc      string    `json:"desc"`
-	Deadline  time.Time `json:"deadline"`
+	ID       int64     `validate:"required,gt=0" json:"-"`
+	ClassID  int64     `validate:"required,gt=0" json:"-"`
+	Title    string    `validate:"required,lte=100" json:"title"`
+	Desc     string    `json:"desc"`
+	Deadline time.Time `json:"deadline"`
 }
 
 // Output
 type GetTaskOutputForm struct {
 	ID        int64     `json:"id"`
-	LectureID int64     `json:"lecture_id"`
+	ClassID   int64     `json:"class_id"`
 	Title     string    `json:"title"`
 	Desc      string    `json:"desc"`
 	Deadline  time.Time `json:"deadline"`
@@ -29,11 +29,11 @@ type GetTaskOutputForm struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type GetTasksByLectureIdOutputForm []*GetTaskOutputForm
+type GetTasksByClassIdOutputForm []*GetTaskOutputForm
 
 type CreateTaskOutputForm struct {
 	ID        int64     `json:"id"`
-	LectureID int64     `json:"lecture_id"`
+	ClassID   int64     `json:"class_id"`
 	Title     string    `json:"title"`
 	Desc      string    `json:"desc"`
 	Deadline  time.Time `json:"deadline"`
@@ -43,7 +43,7 @@ type CreateTaskOutputForm struct {
 
 type UpdateTaskOutputForm struct {
 	ID        int64     `json:"id"`
-	LectureID int64     `json:"lecture_id"`
+	ClassID   int64     `json:"class_id"`
 	Title     string    `json:"title"`
 	Desc      string    `json:"desc"`
 	Deadline  time.Time `json:"deadline"`

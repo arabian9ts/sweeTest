@@ -62,7 +62,7 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 				tasks := lecture.Group("/tasks")
 				task := tasks.Group("/:task_id")
 
-				tasks.GET("", func(c *gin.Context) { controllers.TasksController.GetTasksByLectureId(c) })
+				tasks.GET("", func(c *gin.Context) { controllers.TasksController.GetTasksByClassId(c) })
 				tasks.POST("", func(c *gin.Context) { controllers.TasksController.CreateTask(c) })
 				task.PUT("", func(c *gin.Context) { controllers.TasksController.UpdateTask(c) })
 				task.DELETE("", func(c *gin.Context) { controllers.TasksController.DeleteTask(c) })
