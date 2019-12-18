@@ -26,6 +26,19 @@ func NewAssistantsController(userRepository repository.UserRepository, output po
 	}, nil
 }
 
+func (controller *AssistantsController) GetAssistants(ctx Context) {
+	limit := getLimit(ctx)
+	offset := getOffset(ctx)
+
+	outputForm, err := controller.InputPort.GetAssistants(limit, offset)
+	if err != nil {
+		ctx.JSON(http.StatusServiceUnavailable, err)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, outputForm)
+}
+
 func (controller *AssistantsController) GetAssistantById(ctx Context) {
 	id, err := strconv.Atoi(ctx.Param("assistant_id"))
 	if err != nil {

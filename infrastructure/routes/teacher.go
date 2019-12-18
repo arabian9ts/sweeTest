@@ -10,7 +10,7 @@ import (
 func NewTeacher(r *gin.RouterGroup, controllers *controllers.RootController, handlers *handler.RootHandler) {
 	{
 		teacherV1 := r.Group("/v1/teacher")
-		teacherV1.POST("/login", func(c *gin.Context) { controllers.LoginController.Teacher.Create(c) })
+		teacherV1.POST("/sign_in", func(c *gin.Context) { controllers.LoginController.Teacher.Create(c) })
 		teacherV1.Use(handlers.AuthHandler.TeacherAuthHandler())
 
 		//

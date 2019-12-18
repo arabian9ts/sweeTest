@@ -34,7 +34,7 @@ func NewAdmin(r *gin.RouterGroup, controllers *controllers.RootController, handl
 		{
 			assistants := adminV1.Group("/assistants")
 			assistant := assistants.Group("/:assistant_id")
-			assistants.GET("", func(c *gin.Context) { controllers.AssistantsController.CreateAssistant(c) })
+			assistants.GET("", func(c *gin.Context) { controllers.AssistantsController.GetAssistants(c) })
 			assistants.POST("", func(c *gin.Context) { controllers.AssistantsController.CreateAssistant(c) })
 			assistant.GET("", func(c *gin.Context) { controllers.AssistantsController.GetAssistantById(c) })
 			assistant.PUT("", func(c *gin.Context) { controllers.AssistantsController.UpdateAssistant(c) })
