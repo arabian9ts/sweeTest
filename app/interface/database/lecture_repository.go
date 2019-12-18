@@ -1,8 +1,6 @@
 package database
 
 import (
-	"time"
-
 	"github.com/arabian9ts/sweeTest/app/domain/model"
 	"github.com/arabian9ts/sweeTest/app/usecase/repository"
 )
@@ -15,30 +13,30 @@ func NewLectureRepository(sqlHandler SqlHandler) (repository.LectureRepository, 
 	return &LectureRepository{SqlHandler: sqlHandler}, nil
 }
 
-func (repo *LectureRepository) GetLectures(limit int, offset int) (model.Lectures, error) {
-	lectures := model.Lectures{}
+func (repo *LectureRepository) GetLectures(limit int, offset int) (total int64, lectures model.Lectures, err error) {
 	rows, err := repo.SqlHandler.Query("SELECT * FROM lectures LIMIT ? OFFSET ?", limit, offset)
 	if err != nil {
-		return lectures, err
+		return
 	}
 	defer rows.Close()
 
-	var id int64
-	var name string
-	var createdAt time.Time
-	var updatedAt time.Time
 	for rows.Next() {
-		if err = rows.Scan(&id, &name, &createdAt, &updatedAt); err != nil {
+		lecture := model.Lecture{}
+		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
 			continue
 		}
-		lectures = append(lectures, &model.Lecture{
-			ID:        id,
-			Name:      name,
-			CreatedAt: createdAt,
-			UpdatedAt: updatedAt,
-		})
+		lectures = append(lectures, &lecture)
 	}
-	return lectures, nil
+
+	row, err := repo.SqlHandler.Query("SELECT COUNT(`id`) FROM `lectures`")
+	if err != nil {
+		return
+	}
+	defer row.Close()
+	row.Next()
+
+	err = row.Scan(&total)
+	return total, lectures, nil
 }
 
 func (repo *LectureRepository) GetLectureById(id int64) (lecture *model.Lecture, err error) {
@@ -54,94 +52,94 @@ func (repo *LectureRepository) GetLectureById(id int64) (lecture *model.Lecture,
 	return
 }
 
-func (repo *LectureRepository) GetParticipatedLecturesOfStudent(studentID int64, limit int, offset int) (model.Lectures, error) {
-	lectures := model.Lectures{}
+func (repo *LectureRepository) GetParticipatedLecturesOfStudent(studentID int64, limit int, offset int) (total int64, lectures model.Lectures, err error) {
 	rows, err := repo.SqlHandler.Query("select lectures.* from lectures inner join students_lectures on students_lectures.lecture_id = lectures.id where student_id = ? limit ? offset ?",
 		studentID,
 		limit,
 		offset,
 	)
 	if err != nil {
-		return lectures, err
+		return
 	}
 	defer rows.Close()
 
-	var id int64
-	var name string
-	var createdAt time.Time
-	var updatedAt time.Time
+	lecture := model.Lecture{}
 	for rows.Next() {
-		if err = rows.Scan(&id, &name, &createdAt, &updatedAt); err != nil {
+		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
 			continue
 		}
-		lectures = append(lectures, &model.Lecture{
-			ID:        id,
-			Name:      name,
-			CreatedAt: createdAt,
-			UpdatedAt: updatedAt,
-		})
+		lectures = append(lectures, &lecture)
 	}
-	return lectures, nil
+
+	row, err := repo.SqlHandler.Query("SELECT COUNT(`student_id`) FROM `lectures` inner join `students_lectures` on students_lectures.lecture_id = lectures.id where `student_id` = ?", studentID)
+	if err != nil {
+		return
+	}
+	defer row.Close()
+	row.Next()
+
+	err = row.Scan(&total)
+	return total, lectures, nil
 }
 
-func (repo *LectureRepository) GetParticipatedLecturesOfAssistant(studentID int64, limit int, offset int) (model.Lectures, error) {
-	lectures := model.Lectures{}
+func (repo *LectureRepository) GetParticipatedLecturesOfAssistant(studentID int64, limit int, offset int) (total int64, lectures model.Lectures, err error) {
 	rows, err := repo.SqlHandler.Query("select lectures.* from lectures inner join assistants_lectures on assistants_lectures.lecture_id = lectures.id where student_id = ? limit ? offset ?",
 		studentID,
 		limit,
 		offset,
 	)
 	if err != nil {
-		return lectures, err
+		return
 	}
 	defer rows.Close()
 
-	var id int64
-	var name string
-	var createdAt time.Time
-	var updatedAt time.Time
 	for rows.Next() {
-		if err = rows.Scan(&id, &name, &createdAt, &updatedAt); err != nil {
+		lecture := model.Lecture{}
+		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
 			continue
 		}
-		lectures = append(lectures, &model.Lecture{
-			ID:        id,
-			Name:      name,
-			CreatedAt: createdAt,
-			UpdatedAt: updatedAt,
-		})
+		lectures = append(lectures, &lecture)
 	}
-	return lectures, nil
+
+	row, err := repo.SqlHandler.Query("SELECT COUNT(`student_id`) FROM `lectures` inner join `assistants_lectures` on assistants_lectures.lecture_id = lectures.id where `student_id` = ? limit ? offset ?", studentID)
+	if err != nil {
+		return
+	}
+	defer row.Close()
+	row.Next()
+
+	err = row.Scan(&total)
+	return total, lectures, nil
 }
 
-func (repo *LectureRepository) GetParticipatedLecturesOfTeacher(teacherID int64, limit int, offset int) (model.Lectures, error) {
-	lectures := model.Lectures{}
+func (repo *LectureRepository) GetParticipatedLecturesOfTeacher(teacherID int64, limit int, offset int) (total int64, lectures model.Lectures, err error) {
 	rows, err := repo.SqlHandler.Query("select lectures.* from lectures inner join teachers_lectures on teachers_lectures.lecture_id = lectures.id where teacher_id = ? limit ? offset ?",
 		teacherID,
 		limit,
 		offset,
 	)
 	if err != nil {
-		return lectures, err
+		return
 	}
 	defer rows.Close()
 
-	var id int64
-	var name string
-	var createdAt time.Time
-	var updatedAt time.Time
 	for rows.Next() {
-		if err = rows.Scan(&id, &name, &createdAt, &updatedAt); err != nil {
+		lecture := model.Lecture{}
+		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
 			continue
 		}
-		lectures = append(lectures, &model.Lecture{
-			ID:        id,
-			Name:      name,
-			CreatedAt: createdAt,
-			UpdatedAt: updatedAt,
-		})
+		lectures = append(lectures, &lecture)
 	}
-	return lectures, nil
+
+	row, err := repo.SqlHandler.Query("SELECT COUNT(`teacher_id`) FROM `lectures` inner join `teachers_lectures` on teachers_lectures.lecture_id = lectures.id where `teacher_id` = ?", teacherID)
+	if err != nil {
+		return
+	}
+	defer row.Close()
+	row.Next()
+
+	err = row.Scan(&total)
+	return total, lectures, nil
 }
 
 func (repo *LectureRepository) CreateLecture(lecture *model.Lecture) (*model.Lecture, error) {

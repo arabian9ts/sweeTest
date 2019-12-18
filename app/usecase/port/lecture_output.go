@@ -13,7 +13,7 @@ type LectureOutput interface {
 }
 
 type GetLectureOutput interface {
-	HandleGetLectures(lectures model.Lectures, err error) (dto.GetLecturesOutputForm, error)
+	HandleGetLectures(total int64, lectures model.Lectures, err error) (dto.GetTotalLecturesOutputForm, error)
 	HandleGetLectureById(lecture *model.Lecture, err error) (*dto.GetLectureByIdOutputForm, error)
 }
 
