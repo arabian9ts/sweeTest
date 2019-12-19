@@ -15,6 +15,7 @@ type GetSubmissionUseCase interface {
 }
 
 type CreateSubmissionUseCase interface {
+	CreateSubmission(form *dto.CreateSubmissionInputForm) (*dto.CreateSubmissionOutputForm, error)
 	CreateSubmissionText(form *dto.CreateSubmissionTextInputForm) (*dto.CreateSubmissionTextOutputForm, error)
 }
 

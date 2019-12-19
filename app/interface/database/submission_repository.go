@@ -43,37 +43,40 @@ func (repo *SubmissionRepository) GetSubmissionTextsBySubmissionID(submissionID 
 	return submissionTexts, nil
 }
 
-func (repo *SubmissionRepository) CreateSubmissionText(submission *model.Submission, submissionText *model.SubmissionText) (*model.Submission, *model.SubmissionText, error) {
+func (repo *SubmissionRepository) CreateSubmission(submission *model.Submission) (*model.Submission, error) {
 	submissionResult, err := repo.SqlHandler.Execute(
 		"INSERT INTO `submissions` (`task_id`, `student_id`) VALUES (?,?)",
 		submission.TaskID, submission.StudentID,
 	)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	submissionID, err := submissionResult.LastInsertId()
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	submission.ID = submissionID
+	return submission, err
+}
 
+func (repo *SubmissionRepository) CreateSubmissionText(submissionText *model.SubmissionText, submissionID int64) (*model.SubmissionText, error) {
 	submissionTextResult, err := repo.SqlHandler.Execute(
 		"INSERT INTO `submission_texts` (`submission_id`, `file_name`, `contents`) VALUES (?,?,?)",
-		submission.ID, submissionText.FileName, submissionText.Contents,
+		submissionID, submissionText.FileName, submissionText.Contents,
 	)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	submissionTextID, err := submissionTextResult.LastInsertId()
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	submissionText.ID = submissionTextID
-	return submission, submissionText, err
+	return submissionText, err
 }
 
 func (repo *SubmissionRepository) UpdateSubmissionText(submissionText *model.SubmissionText) (*model.SubmissionText, error) {

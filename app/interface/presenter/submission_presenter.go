@@ -67,6 +67,15 @@ func (*SubmissionPresenter) HandleGetSubmissionTextsBySubmissionID(submissionTex
 	return output, err
 }
 
+func (p *SubmissionPresenter) HandleCreateSubmission(submission *model.Submission, err error) (*dto.CreateSubmissionOutputForm, error) {
+	return &dto.CreateSubmissionOutputForm{
+		ID:        submission.ID,
+		StudentID: submission.StudentID,
+		CreatedAt: submission.CreatedAt,
+		UpdatedAt: submission.UpdatedAt,
+	}, err
+}
+
 func (*SubmissionPresenter) HandleCreateSubmissionText(submissionText *model.SubmissionText, err error) (*dto.CreateSubmissionTextOutputForm, error) {
 	return &dto.CreateSubmissionTextOutputForm{
 		ID:           submissionText.ID,

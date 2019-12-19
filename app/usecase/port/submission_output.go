@@ -18,6 +18,7 @@ type GetSubmissionOutput interface {
 }
 
 type CreateSubmissionOutput interface {
+	HandleCreateSubmission(submission *model.Submission, err error) (*dto.CreateSubmissionOutputForm, error)
 	HandleCreateSubmissionText(submissionText *model.SubmissionText, err error) (*dto.CreateSubmissionTextOutputForm, error)
 }
 
