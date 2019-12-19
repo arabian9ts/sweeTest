@@ -51,6 +51,22 @@ func (*SubmissionPresenter) HandleGetSubmissionTextByID(submissionText model.Sub
 	}, err
 }
 
+func (*SubmissionPresenter) HandleGetSubmissionTextsBySubmissionID(submissionTexts model.SubmissionTexts, err error) (dto.GetSubmissionTextsOutputForm, error) {
+	output := dto.GetSubmissionTextsOutputForm{}
+	for _, submissionText := range submissionTexts {
+		form := &dto.GetSubmissionTextOutputForm{
+			ID:           submissionText.ID,
+			SubmissionID: submissionText.SubmissionID,
+			FileName:     submissionText.FileName,
+			Contents:     submissionText.Contents,
+			CreatedAt:    submissionText.CreatedAt,
+			UpdatedAt:    submissionText.UpdatedAt,
+		}
+		output = append(output, form)
+	}
+	return output, err
+}
+
 func (*SubmissionPresenter) HandleCreateSubmissionText(submissionText *model.SubmissionText, err error) (*dto.CreateSubmissionTextOutputForm, error) {
 	return &dto.CreateSubmissionTextOutputForm{
 		ID:           submissionText.ID,

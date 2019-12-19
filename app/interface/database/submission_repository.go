@@ -60,6 +60,23 @@ func (repo *SubmissionRepository) GetSubmissionTextByID(submissionTextID int64) 
 	return
 }
 
+func (repo *SubmissionRepository) GetSubmissionTextsBySubmissionID(submissionID int64, limit int, offset int) (submissionTexts model.SubmissionTexts, err error) {
+	rows, err := repo.SqlHandler.Query("SELECT * FROM `submission_texts` WHERE `submission_id` = ? LIMIT ? OFFSET ?", submissionID, limit, offset)
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		submissionText := &model.SubmissionText{}
+		if err = rows.Scan(submissionText.ID, submissionText.SubmissionID, submissionText.FileName, submissionText.Contents, submissionText.CreatedAt, submissionText.UpdatedAt); err != nil {
+			continue
+		}
+		submissionTexts = append(submissionTexts, submissionText)
+	}
+	return submissionTexts, nil
+}
+
 func (repo *SubmissionRepository) CreateSubmissionText(submission *model.Submission, submissionText *model.SubmissionText) (*model.Submission, *model.SubmissionText, error) {
 	submissionResult, err := repo.SqlHandler.Execute(
 		"INSERT INTO `submissions` (`task_id`, `student_id`) VALUES (?,?)",

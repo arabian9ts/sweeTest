@@ -11,6 +11,7 @@ type SubmissionUseCase interface {
 
 type GetSubmissionUseCase interface {
 	GetSubmissionTextByID(submissionTextID int64) (*dto.GetSubmissionTextOutputForm, error)
+	GetSubmissionsTextBySubmissionID(submissionID int64, limit int, offset int) (dto.GetSubmissionTextsOutputForm, error)
 	GetSubmissionsByStudentID(StudentID int64, limit int, offset int) (dto.GetSubmissionsOutputForm, error)
 	GetSubmissionsByTaskID(taskID int64, limit int, offset int) (dto.GetSubmissionsOutputForm, error)
 }
