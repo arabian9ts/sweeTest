@@ -27,5 +27,5 @@ type UpdateSubmissionOutput interface {
 }
 
 type DeleteSubmissionOutput interface {
-	HandleDeleteSubmission(id int64, err error) (*dto.DeleteSubmissionTextOutputForm, error)
+	HandleDeleteSubmissionText(id int64, err error) (*dto.DeleteSubmissionTextOutputForm, error)
 }

@@ -29,7 +29,7 @@ type GetSubmissionOutputForm struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type GetSubmissionsOutputForm []*GetTaskOutputForm
+type GetSubmissionsOutputForm []*GetSubmissionOutputForm
 
 type GetSubmissionTextOutputForm struct {
 	ID           int64     `json:"id"`
@@ -40,7 +40,7 @@ type GetSubmissionTextOutputForm struct {
 	UpdatedAt    time.Time `json:"updated_at"`
 }
 
-type GetSubmissionTextsOutputForm []*GetSubmissionOutputForm
+type GetSubmissionTextsOutputForm []*GetSubmissionTextOutputForm
 
 type CreateSubmissionOutputForm struct {
 	ID        int64     `json:"id"`
