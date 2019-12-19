@@ -14,7 +14,7 @@ type SubmissionOutput interface {
 
 type GetSubmissionOutput interface {
 	HandleGetSubmissionTextsBySubmissionID(submissionTexts model.SubmissionTexts, err error) (dto.GetSubmissionTextsOutputForm, error)
-	HandleGetSubmissionTextByID(submissionText model.SubmissionText, err error) (*dto.GetSubmissionTextOutputForm, error)
+	HandleGetSubmissionTextByID(submissionText *model.SubmissionText, err error) (*dto.GetSubmissionTextOutputForm, error)
 }
 
 type CreateSubmissionOutput interface {

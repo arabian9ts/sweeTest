@@ -61,10 +61,10 @@ func (repo *SubmissionRepository) CreateSubmission(submission *model.Submission)
 	return submission, err
 }
 
-func (repo *SubmissionRepository) CreateSubmissionText(submissionText *model.SubmissionText, submissionID int64) (*model.SubmissionText, error) {
+func (repo *SubmissionRepository) CreateSubmissionText(submissionText *model.SubmissionText) (*model.SubmissionText, error) {
 	submissionTextResult, err := repo.SqlHandler.Execute(
 		"INSERT INTO `submission_texts` (`submission_id`, `file_name`, `contents`) VALUES (?,?,?)",
-		submissionID, submissionText.FileName, submissionText.Contents,
+		submissionText.SubmissionID, submissionText.FileName, submissionText.Contents,
 	)
 	if err != nil {
 		return nil, err

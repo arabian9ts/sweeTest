@@ -9,8 +9,9 @@ type CreateSubmissionInputForm struct {
 }
 
 type CreateSubmissionTextInputForm struct {
-	FileName string `json:"file_name" validate:"required,lte=50"`
-	Contents string `json:"contents"`
+	SubmissionID int64  `json:"-" validate:"required,gt=0"`
+	FileName     string `json:"file_name" validate:"required,lte=50"`
+	Contents     string `json:"contents"`
 }
 
 type UpdateSubmissionTextInputForm struct {
