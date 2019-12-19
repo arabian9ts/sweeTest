@@ -13,8 +13,6 @@ type SubmissionOutput interface {
 }
 
 type GetSubmissionOutput interface {
-	HandleGetSubmissionsByStudentID(submissions model.Submissions, err error) (dto.GetSubmissionsOutputForm, error)
-	HandleGetSubmissionsByTaskID(submissions model.Submissions, err error) (dto.GetSubmissionsOutputForm, error)
 	HandleGetSubmissionTextsBySubmissionID(submissionTexts model.SubmissionTexts, err error) (dto.GetSubmissionTextsOutputForm, error)
 	HandleGetSubmissionTextByID(submissionText model.SubmissionText, err error) (*dto.GetSubmissionTextOutputForm, error)
 }

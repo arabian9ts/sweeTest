@@ -3,8 +3,6 @@ package repository
 import "github.com/arabian9ts/sweeTest/app/domain/model"
 
 type SubmissionRepository interface {
-	GetSubmissionsByStudentID(studentID int64, limit int, offset int) (submissions model.Submissions, err error)
-	GetSubmissionsByTaskID(taskID int64, limit int, offset int) (submissions model.Submissions, err error)
 	GetSubmissionTextByID(submissionTextID int64) (submissionText *model.SubmissionText, err error)
 	GetSubmissionTextsBySubmissionID(submissionID int64, limit int, offset int) (submissionTexts model.SubmissionTexts, err error)
 

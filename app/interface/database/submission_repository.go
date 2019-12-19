@@ -13,40 +13,6 @@ func NewSubmissionRepository(sqlHandler SqlHandler) (repository.SubmissionReposi
 	return &SubmissionRepository{SqlHandler: sqlHandler}, nil
 }
 
-func (repo *SubmissionRepository) GetSubmissionsByStudentID(studentID int64, limit int, offset int) (submissions model.Submissions, err error) {
-	rows, err := repo.SqlHandler.Query("SELECT * FROM `submissions` WHERE `student_id` = ? LIMIT ? OFFSET ?", studentID, limit, offset)
-	if err != nil {
-		return
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		submission := &model.Submission{}
-		if err = rows.Scan(submission.ID, submission.TaskID, submission.StudentID, submission.CreatedAt, submission.UpdatedAt); err != nil {
-			continue
-		}
-		submissions = append(submissions, submission)
-	}
-	return submissions, nil
-}
-
-func (repo *SubmissionRepository) GetSubmissionsByTaskID(taskID int64, limit int, offset int) (submissions model.Submissions, err error) {
-	rows, err := repo.SqlHandler.Query("SELECT * FROM `submissions` WHERE `task_id` = ? LIMIT ? OFFSET ?", taskID, limit, offset)
-	if err != nil {
-		return
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		submission := &model.Submission{}
-		if err = rows.Scan(submission.ID, submission.TaskID, submission.StudentID, submission.CreatedAt, submission.UpdatedAt); err != nil {
-			continue
-		}
-		submissions = append(submissions, submission)
-	}
-	return submissions, nil
-}
-
 func (repo *SubmissionRepository) GetSubmissionTextByID(submissionTextID int64) (submissionText *model.SubmissionText, err error) {
 	row, err := repo.SqlHandler.Query("SELECT * FROM `submission_texts` WHERE `id` = ?", submissionTextID)
 	if err != nil {
