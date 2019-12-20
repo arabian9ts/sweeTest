@@ -12,7 +12,7 @@ type HelpUseCase interface {
 }
 
 type GetHelpUseCase interface {
-	GetHelpsByLectureID(lectureID int64, limit int, offset int) (dto.GetHelpsOutputForm, error)
+	GetHelpsByLectureID(lectureID int64, limit int, offset int) (dto.GetTotalHelpsOutputForm, error)
 }
 
 type CreateHelpUseCase interface {

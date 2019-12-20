@@ -16,7 +16,7 @@ func NewHelpInteractor(output port.HelpOutput, repository repository.HelpReposit
 	return &HelpInteractor{HelpOutput: output, HelpRepository: repository}, nil
 }
 
-func (interactor *HelpInteractor) GetHelpsByLectureID(lectureID int64, limit int, offset int) (dto.GetHelpsOutputForm, error) {
+func (interactor *HelpInteractor) GetHelpsByLectureID(lectureID int64, limit int, offset int) (dto.GetTotalHelpsOutputForm, error) {
 	return interactor.HelpOutput.HandleGetHelpsByLectureID(
 		interactor.HelpRepository.GetHelpsByLectureID(lectureID, limit, offset),
 	)

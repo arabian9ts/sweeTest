@@ -15,11 +15,10 @@ func NewHelpRepository(sqlHandler SqlHandler) (repository.HelpRepository, error)
 	return &HelpRepository{SqlHandler: sqlHandler}, nil
 }
 
-func (repo *HelpRepository) GetHelpsByStudentID(studentID int64, limit int, offset int) (model.Helps, error) {
-	helps := model.Helps{}
+func (repo *HelpRepository) GetHelpsByStudentID(studentID int64, limit int, offset int) (total int64, helps model.Helps, err error) {
 	rows, err := repo.SqlHandler.Query("SELECT * FROM `helps` WHERE `student_id` = ? LIMIT ? OFFSET ?", studentID, limit, offset)
 	if err != nil {
-		return helps, err
+		return
 	}
 	defer rows.Close()
 
@@ -30,14 +29,22 @@ func (repo *HelpRepository) GetHelpsByStudentID(studentID int64, limit int, offs
 		}
 		helps = append(helps, help)
 	}
-	return helps, nil
+
+	row, err := repo.SqlHandler.Query("SELECT COUNT(`id`) FROM `helps` WHERE `student_id` = ?", studentID)
+	if err != nil {
+		return
+	}
+	defer row.Close()
+	row.Next()
+
+	err = row.Scan(&total)
+	return total, helps, nil
 }
 
-func (repo *HelpRepository) GetHelpsByLectureID(lectureID int64, limit int, offset int) (model.Helps, error) {
-	helps := model.Helps{}
+func (repo *HelpRepository) GetHelpsByLectureID(lectureID int64, limit int, offset int) (total int64, helps model.Helps, err error) {
 	rows, err := repo.SqlHandler.Query("SELECT * FROM `helps` WHERE `lecture_id` = ? LIMIT ? OFFSET ?", lectureID, limit, offset)
 	if err != nil {
-		return helps, err
+		return
 	}
 	defer rows.Close()
 
@@ -49,7 +56,16 @@ func (repo *HelpRepository) GetHelpsByLectureID(lectureID int64, limit int, offs
 		}
 		helps = append(helps, help)
 	}
-	return helps, nil
+
+	row, err := repo.SqlHandler.Query("SELECT COUNT(`id`) FROM `helps` WHERE `lecture_id` = ?", lectureID)
+	if err != nil {
+		return
+	}
+	defer row.Close()
+	row.Next()
+
+	err = row.Scan(&total)
+	return total, helps, nil
 }
 
 func (repo *HelpRepository) CreateHelp(help *model.Help) (*model.Help, error) {

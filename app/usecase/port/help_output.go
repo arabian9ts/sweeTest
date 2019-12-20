@@ -13,7 +13,7 @@ type HelpOutput interface {
 }
 
 type GetHelpOutput interface {
-	HandleGetHelpsByLectureID(helps model.Helps, err error) (dto.GetHelpsOutputForm, error)
+	HandleGetHelpsByLectureID(total int64, helps model.Helps, err error) (dto.GetTotalHelpsOutputForm, error)
 }
 
 type CreateHelpOutput interface {

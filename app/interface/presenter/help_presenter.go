@@ -12,7 +12,7 @@ func NewHelpPresenter() port.HelpOutput {
 	return &HelpPresenter{}
 }
 
-func (*HelpPresenter) HandleGetHelpsByLectureID(helps model.Helps, err error) (dto.GetHelpsOutputForm, error) {
+func (*HelpPresenter) HandleGetHelpsByLectureID(total int64, helps model.Helps, err error) (dto.GetTotalHelpsOutputForm, error) {
 	output := dto.GetHelpsOutputForm{}
 	for _, help := range helps {
 		form := &dto.GetHelpOutputForm{
@@ -26,7 +26,12 @@ func (*HelpPresenter) HandleGetHelpsByLectureID(helps model.Helps, err error) (d
 		}
 		output = append(output, form)
 	}
-	return output, err
+
+	outputs := dto.GetTotalHelpsOutputForm{
+		Total: total,
+		Helps: output,
+	}
+	return outputs, err
 }
 
 func (*HelpPresenter) HandleCreateHelp(help *model.Help, err error) (*dto.CreateHelpOutputForm, error) {

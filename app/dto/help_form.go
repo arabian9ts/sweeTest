@@ -31,6 +31,11 @@ type GetHelpOutputForm struct {
 
 type GetHelpsOutputForm []*GetHelpOutputForm
 
+type GetTotalHelpsOutputForm struct {
+	Total int64              `json:"total"`
+	Helps GetHelpsOutputForm `json:"helps"`
+}
+
 type CreateHelpOutputForm struct {
 	ID        int64     `json:"id"`
 	LectureID int64     `json:"lecture_id"`
