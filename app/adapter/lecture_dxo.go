@@ -7,15 +7,17 @@ import (
 
 func ConvertCreateLectureInputFormToLecture(form *dto.CreateLectureInputForm) (lecture *model.Lecture) {
 	lecture = &model.Lecture{
-		Name: form.Name,
+		Name:        form.Name,
+		TeacherName: form.TeacherName,
 	}
 	return
 }
 
 func ConvertUpdateLectureInputFormToLecture(form *dto.UpdateLectureInputForm) (lecture *model.Lecture) {
 	lecture = &model.Lecture{
-		ID:   form.ID,
-		Name: form.Name,
+		ID:          form.ID,
+		Name:        form.Name,
+		TeacherName: form.TeacherName,
 	}
 	return
 }

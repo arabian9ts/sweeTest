@@ -17,10 +17,11 @@ func (*LecturePresenter) HandleGetLectures(total int64, lectures model.Lectures,
 	output := dto.GetLecturesOutputForm{}
 	for _, lecture := range lectures {
 		form := &dto.GetLectureByIdOutputForm{
-			ID:        lecture.ID,
-			Name:      lecture.Name,
-			CreatedAt: lecture.CreatedAt,
-			UpdatedAt: lecture.UpdatedAt,
+			ID:          lecture.ID,
+			Name:        lecture.Name,
+			TeacherName: lecture.TeacherName,
+			CreatedAt:   lecture.CreatedAt,
+			UpdatedAt:   lecture.UpdatedAt,
 		}
 		output = append(output, form)
 	}
@@ -34,30 +35,33 @@ func (*LecturePresenter) HandleGetLectures(total int64, lectures model.Lectures,
 
 func (*LecturePresenter) HandleGetLectureById(lecture *model.Lecture, err error) (*dto.GetLectureByIdOutputForm, error) {
 	output := &dto.GetLectureByIdOutputForm{
-		ID:        lecture.ID,
-		Name:      lecture.Name,
-		CreatedAt: lecture.CreatedAt,
-		UpdatedAt: lecture.UpdatedAt,
+		ID:          lecture.ID,
+		Name:        lecture.Name,
+		TeacherName: lecture.TeacherName,
+		CreatedAt:   lecture.CreatedAt,
+		UpdatedAt:   lecture.UpdatedAt,
 	}
 	return output, err
 }
 
 func (*LecturePresenter) HandleCreateLecture(lecture *model.Lecture, err error) (*dto.CreateLectureOutputForm, error) {
 	output := &dto.CreateLectureOutputForm{
-		ID:        lecture.ID,
-		Name:      lecture.Name,
-		CreatedAt: lecture.CreatedAt,
-		UpdatedAt: lecture.UpdatedAt,
+		ID:          lecture.ID,
+		Name:        lecture.Name,
+		TeacherName: lecture.TeacherName,
+		CreatedAt:   lecture.CreatedAt,
+		UpdatedAt:   lecture.UpdatedAt,
 	}
 	return output, err
 }
 
 func (*LecturePresenter) HandleUpdateLecture(lecture *model.Lecture, err error) (*dto.UpdateLectureOutputForm, error) {
 	output := &dto.UpdateLectureOutputForm{
-		ID:        lecture.ID,
-		Name:      lecture.Name,
-		CreatedAt: lecture.CreatedAt,
-		UpdatedAt: lecture.UpdatedAt,
+		ID:          lecture.ID,
+		Name:        lecture.Name,
+		TeacherName: lecture.TeacherName,
+		CreatedAt:   lecture.CreatedAt,
+		UpdatedAt:   lecture.UpdatedAt,
 	}
 	return output, err
 }

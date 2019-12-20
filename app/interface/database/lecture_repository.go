@@ -48,7 +48,7 @@ func (repo *LectureRepository) GetLectureById(id int64) (lecture *model.Lecture,
 	row.Next()
 
 	lecture = &model.Lecture{}
-	err = row.Scan(&lecture.ID, &lecture.Name, &lecture.CreatedAt, &lecture.UpdatedAt)
+	err = row.Scan(&lecture.ID, &lecture.Name, &lecture.TeacherName, &lecture.CreatedAt, &lecture.UpdatedAt)
 	return
 }
 
@@ -65,7 +65,7 @@ func (repo *LectureRepository) GetParticipatedLecturesOfStudent(studentID int64,
 
 	for rows.Next() {
 		lecture := model.Lecture{}
-		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
+		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.TeacherName, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
 			continue
 		}
 		lectures = append(lectures, &lecture)
@@ -95,7 +95,7 @@ func (repo *LectureRepository) GetParticipatedLecturesOfAssistant(studentID int6
 
 	for rows.Next() {
 		lecture := model.Lecture{}
-		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
+		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.TeacherName, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
 			continue
 		}
 		lectures = append(lectures, &lecture)
@@ -125,7 +125,7 @@ func (repo *LectureRepository) GetParticipatedLecturesOfTeacher(teacherID int64,
 
 	for rows.Next() {
 		lecture := model.Lecture{}
-		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
+		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.TeacherName, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
 			continue
 		}
 		lectures = append(lectures, &lecture)
@@ -144,8 +144,9 @@ func (repo *LectureRepository) GetParticipatedLecturesOfTeacher(teacherID int64,
 
 func (repo *LectureRepository) CreateLecture(lecture *model.Lecture) (*model.Lecture, error) {
 	result, err := repo.SqlHandler.Execute(
-		"INSERT INTO lectures (name) VALUES (?)",
+		"INSERT INTO lectures (`name`, `teacher_name`) VALUES (?, ?)",
 		lecture.Name,
+		lecture.TeacherName,
 	)
 	if err != nil {
 		return nil, err
@@ -162,8 +163,9 @@ func (repo *LectureRepository) CreateLecture(lecture *model.Lecture) (*model.Lec
 
 func (repo *LectureRepository) UpdateLecture(lecture *model.Lecture) (*model.Lecture, error) {
 	result, err := repo.SqlHandler.Execute(
-		"UPDATE lectures SET name = ? WHERE id = ?",
+		"UPDATE `lectures` SET `name` = ?, `teacher_name` = ? WHERE id = ?",
 		lecture.Name,
+		lecture.TeacherName,
 		lecture.ID,
 	)
 	if err != nil {
@@ -179,7 +181,7 @@ func (repo *LectureRepository) UpdateLecture(lecture *model.Lecture) (*model.Lec
 }
 
 func (repo *LectureRepository) DeleteLecture(id int64) (int64, error) {
-	result, err := repo.SqlHandler.Execute("DELETE FROM lectures WHERE id = ?", id)
+	result, err := repo.SqlHandler.Execute("DELETE FROM `lectures` WHERE id = ?", id)
 	if err != nil {
 		return 0, err
 	}

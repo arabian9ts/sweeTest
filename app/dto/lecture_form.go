@@ -6,20 +6,23 @@ import (
 
 // Input
 type CreateLectureInputForm struct {
-	Name string `validate:"required,lte=50" json:"name"`
+	Name        string `validate:"required,lte=50" json:"name"`
+	TeacherName string `validate:"required,lte=30" json:"teacher_name"`
 }
 
 type UpdateLectureInputForm struct {
-	ID   int64  `validate:"required,gt=0" json:"-"`
-	Name string `validate:"required,lte=50" json:"name"`
+	ID          int64  `validate:"required,gt=0" json:"-"`
+	Name        string `validate:"required,lte=50" json:"name"`
+	TeacherName string `validate:"required,lte=30" json:"teacher_name"`
 }
 
 // Output
 type GetLectureByIdOutputForm struct {
-	ID        int64     `json:"id"`
-	Name      string    `json:"name"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID          int64     `json:"id"`
+	Name        string    `json:"name"`
+	TeacherName string    `json:"teacher_name"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 type GetLecturesOutputForm []*GetLectureByIdOutputForm
@@ -30,17 +33,19 @@ type GetTotalLecturesOutputForm struct {
 }
 
 type CreateLectureOutputForm struct {
-	ID        int64     `json:"id"`
-	Name      string    `json:"name"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID          int64     `json:"id"`
+	Name        string    `json:"name"`
+	TeacherName string    `json:"teacher_name"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 type UpdateLectureOutputForm struct {
-	ID        int64     `json:"id"`
-	Name      string    `json:"name"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID          int64     `json:"id"`
+	Name        string    `json:"name"`
+	TeacherName string    `json:"teacher_name"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 type DeleteLectureOutputForm struct {
