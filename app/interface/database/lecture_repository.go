@@ -63,8 +63,8 @@ func (repo *LectureRepository) GetParticipatedLecturesOfStudent(studentID int64,
 	}
 	defer rows.Close()
 
-	lecture := model.Lecture{}
 	for rows.Next() {
+		lecture := model.Lecture{}
 		if err = rows.Scan(&lecture.ID, &lecture.Name, &lecture.CreatedAt, &lecture.UpdatedAt); err != nil {
 			continue
 		}
