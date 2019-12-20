@@ -83,6 +83,24 @@ func NewAssistant(r *gin.RouterGroup, controllers *controllers.RootController, h
 					comment.DELETE("", func(c *gin.Context) { controllers.CommentsController.Assistant.DeleteComment(c) })
 				}
 			}
+
+			//
+			// classes
+			//
+			{
+				classes := lecture.Group("/classes")
+				class := classes.Group("/:class_id")
+				classes.GET("", func(c *gin.Context) { controllers.ClassesController.GetClassesByLectureId(c) })
+				class.GET("", func(c *gin.Context) { controllers.ClassesController.GetClassById(c) })
+
+				//
+				// tasks
+				//
+				{
+					tasks := class.Group("/tasks")
+					tasks.GET("", func(c *gin.Context) { controllers.TasksController.GetTasksByClassId(c) })
+				}
+			}
 		}
 	}
 }
