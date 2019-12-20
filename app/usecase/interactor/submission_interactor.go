@@ -48,7 +48,7 @@ func (interactor *SubmissionInteractor) UpdateSubmissionText(form *dto.UpdateSub
 	)
 }
 
-func (interactor *SubmissionInteractor) DeleteSubmission(id int64, submissionID int64) (*dto.DeleteSubmissionTextOutputForm, error) {
+func (interactor *SubmissionInteractor) DeleteSubmissionText(id int64, submissionID int64) (*dto.DeleteSubmissionTextOutputForm, error) {
 	return interactor.SubmissionOutput.HandleDeleteSubmissionText(
 		interactor.SubmissionRepository.DeleteSubmissionText(id, submissionID),
 	)

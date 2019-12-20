@@ -24,5 +24,5 @@ type UpdateSubmissionUseCase interface {
 }
 
 type DeleteSubmissionUseCase interface {
-	DeleteSubmission(id int64, submissionID int64) (*dto.DeleteSubmissionTextOutputForm, error)
+	DeleteSubmissionText(id int64, submissionID int64) (*dto.DeleteSubmissionTextOutputForm, error)
 }

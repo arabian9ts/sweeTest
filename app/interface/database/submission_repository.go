@@ -81,8 +81,8 @@ func (repo *SubmissionRepository) CreateSubmissionText(submissionText *model.Sub
 
 func (repo *SubmissionRepository) UpdateSubmissionText(submissionText *model.SubmissionText) (*model.SubmissionText, error) {
 	result, err := repo.SqlHandler.Execute(
-		"UPDATE `submission_texts` SET `file_name` = ?, `contents` = ? WHERE `id` = ?",
-		submissionText.FileName, submissionText.Contents, submissionText.ID,
+		"UPDATE `submission_texts` SET `submission_id`= ?, `file_name` = ?, `contents` = ? WHERE `id` = ?",
+		submissionText.SubmissionID, submissionText.FileName, submissionText.Contents, submissionText.ID,
 	)
 	if err != nil {
 		return nil, err

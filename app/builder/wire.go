@@ -37,6 +37,7 @@ package builder
 //	database.NewCommentRepository,
 //	database.NewParticipationRepository,
 //	database.NewClassRepository,
+//	database.NewSubmissionRepository,
 //	controllers.NewStudentsController,
 //	controllers.NewAssistantsController,
 //	controllers.NewTeachersController,
@@ -50,6 +51,7 @@ package builder
 //	controllers.NewParticipatingLecturesController,
 //	controllers.NewParticipantsController,
 //	controllers.NewClassesController,
+//	controllers.NewSubmissionsController,
 //	interactor.NewUserInteractor,
 //	interactor.NewLectureInteractor,
 //	interactor.NewTaskInteractor,
@@ -58,6 +60,7 @@ package builder
 //	interactor.NewCommentInteractor,
 //	interactor.NewParticipationInteractor,
 //	interactor.NewClassInteractor,
+//	interactor.NewSubmissionInteractor,
 //	presenter.NewUserPresenter,
 //	presenter.NewLecturePresenter,
 //	presenter.NewTaskPresenter,
@@ -66,6 +69,7 @@ package builder
 //	presenter.NewCommentPresenter,
 //	presenter.NewParticipationPresenter,
 //	presenter.NewClassPresenter,
+//	presenter.NewSubmissionPresenter,
 //	validator.NewDefaultValidator,
 //)
 //

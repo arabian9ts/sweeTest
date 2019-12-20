@@ -93,6 +93,45 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 					comment.DELETE("", func(c *gin.Context) { controllers.CommentsController.Student.DeleteComment(c) })
 				}
 			}
+
+			//
+			// classes
+			//
+			{
+				classes := lecture.Group("/classes")
+				class := classes.Group("/:class_id")
+				classes.GET("", func(c *gin.Context) { controllers.ClassesController.GetClassesByLectureId(c) })
+				class.GET("", func(c *gin.Context) { controllers.ClassesController.GetClassById(c) })
+
+				//
+				// tasks
+				//
+				{
+					tasks := class.Group("/tasks")
+					task := tasks.Group("/:task_id")
+					tasks.GET("", func(c *gin.Context) { controllers.TasksController.GetTasksByClassId(c) })
+
+					//
+					// submissions
+					//
+					{
+						submissions := task.Group("/submissions")
+						submission := submissions.Group("/:submission_id")
+						submissions.POST("", func(c *gin.Context) { controllers.SubmissionsController.CreateSubmission(c) })
+						//
+						// submissionTexts
+						//
+						{
+							submissionTexts := submission.Group("/submissionTexts")
+							submissionText := submissionTexts.Group("/:submissionText_id")
+							submissionTexts.GET("", func(c *gin.Context) { controllers.SubmissionsController.GetSubmissionTextsBySubmissionID(c) })
+							submissionTexts.POST("", func(c *gin.Context) { controllers.SubmissionsController.CreateSubmissionText(c) })
+							submissionText.PUT("", func(c *gin.Context) { controllers.SubmissionsController.UpdateSubmissionText(c) })
+							submissionText.DELETE("", func(c *gin.Context) { controllers.SubmissionsController.DeleteSubmissionText(c) })
+						}
+					}
+				}
+			}
 		}
 	}
 }

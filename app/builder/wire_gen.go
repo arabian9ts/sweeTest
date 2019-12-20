@@ -121,7 +121,16 @@ func InitializeRootController() (*controllers.RootController, error) {
 	if err != nil {
 		return nil, err
 	}
-	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, loginController, helpsController, commentsController, participationController, participatingLecturesController, participantsController, classesController)
+	submissionRepository, err := database.NewSubmissionRepository(sqlHandler)
+	if err != nil {
+		return nil, err
+	}
+	submissionOutput := presenter.NewSubmissionPresenter()
+	submissionsController, err := controllers.NewSubmissionsController(submissionRepository, submissionOutput, validation)
+	if err != nil {
+		return nil, err
+	}
+	rootController, err := controllers.NewRootController(studentsController, assistantsController, teachersController, lecturesController, tasksController, loginController, helpsController, commentsController, participationController, participatingLecturesController, participantsController, classesController, submissionsController)
 	if err != nil {
 		return nil, err
 	}
@@ -159,4 +168,4 @@ var repositorySet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRe
 
 var handlerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, handler.NewAuthHandler, handler.NewMeHandler, handler.NewRootHandler, handler.NewAliveHandler)
 
-var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, database.NewHelpRepository, database.NewCommentRepository, database.NewParticipationRepository, database.NewClassRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, controllers.NewLoginController, controllers.NewHelpsController, controllers.NewCommentsController, controllers.NewParticipationController, controllers.NewParticipatingLecturesController, controllers.NewParticipantsController, controllers.NewClassesController, interactor.NewUserInteractor, interactor.NewLectureInteractor, interactor.NewTaskInteractor, interactor.NewAuthInteractor, interactor.NewHelpInteractor, interactor.NewCommentInteractor, interactor.NewParticipationInteractor, interactor.NewClassInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, presenter.NewAuthPresenter, presenter.NewHelpPresenter, presenter.NewCommentPresenter, presenter.NewParticipationPresenter, presenter.NewClassPresenter, validator.NewDefaultValidator)
+var controllerSet = wire.NewSet(infrastructure.NewSqlHandler, database.NewUserRepository, database.NewLectureRepository, database.NewTaskRepository, database.NewHelpRepository, database.NewCommentRepository, database.NewParticipationRepository, database.NewClassRepository, database.NewSubmissionRepository, controllers.NewStudentsController, controllers.NewAssistantsController, controllers.NewTeachersController, controllers.NewLecturesController, controllers.NewRootController, controllers.NewTasksController, controllers.NewLoginController, controllers.NewHelpsController, controllers.NewCommentsController, controllers.NewParticipationController, controllers.NewParticipatingLecturesController, controllers.NewParticipantsController, controllers.NewClassesController, controllers.NewSubmissionsController, interactor.NewUserInteractor, interactor.NewLectureInteractor, interactor.NewTaskInteractor, interactor.NewAuthInteractor, interactor.NewHelpInteractor, interactor.NewCommentInteractor, interactor.NewParticipationInteractor, interactor.NewClassInteractor, interactor.NewSubmissionInteractor, presenter.NewUserPresenter, presenter.NewLecturePresenter, presenter.NewTaskPresenter, presenter.NewAuthPresenter, presenter.NewHelpPresenter, presenter.NewCommentPresenter, presenter.NewParticipationPresenter, presenter.NewClassPresenter, presenter.NewSubmissionPresenter, validator.NewDefaultValidator)
