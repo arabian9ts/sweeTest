@@ -16,13 +16,13 @@ func NewSubmissionInteractor(repository repository.SubmissionRepository, output 
 	return &SubmissionInteractor{SubmissionRepository: repository, SubmissionOutput: output}, nil
 }
 
-func (interactor *SubmissionInteractor) GetSubmissionTextById(submissionTextID int64) (*dto.GetSubmissionTextOutputForm, error) {
+func (interactor *SubmissionInteractor) GetSubmissionTextByID(submissionTextID int64) (*dto.GetSubmissionTextOutputForm, error) {
 	return interactor.SubmissionOutput.HandleGetSubmissionTextByID(
 		interactor.SubmissionRepository.GetSubmissionTextByID(submissionTextID),
 	)
 }
 
-func (interactor *SubmissionInteractor) GetSubmissionTextsBySubmissionId(submissionID int64, limit int, offset int) (dto.GetSubmissionTextsOutputForm, error) {
+func (interactor *SubmissionInteractor) GetSubmissionTextsBySubmissionID(submissionID int64, limit int, offset int) (dto.GetSubmissionTextsOutputForm, error) {
 	return interactor.SubmissionOutput.HandleGetSubmissionTextsBySubmissionID(
 		interactor.SubmissionRepository.GetSubmissionTextsBySubmissionID(submissionID, limit, offset),
 	)
