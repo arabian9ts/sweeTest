@@ -40,6 +40,7 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 			{
 				// get participating students by LectureId
 				lecture.GET("/participants", func(c *gin.Context) { controllers.ParticipantsController.GetStudentsByLectureId(c) })
+				lecture.GET("/teachers", func(c *gin.Context) { controllers.ParticipantsController.GetTeachersByLectureId(c) })
 			}
 
 			//
