@@ -56,19 +56,6 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 			}
 
 			//
-			// tasks
-			//
-			{
-				tasks := lecture.Group("/tasks")
-				task := tasks.Group("/:task_id")
-
-				tasks.GET("", func(c *gin.Context) { controllers.TasksController.GetTasksByClassId(c) })
-				tasks.POST("", func(c *gin.Context) { controllers.TasksController.CreateTask(c) })
-				task.PUT("", func(c *gin.Context) { controllers.TasksController.UpdateTask(c) })
-				task.DELETE("", func(c *gin.Context) { controllers.TasksController.DeleteTask(c) })
-			}
-
-			//
 			// helps
 			//
 			{
@@ -91,6 +78,24 @@ func NewStudent(r *gin.RouterGroup, controllers *controllers.RootController, han
 					comments.POST("", func(c *gin.Context) { controllers.CommentsController.Student.CreateComment(c) })
 					comment.PUT("", func(c *gin.Context) { controllers.CommentsController.Student.UpdateComment(c) })
 					comment.DELETE("", func(c *gin.Context) { controllers.CommentsController.Student.DeleteComment(c) })
+				}
+			}
+
+			//
+			// classes
+			//
+			{
+				classes := lecture.Group("/classes")
+				class := classes.Group("/:class_id")
+				classes.GET("", func(c *gin.Context) { controllers.ClassesController.GetClassesByLectureId(c) })
+				class.GET("", func(c *gin.Context) { controllers.ClassesController.GetClassById(c) })
+
+				//
+				// tasks
+				//
+				{
+					tasks := class.Group("/tasks")
+					tasks.GET("", func(c *gin.Context) { controllers.TasksController.GetTasksByClassId(c) })
 				}
 			}
 		}
